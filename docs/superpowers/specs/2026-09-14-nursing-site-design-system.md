@@ -23,9 +23,30 @@
 ### 2.2 來自校方 CMS／前台（實測藥學院頁面）
 - 內容區寬度：桌機約 800px（`#contenR.editor` 在 `.sec-main col-lg-9`）；手機為全寬。
 - 前台 CSP：`default-src * 'unsafe-inline' 'unsafe-eval' data: blob:` — 外連圖片、內嵌樣式皆允許。
-- 藥學院內容零 class、零 `<style>`、零 `<svg>`、零 `@media`，全部 `<div style="…">` ＋ table。**在階段 0 證實之前，一律假設編輯器只保留內嵌樣式與 `<img>`。**
-- 站方字型：Noto Sans TC。不另外載入字型。
-- 因此：不做 hover／捲動動畫；響應式靠流動式排版（百分比寬度、`display:flex; flex-wrap:wrap`、`max-width:100%`），不靠 media query。
+- 站方字型：內容區 `#contenR` 實際為 Microsoft JhengHei 15.75px／行高 25.2px／文字 #1a1a1a，外層白底、內距 30px。不另外載入字型。
+- 前台全站載入 **Bootstrap 5.0.2**（`row`／`col-md-*`／`d-none d-md-block`／`order-md-*`／`d-flex`／`p-*`／`shadow-sm` 實測在 `#contenR` 內生效；`rounded-4`、`gap-*` 等 5.2 才有的類別不可用）。
+- 因此：不做 hover／捲動動畫；響應式用 **Bootstrap 格線類別＋內嵌樣式**，不寫自己的 media query。
+
+### 2.3 階段 0 實測結果（2026-09-14，測試節點 id 7696「__測試節點（勿啟用）」）
+編輯器為 DevExpress ASPxHtmlEditor（`tpl_Html.aspx`，客戶端物件 `hle_templete`，有 `SetHtml/GetHtml`）。客戶端不過濾；**伺服器存檔時過濾**如下：
+
+| 項目 | 結果 |
+|---|---|
+| 內嵌 `style` 屬性（flex、gap、gradient、aspect-ratio、box-shadow、border-radius、position:fixed、min-width、%寬） | 保留 |
+| `class`、`id` 屬性 | 保留 |
+| `<h2>` `<div>` `<p>` `<span>` `<a style>` `<ul><li>` `<table>` | 保留 |
+| `<img>` 外連 URL、`data:` URI、`alt` | 保留 |
+| `<style>` 標籤 | **整段刪除** |
+| `<svg>` | **整段刪除**（含內容） |
+| `<section>` `<article>` `<details>` `<summary>` | **標籤刪除、文字保留** |
+| `role`／`aria-label`（在 svg 上） | 隨 svg 一起消失；其他元素上未測 |
+
+結論：
+- 版面用 Bootstrap 5.0.2 類別（響應式）＋內嵌樣式（視覺）。
+- 插圖一律 `<img>`：CocoMaterial SVG 上色後以 `data:image/svg+xml;base64` 內嵌，或上傳 CMS 後外連；必附 `alt`。
+- 語意標籤只用 `h2–h4`、`p`、`ul/ol`、`table`；不用 section/article/details。
+- FAQ 折疊不可行（無 details、無 JS）→ 全展開呈現。
+- 測試原始檔：`tools/phase0_test.html`；存檔後讀回：`tools/phase0_result.html`。
 
 ## 3. 視覺系統（初版，階段 1 定稿）
 
