@@ -17,7 +17,7 @@ def render():
         photo_slot("Portrait of the Chair (portrait 3:4)", "3/4"),
         "".join([
             p(draft("Professor Chia-Huei Lin") + "<br>Chair, Department of Nursing"),
-            p(draft("PhD, Nursing Division, Graduate Institute of Medical Sciences, National Defense Medical Center"),
+            p(draft("PhD in Nursing, Graduate Institute of Medical Sciences, National Defense Medical Center"),
               muted=True),
             p("Medical-surgical nursing, nursing administration and management, chronic illness care, health promotion, "
               "exercise training, cardiopulmonary rehabilitation, smart health care.", muted=True),

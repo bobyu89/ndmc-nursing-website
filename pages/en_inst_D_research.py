@@ -15,7 +15,7 @@ def render():
     opening = "".join([
         statement(
             draft("From the battlefield to the bedside."),
-            draft("Our research centres on military nursing and trauma and disaster care, alongside mental health, "
+            draft("Our research centers on military nursing and trauma and disaster care, alongside mental health, "
                   "chronic illness, sleep and occupational health, and nursing education."),
         ),
         actions(button("Research Areas and Faculty", L("en_inst:D-1")), zh("inst:F")),
@@ -46,7 +46,7 @@ def render():
             bullets(project_items(TRAUMA_PROJECTS) + [
                 draft(project_items([TRAUMA_PROJECT_TRANSLATED])[0])]),
         ],
-        illo_slot("Mass-casualty triage exercise (CocoMaterial, recoloured)", "1/1", unit="inst"),
+        illo_slot("Mass-casualty triage exercise (CocoMaterial, recolored)", "1/1", unit="inst"),
         unit="inst", href=L("en_inst:E-1"), link_label="Collaborate on this theme",
     )
 

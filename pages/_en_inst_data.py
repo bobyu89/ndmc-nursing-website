@@ -49,7 +49,7 @@ FACULTY = {
             "https://sites.google.com/view/hhpndmc/home"),
     "liaw": ("Jen-Jiuan Liaw", "Distinguished Professor", "",
              "Smart holistic care for children with cancer and their parents; online mindfulness in pregnancy; "
-             "behaviour, pain and sleep in preterm infants; developmental supportive care; psychosocial care for "
+             "behavior, pain and sleep in preterm infants; developmental supportive care; psychosocial care for "
              "critically ill patients and families; competency-based and reflective nursing education; "
              "AI-supported learning in maternal nursing", "2361",
              "https://sites.google.com/view/liaw-jen-jiuan/%E7%A0%94%E7%A9%B6%E6%88%90%E6%9E%9C"),
@@ -82,7 +82,7 @@ FACULTY = {
              "Nursing ethics, hospice and palliative care, holistic nursing", "4466", None),
     "feng": ("Hsin-Pei Feng", "Assistant Professor", "",
              "Psychiatric nursing, qualitative and quantitative research, big data analytics", "4458", None),
-    "sung": ("Chien Mei Sung", "Assistant Professor", "",
+    "sung": ("Chien-Mei Sung", "Assistant Professor", "",
              "Medical-surgical nursing, critical care nursing, geriatric nursing, nursing administration, "
              "cognitive training, 3D printing, nurse practitioners", "4449",
              "https://bobyu89.github.io/sung-lab-website/index.html"),

@@ -1,4 +1,5 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, bullets, tape_surface, draft, note)
+from components import (page, name_tape, statement, p, h4, text_link, actions, bullets, facts, tape_surface, draft,
+                        note)
 from links import L
 from pages._en_inst_data import name, email_link
 
@@ -75,8 +76,7 @@ def render():
         *blocks,
         name_tape("Contact"),
         p(draft("Name the area and, if you know it, the faculty member. We will forward your message.")),
-        p("Email:"),
-        actions(email_link()),
+        facts([("Email", email_link())]),
         actions(text_link("What to include in your inquiry", L("en_inst:E-3"))),
         owner=META["owner"],
     )

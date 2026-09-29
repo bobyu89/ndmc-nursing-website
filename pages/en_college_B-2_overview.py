@@ -72,14 +72,14 @@ def render():
         ("1949", "Move to Taiwan",
          "The Department moved to Taiwan with the National Defense Medical Center, to Shuiyuandi in Taipei."),
         ("1979", "Graduate Institute of Nursing",
-         "Established to meet the needs of education and research, a pioneer of master's-level nursing education in Taiwan.",
+         "Established to meet the needs of nursing education and research, a pioneer of master's-level nursing education in Taiwan.",
          "inst"),
         ("1990", "In-service bachelor's program",
          "Commissioned by the Ministry of Education, the Department added a bachelor's degree program for working nurses. "
          "It stopped public admission in 1994 and graduated 180 nurses in total.", "dept"),
         ("1999", "Move to Neihu",
-         "The campus moved to the National Defense Medical Center in Neihu, where excellent faculty and new facilities "
-         "continue the work of educating nursing professionals."),
+         "The campus moved to the National Defense Medical Center in Neihu, where a strong faculty and new facilities "
+         "carry on the work of educating nurses."),
         ("2025", "College of Nursing",
          "The College of Nursing was established, becoming a pioneer in advancing higher nursing education in Taiwan.",
          "college"),
@@ -93,7 +93,7 @@ def render():
               "The taiji symbol stands for health of body, mind, spirit and society, and for teaching that is complete "
               "and well rounded."),
             p("The three flowers in full bloom stand for the faculty's three missions of teaching, service and research, "
-              "from which many outstanding students have grown."),
+              "and for the many graduates those missions have produced."),
         ]),
         cols=(4, 8), align="start",
     )

@@ -21,7 +21,7 @@ def render():
         photo_slot("Dean Wen-Chii Tzeng (portrait 3:4)", "3/4"),
         "".join([
             p("<strong>Wen-Chii Tzeng</strong><br>Distinguished Professor and Dean, College of Nursing"),
-            p("PhD, School of Nursing, University of California, San Francisco, USA<br>Specialty: Mental Health Nursing",
+            p("PhD in Nursing, University of California, San Francisco, USA<br>Specialty: Mental health nursing",
               muted=True),
             actions(text_link("Full profile", PROFILE + "4416")),
         ]),

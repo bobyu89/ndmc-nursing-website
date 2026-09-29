@@ -1,7 +1,7 @@
 from components import (page, name_tape, statement, p, button, text_link, actions, feature_list, route_list, facts,
                         split, illo_slot, draft, note)
 from links import L
-from pages._en_inst_data import name, email_link, INST_PHONE
+from pages._en_inst_data import name, email_link, INST_PHONE, ADDRESS
 
 META = {"id": "E", "slug": "collaboration", "title": "Research Collaboration", "owner": "國際事務", "site": "en_inst"}
 
@@ -42,7 +42,7 @@ def render():
                 (draft("Seminars and lectures"), draft("Talks for faculty and graduate students"), L("en_inst:D-3")),
             ], unit="inst"),
         ]),
-        illo_slot("Two researchers comparing notes across a table (CocoMaterial, recoloured)", "4/3", unit="inst"),
+        illo_slot("Two researchers comparing notes across a table (CocoMaterial, recolored)", "4/3", unit="inst"),
         cols=(7, 5), align="start",
     )
 
@@ -53,9 +53,11 @@ def render():
     ], unit="inst")
 
     contact = "".join([
-        p("Email:"),
-        actions(email_link()),
-        facts([("Telephone", INST_PHONE)]),
+        facts([
+            ("Email", email_link()),
+            ("Phone", INST_PHONE),
+            ("Address", ADDRESS),
+        ]),
         p(draft("Please write in English or Chinese, and tell us your research theme, the activity you propose and "
                 "your preferred dates."), muted=True),
     ])

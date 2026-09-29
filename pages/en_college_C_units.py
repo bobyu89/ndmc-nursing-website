@@ -30,7 +30,7 @@ def render():
         p("The Department of Nursing traces its origin to the Senior Nursing Vocational Class founded by "
           "General Mei-Yu Chow in 1943. In 1947 General Chow established the Department of Nursing, the country's "
           "first institution of higher nursing education."),
-        p("The Graduate Institute of Nursing was established in 1979 to meet the needs of education and research, "
+        p("The Graduate Institute of Nursing was established in 1979 to meet the needs of nursing education and research, "
           "a pioneer of master's-level nursing education in Taiwan. The College of Nursing followed in 2025."),
         actions(text_link("Overview and History", L("en:B-2"))),
     ])

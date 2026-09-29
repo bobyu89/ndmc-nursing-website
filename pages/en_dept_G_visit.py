@@ -22,20 +22,20 @@ def render():
 
     themes = feature_list([
         ("Simulation-based teaching",
-         "The simulation centre, used for OSCE teaching and advanced clinical courses, and the demonstration ward. "
+         "The simulation center, used for OSCE teaching and advanced clinical courses, and the demonstration ward. "
          + draft("Visitors can observe a session from the control room when classes allow."), None, "dept", "S"),
         ("Military nursing education",
-         draft("How military training and nursing education are combined in one undergraduate programme."),
+         draft("How military training and nursing education are combined in one undergraduate program."),
          None, "dept", "M"),
         ("Curriculum and outcomes",
-         draft("Curriculum design around the thirteen core abilities, and how outcomes are assessed."),
+         draft("Curriculum design around the thirteen core competencies, and how outcomes are assessed."),
          None, "dept", "C"),
     ])
 
     format_ = split(
         "".join([
             p(draft("A typical visit is half a day: a short introduction to the department, a tour of the simulation "
-                    "centre and demonstration ward, and a discussion with faculty on a shared theme.")),
+                    "center and demonstration ward, and a discussion with faculty on a shared theme.")),
             p(draft("Please send your inquiry at least one month before the proposed date. Visits to a military campus "
                     "need advance registration of every visitor.")),
             p(draft("Please include in your inquiry:")),
@@ -46,7 +46,7 @@ def render():
                 draft("A contact person and email address"),
             ]),
         ]),
-        photo_slot("Visitors in the simulation centre control room (4:3)", "4/3"),
+        photo_slot("Visitors in the simulation center control room (4:3)", "4/3"),
         cols=(7, 5), align="start",
     )
 

@@ -16,7 +16,7 @@ def render():
                   "This section introduces where it came from, who leads it and what it expects of its graduates."),
         ),
         '<div class="mx-auto" style="width:70%;max-width:260px;">' + patch(
-            "Department of Nursing", "Bachelor's programme", unit="dept",
+            "Department of Nursing", "Bachelor's program", unit="dept",
             illo=illo_slot("Capping ceremony", "1/1", unit="dept"),
             tab="College of Nursing", backing=C["tape"]) + "</div>",
         cols=(7, 5),
@@ -24,15 +24,15 @@ def render():
 
     roots = tape_surface(
         p("The department traces its origin to the Advanced Nursing Vocational Class in Jiangwan, Shanghai, "
-          "founded by General Mei-Yu Chow in 1943, the country's earliest vocational training programme for nurses."),
+          "founded by General Mei-Yu Chow in 1943, the country's earliest vocational training program for nurses."),
         p("In 1947 General Chow established the Department of Nursing, the country's first institution of "
           "higher nursing education."),
         actions(text_link("Full history and learning outcomes", L("en_dept:B-2"))),
     )
 
     aim = "".join([
-        p("To educate professionals with humanistic literacy and nursing competence who meet the needs of both "
-          "the military and the civilian health care systems."),
+        p("To educate professionals with a grounding in the humanities and strong nursing competence, ready to meet "
+          "the needs of both the military and the civilian health care systems."),
         p(draft("In plain terms: our graduates care for patients in any hospital, and can also serve on military missions."),
           muted=True),
     ])
@@ -40,7 +40,7 @@ def render():
     routes = route_list([
         ("Chair's Message", draft("The chair on how the department teaches and what it expects of students"),
          L("en_dept:B-1")),
-        ("Overview and Learning Outcomes", draft("History, educational goals and core abilities"), L("en_dept:B-2")),
+        ("Overview and Learning Outcomes", draft("History, educational goals and core competencies"), L("en_dept:B-2")),
         ("Faculty", draft("Teaching areas, with full profiles in the College Faculty Directory"), L("en_dept:F")),
     ], unit="dept")
 

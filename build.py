@@ -82,7 +82,7 @@ def main(final=False):
         (DIST / f"{name}.html").write_text(html, encoding="utf-8")
         (PREVIEW / f"{name}.html").write_text(CHROME.format(title=meta["title"], body=html, lang="en" if site.startswith("en_") else "zh-Hant"), encoding="utf-8")
         drafts = html.count("待確認")
-        groups[site].append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · 待確認 {drafts}</small></li>')
+        groups[site].append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · 待確認 {drafts} · 負責：{meta.get("owner", "院窗口")}</small></li>')
         print(f"{site:7} {meta['id']:6} {meta['title']:12} {len(html):7} bytes  drafts={drafts}")
     labels = {"college": "護理學院", "dept": "護理學系", "inst": "護理研究所",
               "en_college": "College of Nursing (EN)", "en_dept": "Department of Nursing (EN)",

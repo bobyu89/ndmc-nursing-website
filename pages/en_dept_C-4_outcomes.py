@@ -4,7 +4,7 @@ from links import L
 
 META = {"id": "C-4", "slug": "outcomes", "title": "Student Learning Outcomes", "owner": "學生事務", "site": "en_dept"}
 
-# Verified: OSCE teaching in the simulation centre — 教學設備 unit/100010/1463 (pages/E-3_facilities.py);
+# Verified: OSCE teaching in the simulation center — 教學設備 unit/100010/1463 (pages/E-3_facilities.py);
 # core abilities — 學士班課程地圖 unit/100010/3642. Everything about specific achievements is a slot.
 
 SLOT = "[to be supplied]"
@@ -17,13 +17,13 @@ def render():
             draft("Outcomes are easier to see than to describe. This page gathers evidence from courses, "
                   "simulation, practicum, competitions and student projects."),
         ),
-        actions(text_link("The thirteen core abilities", L("en_dept:B-2"))),
+        actions(text_link("The thirteen core competencies", L("en_dept:B-2"))),
     ])
 
     lead = split(
-        photo_slot("Students during an OSCE station in the simulation centre (wide)", "16/9"),
+        photo_slot("Students during an OSCE station in the simulation center (wide)", "16/9"),
         "".join([
-            p("OSCE teaching for the bachelor's programme takes place in the simulation centre, which is equipped "
+            p("OSCE teaching for the bachelor's program takes place in the simulation center, which is equipped "
               "with one-way mirrors and a video recording system."),
             p(draft("Each station tests assessment, skills and communication together, as they happen at the bedside.")),
         ]),
@@ -31,7 +31,7 @@ def render():
     )
 
     evidence = feature_list([
-        ("Courses", draft("A course project or assignment that shows one of the core abilities in action.") + " " + SLOT,
+        ("Courses", draft("A course project or assignment that shows one of the core competencies in action.") + " " + SLOT,
          None, "dept", "C"),
         ("Simulation", draft("A simulation scenario and what students learned from the debriefing.") + " " + SLOT,
          None, "dept", "S"),

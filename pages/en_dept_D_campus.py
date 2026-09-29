@@ -47,7 +47,7 @@ def render():
         split(photo_slot("Capping ceremony: passing the light", "4/3"),
               photo_slot("Student association event", "4/3"), cols=(6, 6), align="start"),
         p(draft("Milestones include the welcome for new students, the capping ceremony and graduation. "
-                "The student association organises events through the year.")),
+                "The student association organizes events through the year.")),
         split(photo_slot("Graduation ceremony", "4/3"),
               photo_slot("Sports or cultural activity", "4/3"), cols=(6, 6), align="start"),
     ])

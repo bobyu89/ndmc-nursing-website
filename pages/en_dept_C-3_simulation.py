@@ -12,23 +12,23 @@ META = {"id": "C-3", "slug": "simulation", "title": "Simulation and Learning Spa
 def render():
     opening = "".join([
         statement(
-            draft("Practise in the simulation room first, then at the bedside."),
-            draft("From the amphitheatre and the demonstration ward to the simulation centre, students rehearse "
+            draft("Practice in the simulation room first, then at the bedside."),
+            draft("From the amphitheater and the demonstration ward to the simulation center, students rehearse "
                   "assessment, nursing skills and critical care in settings close to real practice."),
         ),
         actions(text_link("Visit the Department", L("en_dept:G")), text_link("中文：教學設備", L("E-3"))),
     ])
 
-    centre = split(
+    center = split(
         "".join([
-            p("The simulation centre has three simulation rooms with a small central control room between them, "
-              "from which the adult and paediatric labs can be observed at the same time."),
+            p("The simulation center has three simulation rooms with a small central control room between them, "
+              "from which the adult and pediatric labs can be observed at the same time."),
             p("It is equipped with one-way mirrors, a video recording system, computers and two electric beds, and is "
               "linked to the nursing station outside, where other students can watch the simulation live."),
-            p("The centre is used for advanced medical-surgical nursing, advanced obstetric and paediatric nursing, "
-              "and critical care nursing courses, and for OSCE teaching in the bachelor's programme."),
+            p("The center is used for advanced medical-surgical nursing, advanced obstetric and pediatric nursing, "
+              "and critical care nursing courses, and for OSCE teaching in the bachelor's program."),
         ]),
-        photo_slot("Simulation centre and control room", "4/3"),
+        photo_slot("Simulation center and control room", "4/3"),
         cols=(7, 5), align="start",
     )
 
@@ -42,10 +42,10 @@ def render():
           "practice and the medical research camp."),
     ])
 
-    amphitheatre = split(
-        photo_slot("Demonstration classroom (amphitheatre)", "4/3"),
+    amphitheater = split(
+        photo_slot("Demonstration classroom (amphitheater)", "4/3"),
         "".join([
-            p("The amphitheatre has 134 seats and can hold up to 150 people. It is used for all department courses "
+            p("The amphitheater has 134 seats and can hold up to 150 people. It is used for all department courses "
               "and for workshops."),
         ]),
         cols=(5, 7), align="center",
@@ -56,7 +56,7 @@ def render():
             "".join([
                 h4("Smart interactive self-learning classroom"),
                 p("Opened in 2025."),
-                p(draft("A space where students practise nursing skills on their own.")),
+                p(draft("A space where students practice nursing skills on their own.")),
             ]),
             photo_slot("Smart interactive self-learning classroom", "4/3"),
             cols=(7, 5), align="start",
@@ -64,24 +64,24 @@ def render():
         split(
             "".join([
                 h4(draft("VR and MR simulation")),
-                p(draft("Virtual reality (VR) and mixed reality (MR) scenarios let students practise clinical "
+                p(draft("Virtual reality (VR) and mixed reality (MR) scenarios let students practice clinical "
                         "situations safely, and MR teaching videos support preparation and review.")),
             ]),
-            illo_slot("Nursing student practising with an MR headset (CocoMaterial, recoloured)", "4/3", unit="dept"),
+            illo_slot("Nursing student practicing with an MR headset (CocoMaterial, recolored)", "4/3", unit="dept"),
             cols=(7, 5), reverse=True, align="start",
         ),
     ])
 
     return page(
         opening,
-        name_tape("Simulation Centre"),
-        centre,
+        name_tape("Simulation Center"),
+        center,
         name_tape("Demonstration Ward"),
         ward,
         note("「長照示範病床 2018」「中央氣體 2007」由原文民國 107、96 年換算。原文「醫研營」暫譯 medical research camp，"
              "請確認英文名稱。現行教學設備頁已有兩張示範實習病房照片與一張虛擬中心照片，可沿用。"),
-        name_tape("Amphitheatre"),
-        amphitheatre,
+        name_tape("Amphitheater"),
+        amphitheater,
         name_tape("New Learning Tools"),
         new_tools,
         note("圖儀、哲君請提供：自學教室的設備與使用方式、VR／MR 設備名稱、使用課程與實際照片（中文站此段亦為暫擬）；"

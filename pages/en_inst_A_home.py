@@ -3,13 +3,15 @@ from components import (page, name_tape, statement, p, button, text_link, action
                         note)
 from links import L
 from tokens import C
-from pages._en_inst_data import (TRAUMA_PROJECTS, project_items, name, position, email_link, INST_PHONE, zh)
+from pages._en_inst_data import (TRAUMA_PROJECTS, project_items, name, position, email_link, INST_PHONE, ADDRESS,
+                                 zh)
 
 META = {"id": "A", "slug": "home", "title": "Graduate Institute of Nursing", "owner": "院窗口", "site": "en_inst"}
 
 # Structure mirrors pages/inst_A_home.py. Verified facts reused:
 #   founded 1979, pioneer of master's nursing education in Taiwan — 歷史沿革 unit/100181/6527;
-#   "the first graduate nursing program in Taiwan" — old English page uniten/100010/3353
+#   ("the first graduate nursing program in Taiwan" on the old English page uniten/100010/3353 is not used until
+#   院窗口 confirms it; every site uses the hedged "pioneer" wording)
 #   director's name and position — DocDetEn/191/100010/3351/4443
 #   project titles — faculty DocDetEn profiles (see pages/_en_inst_data.py)
 
@@ -18,7 +20,7 @@ def render():
     opening = split(
         "".join([
             statement(
-                "Taiwan's first graduate nursing program, founded in 1979.",
+                draft("A pioneer of master's-level nursing education in Taiwan since 1979."),
                 draft("The Graduate Institute of Nursing at National Defense Medical University, Taipei, educates "
                       "nurses who ask clinical questions, study them, and bring the evidence back to patient care."),
             ),
@@ -27,7 +29,7 @@ def render():
         ]),
         '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
             "Graduate Institute of Nursing", "護理研究所", unit="inst",
-            illo=illo_slot("Graduate nurse and supervisor reviewing data together (CocoMaterial, recoloured)", "1/1",
+            illo=illo_slot("Graduate nurse and supervisor reviewing data together (CocoMaterial, recolored)", "1/1",
                            unit="inst"),
             tab="College of Nursing", backing=C["tape"]) + "</div>",
         cols=(7, 5),
@@ -43,8 +45,8 @@ def render():
     director = split(
         photo_slot("Director of the Institute (portrait 3:4)", "3/4"),
         "".join([
-            p("The Institute was established in 1979 to meet the needs of education and research, "
-              "and pioneered master's-level nursing education in Taiwan."),
+            p("The Institute was established in 1979 to meet the needs of nursing education and research, "
+              "and became a pioneer of master's-level nursing education in Taiwan."),
             p(f"{name('pan')}<br>{position('pan')}", muted=True),
             actions(text_link("Director's Message", L("en_inst:B-1")),
                     text_link("Overview and History", L("en_inst:B-2"))),
@@ -60,7 +62,7 @@ def render():
             p("Projects listed on faculty profile pages include:", muted=True),
             bullets(project_items(TRAUMA_PROJECTS)),
         ],
-        illo_slot("Combat casualty care simulation (CocoMaterial, recoloured)", "1/1", unit="inst"),
+        illo_slot("Combat casualty care simulation (CocoMaterial, recolored)", "1/1", unit="inst"),
         unit="inst", href=L("en_inst:D"), link_label="Research at the Institute",
     )
     more = "".join([
@@ -89,10 +91,11 @@ def render():
     contact = "".join([
         p(draft("Researchers and institutions interested in working with us can write to the College of Nursing "
                 "office. Please tell us your research theme and the kind of collaboration you have in mind.")),
-        p("Email:"),
-        actions(email_link()),
-        facts([("Telephone", INST_PHONE)]),
-        actions(text_link("Collaboration Contact", L("en_inst:E-3"))),
+        facts([
+            ("Email", email_link()),
+            ("Phone", INST_PHONE),
+            ("Address", ADDRESS),
+        ]),
     ])
 
     family = unit_pair([
@@ -102,6 +105,9 @@ def render():
 
     return page(
         opening,
+        note("1979 年的寫法全站統一為「a pioneer of master's-level nursing education in Taiwan」（依研究所〈歷史沿革〉）。"
+             "學院舊英文頁（uniten/100010/3353）寫「In 1979, we established the first graduate nursing program in Taiwan」，"
+             "請院窗口確認能否對外寫「Taiwan's first graduate nursing program」（需有可查證的依據）；確認前一律用 pioneer 的說法。"),
         quick,
         name_tape("Director and Institute"),
         director,

@@ -24,7 +24,7 @@ def render():
     outbound = split(
         "".join([
             p(draft("Students of the department have visited the University of Washington in the United States "
-                    "for an exchange programme.")),
+                    "for an exchange program.")),
             p(draft("Each outbound visit records the host institution, dates, participants and learning focus.")),
         ]),
         photo_slot("Students at the University of Washington (to be confirmed for publication)", "4/3"),

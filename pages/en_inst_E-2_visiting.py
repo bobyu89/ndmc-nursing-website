@@ -53,8 +53,7 @@ def render():
             (draft("Dates"), draft("Preferred dates and length of stay")),
             (draft("Funding"), draft("How the visit will be funded")),
         ]),
-        p("Email:"),
-        actions(email_link()),
+        facts([("Email", email_link())]),
     ])
 
     review = "".join([

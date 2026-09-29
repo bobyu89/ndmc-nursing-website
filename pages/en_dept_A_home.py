@@ -7,7 +7,7 @@ META = {"id": "A", "slug": "home", "title": "Department of Nursing", "owner": "�
 
 # Structure mirrors pages/dept_A_home.py. Verified facts reused:
 #   1947 founding, "country's first institution of higher nursing education" — 歷史沿革 unit/100010/6804
-#   teaching hospital, 4-year programme, bachelor's degree, 8-week basic training — 115 正期班簡章 (pages/F_admissions.py)
+#   teaching hospital, 4-year program, bachelor's degree, 8-week basic training — 115 正期班簡章 (pages/F_admissions.py)
 #   educational aim — 學士班課程地圖 unit/100010/3642 (pages/dept_C-2-2_goals.py)
 
 
@@ -16,9 +16,9 @@ def render():
         "".join([
             statement(
                 draft("Educating nurses for military and civilian care since 1947."),
-                draft("The Department of Nursing runs the undergraduate nursing programme of the College of Nursing, "
+                draft("The Department of Nursing runs the undergraduate nursing program of the College of Nursing, "
                       "National Defense Medical University, in Taipei. Students learn nursing, train as future officers, "
-                      "and practise in hospital, community and military settings."),
+                      "and practice in hospital, community and military settings."),
             ),
             actions(button("Visit the Department", L("en_dept:G")),
                     text_link("About the Department", L("en_dept:B")),
@@ -42,8 +42,8 @@ def render():
     program = feature_lead(
         "Four years, three settings",
         [
-            p("The bachelor's programme lasts four years. New students first complete eight weeks of basic military "
-              "training. The university's teaching hospital is Tri-Service General Hospital."),
+            p("The bachelor's program lasts four years. New students first complete eight weeks of basic military "
+              "training."),
             p(draft("Classroom learning, simulation and clinical practicum are planned as one pathway, "
                     "from basic nursing skills to care in military and disaster settings.")),
         ],
@@ -55,17 +55,17 @@ def render():
          "Clinical courses take place at Tri-Service General Hospital, the university's teaching hospital.",
          None, "dept", "H"),
         ("Community practicum",
-         draft("Students practise health education and home-based care in community settings."), None, "dept", "C"),
+         draft("Students practice health education and home-based care in community settings."), None, "dept", "C"),
         ("Military nursing",
-         "Military nursing is one of the thirteen core abilities every graduate is expected to develop.",
+         "Military nursing is one of the thirteen core competencies every graduate is expected to develop.",
          None, "dept", "M"),
     ])
 
     aim = "".join([
-        p("Our educational aim: to educate professionals with humanistic literacy and nursing competence "
-          "who meet the needs of both the military and the civilian health care systems."),
+        p("Our educational aim: to educate professionals with a grounding in the humanities and strong nursing competence, "
+          "ready to meet the needs of both the military and the civilian health care systems."),
         route_list([
-            ("Overview and Learning Outcomes", draft("History, educational goals and the thirteen core abilities"),
+            ("Overview and Learning Outcomes", draft("History, educational goals and the thirteen core competencies"),
              L("en_dept:B-2")),
             ("Student Learning Outcomes", draft("What students do in courses, simulation and practicum"),
              L("en_dept:C-4")),
@@ -85,7 +85,7 @@ def render():
 
     family = unit_pair([
         ("college", "College of Nursing", "Faculty directory, research, visits", L("en:A")),
-        ("inst", "Graduate Institute of Nursing", "Graduate programmes and research", L("en_inst:A")),
+        ("inst", "Graduate Institute of Nursing", "Graduate programs and research", L("en_inst:A")),
     ])
 
     return page(

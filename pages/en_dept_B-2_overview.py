@@ -10,17 +10,17 @@ META = {"id": "B-2", "slug": "overview", "title": "Overview and Learning Outcome
 #   goals        — 教育宗旨與目標 unit/100010/1471, 學士班教育目標 114.02.10 修訂 (pages/dept_C-2-2_goals.py)
 #   curriculum concepts — 學士班課程架構 unit/100010/1492 (pages/dept_C-2-1_identity.py)
 
-AIM = ("To educate professionals with humanistic literacy and nursing competence who meet the needs of both "
-       "the military and the civilian health care systems.")
+AIM = ("To educate professionals with a grounding in the humanities and strong nursing competence, ready to meet "
+       "the needs of both the military and the civilian health care systems.")
 
 GOALS = [
-    "Show humanistic care and respect for life.",
-    "Hold professional medical and nursing knowledge with a global perspective.",
+    "Care for people with compassion and respect for life.",
+    "Have sound medical and nursing knowledge and a global perspective.",
     "Provide safe, high-quality nursing care.",
-    "Use clinical reasoning to meet the health needs and problems of the people they serve.",
+    "Use clinical reasoning to address the health needs and problems of the people they serve.",
     "Apply ethical and legal thinking to provide appropriate nursing care.",
     "Communicate and collaborate with the people they serve and with interprofessional team members.",
-    "Fulfil the professional role of a military nurse with dedication and a sense of mission.",
+    "Fulfill the professional role of a military nurse with dedication and a sense of mission.",
     "Keep learning and growing throughout their careers.",
 ]
 
@@ -32,7 +32,7 @@ ABILITIES = ["Humanistic care", "Respect for life", "Biomedical knowledge", "Glo
 def render():
     opening = statement(
         draft("What our graduates are prepared to do"),
-        draft("The department states its purpose as one aim, eight educational goals and thirteen core abilities. "
+        draft("The department states its purpose as one aim, eight educational goals and thirteen core competencies. "
               "Courses and practicum are mapped to them."),
     )
 
@@ -40,7 +40,7 @@ def render():
         ("1943", "A nursing class in Shanghai",
          "General Mei-Yu Chow founded the Advanced Nursing Vocational Class in Jiangwan, Shanghai. It admitted "
          "junior high school graduates for four and a half years of study, the country's earliest vocational "
-         "training programme for nurses.", "college"),
+         "training program for nurses.", "college"),
         ("1947", "Department of Nursing founded",
          "General Chow established the Department of Nursing, the country's first institution of higher nursing "
          "education.", "dept"),
@@ -48,10 +48,10 @@ def render():
          "The department moved to Taiwan with the National Defense Medical Center, to Shuiyuan in Taipei.", "dept"),
         ("1979", "Graduate Institute of Nursing",
          "The Graduate Institute of Nursing was established, a pioneer of master's-level nursing education "
-         "in the country.", "inst"),
-        ("1990", "In-service bachelor's programme",
+         "in Taiwan.", "inst"),
+        ("1990", "In-service bachelor's program",
          "Commissioned by the Ministry of Education, the department added an in-service bachelor's degree "
-         "programme for nurses. It stopped admitting students in 1994 and graduated 180 nurses in total.", "dept"),
+         "program for nurses. It stopped admitting students in 1994 and graduated 180 nurses in total.", "dept"),
         ("1999", "Neihu campus",
          "The campus moved to the National Defense Medical Center in Neihu, Taipei."),
         ("2025", "College of Nursing",
@@ -68,12 +68,12 @@ def render():
     ])
 
     goals = "".join([
-        p("Bachelor's programme educational goals (revised 10 February 2025). Graduates will be able to:"),
+        p("Bachelor's program educational goals (revised 10 February 2025). Graduates will be able to:"),
         bullets(GOALS),
     ])
 
     abilities = "".join([
-        p(draft("Every course is mapped to the core abilities it develops.")),
+        p(draft("Every course is mapped to the core competencies it develops.")),
         bullets(ABILITIES),
         actions(text_link("Student Learning Outcomes in practice", L("en_dept:C-4"))),
     ])
@@ -90,7 +90,7 @@ def render():
         curriculum,
         name_tape("Educational Goals"),
         goals,
-        name_tape("Core Abilities"),
+        name_tape("Core Competencies"),
         abilities,
         actions(text_link("中文：教育目標與核心能力", L("dept:C-2-2")),
                 text_link("中文：學系特色與定位", L("dept:C-2-1"))),

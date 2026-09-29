@@ -8,7 +8,7 @@ META = {"id": "C-1", "slug": "curriculum", "title": "Curriculum", "owner": "院�
 # Written for international academic visitors (en-sites.md), not for applicants.
 # Verified sources:
 #   credit structure, Research Ethics Education, teaching-assistant requirement — 學生專區 unit/100181/6533
-#   research milestones (supervisor, proposal defence, thesis defence) — the forms listed on the same page
+#   research milestones (supervisor, proposal defense, thesis defense) — the forms listed on the same page
 #   graduate course titles — 114學年兼任老師名冊 (pages/E-1_faculty.py, ADJUNCT), translated here
 
 
@@ -33,7 +33,7 @@ def render():
             h4(draft("Military nursing")),
             p(draft("Advanced military nursing links graduate study to care in military and disaster settings.")),
         ]),
-        illo_slot("Nurse researcher with a laptop and field notes (CocoMaterial, recoloured)", "4/3", unit="inst"),
+        illo_slot("Nurse researcher with a laptop and field notes (CocoMaterial, recolored)", "4/3", unit="inst"),
         cols=(7, 5), align="start",
     )
 
@@ -52,7 +52,7 @@ def render():
             "Research Ethics Education: a required course in the first year (0 credits). Students who have not "
             "completed it may not sit the degree examination.",
             "Thesis supervision: each student applies for a thesis supervisor, then presents a research proposal "
-            "at an oral examination before the final thesis defence.",
+            "at an oral examination before the final thesis defense.",
             "Teaching experience: full-time students funded by the military serve as teaching assistants for one year "
             "(at least 108 hours per academic year), taking part in the College's administration and clinical "
             "teaching.",

@@ -27,19 +27,19 @@ def render():
     opening = "".join([
         statement(
             draft("Learning care at the bedside, in the community and in the field."),
-            draft("Practicum is where students turn classroom knowledge into clinical judgement. "
-                  "Each setting asks for a different kind of judgement."),
+            draft("Practicum is where students turn classroom knowledge into clinical judgment. "
+                  "Each setting asks for a different kind of judgment."),
         ),
         actions(text_link("Curriculum", L("en_dept:C-1")), text_link("中文：實習資訊", L("dept:F-2"))),
     ])
 
     before = split(
         "".join([
-            p("Before entering the wards, students practise in the demonstration ward, which is mainly used for "
+            p("Before entering the wards, students practice in the demonstration ward, which is mainly used for "
               "undergraduate physical examination and assessment and basic nursing skills."),
             actions(text_link("Simulation and Learning Spaces", L("en_dept:C-3"))),
         ]),
-        photo_slot("Students practising in the demonstration ward (4:3)", "4/3"),
+        photo_slot("Students practicing in the demonstration ward (4:3)", "4/3"),
         cols=(7, 5), align="start",
     )
 
@@ -50,10 +50,10 @@ def render():
          None, "dept", "H"),
         ("Community practicum",
          "Community Health Nursing Practicum is part of the practicum sequence. "
-         + draft("Students practise health education and home-based care in community and long-term care settings."),
+         + draft("Students practice health education and home-based care in community and long-term care settings."),
          None, "dept", "C"),
         ("Military nursing",
-         "Military nursing is one of the programme's thirteen core abilities, and graduates are expected to fulfil "
+         "Military nursing is one of the program's thirteen core competencies, and graduates are expected to fulfill "
          "the professional role of a military nurse. "
          + draft("Training covers care in military, field and disaster settings."),
          None, "dept", "M"),

@@ -5,7 +5,7 @@ from pages._en_college_shared import zh
 META = {"id": "B", "slug": "about", "title": "About the College", "owner": "院窗口", "site": "en_college"}
 
 # Origin paragraph: faithful translation of the verbatim 歷史沿革 text in pages/C_about.py (unit/100010/6804).
-# Romanisation "General Mei-Yu Chow" follows the official English History & Vision page (uniten/100010/3353).
+# Romanization "General Mei-Yu Chow" follows the official English History & Vision page (uniten/100010/3353).
 
 
 def render():

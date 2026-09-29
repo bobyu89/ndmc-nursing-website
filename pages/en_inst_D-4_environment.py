@@ -39,7 +39,7 @@ def render():
                                "demonstration bed added in 2018."),
         ("Lecture hall", "134 seats, holding up to 150 people, for courses and workshops."),
         ("Self-study", "A smart interactive nursing self-learning classroom, opened in 2025."),
-        ("Observation", draft("A behavioural development observation suite (one control room, two observation "
+        ("Observation", draft("A behavioral development observation suite (one control room, two observation "
                                    "rooms) with a one-way mirror and video recording, used for workshops, group "
                                    "discussion and research.")),
         ("Seminars", draft("Two graduate classrooms for courses, discussions and presentations.")),

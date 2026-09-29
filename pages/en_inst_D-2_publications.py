@@ -88,13 +88,14 @@ STUDENT_LED = [
 
 
 def _wrap_urls(cite):
-    """Let long DOI links break on a phone (the citation text itself is unchanged). Inline style; no component
-    covers it."""
-    return re.sub(r"(https?://\S+)", r'<span style="word-break:break-all;">\1</span>', cite)
+    """Turn each DOI URL into a real link that can wrap on a phone (the citation text itself is unchanged).
+    The bare <a href> is themed by build.py; the span only lets the long URL wrap. No component covers it."""
+    return re.sub(r"(https?://\S+?)(?=[.,;]?(?:\s|$))",
+                  r'<span style="overflow-wrap:anywhere;"><a href="\1">\1</a></span>', cite)
 
 
 def _citations(rows):
-    return bullets([f"{_wrap_urls(cite)}<br>{text_link('Listed on ' + name(who) + chr(39) + 's profile', url)}"
+    return bullets([f"{_wrap_urls(cite)}<br>{text_link('Author profile: ' + name(who), url)}"
                     for _sort, who, url, cite in rows])
 
 
@@ -110,7 +111,7 @@ def render():
 
     graduate = "".join([
         p("Papers from Professor Hui-Hsun Chiang's group whose first author was a master's student:"),
-        bullets(STUDENT_LED),
+        bullets([_wrap_urls(c) for c in STUDENT_LED]),
         p("As noted on Professor Chiang's faculty profile.", muted=True),
         h4(draft("Theses")),
         p(draft("Selected recent master's theses will be listed here, with the student, supervisor and year.")),

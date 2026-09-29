@@ -22,10 +22,11 @@ def render():
     ])
 
     details = facts([
-        ("Telephone", f"{PHONE}<br>{text_link('Call the College office', TEL)}"),
-        ("Institute", INST_PHONE),
+        ("Email", email_link()),
+        ("Phone", f"{PHONE}<br>{text_link('Call the College office', TEL)}"),
+        ("Institute phone", INST_PHONE),
         ("Fax", FAX),
-        ("Address", ADDRESS),
+        ("Address", ADDRESS + "<br>" + text_link("Open in Google Maps", MAP)),
         ("Hours", draft("Monday to Friday, 8:00–17:00 Taiwan time (UTC+8), except public holidays")),
     ])
 
@@ -54,8 +55,6 @@ def render():
     return page(
         opening,
         name_tape("Contact Details"),
-        p("Email:"),
-        actions(email_link()),
         details,
         note("辦公時間：學院網站目前未公布，上方暫用學校網站頁尾的上班時間（週一至週五 8:00–17:00，不含例假日及國訂假日），"
              "請院窗口確認。請國際事務確認研究合作洽詢是否統一由學院信箱收件；若研究所另有對外英文窗口（職稱與公務信箱），"
@@ -67,7 +66,6 @@ def render():
         note("請國際事務提供實際的回覆流程與預計回覆時間（例如幾個工作天內回覆），確認後替換上段草稿。"),
         name_tape("Finding Us"),
         photo_slot("College of Nursing building, Neihu campus", "16/9"),
-        actions(text_link("Open in Google Maps", MAP)),
         name_tape("Related Contacts"),
         related,
         owner=META["owner"],

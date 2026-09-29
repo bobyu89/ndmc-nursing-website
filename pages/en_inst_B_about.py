@@ -12,7 +12,7 @@ META = {"id": "B", "slug": "about", "title": "About the Institute", "owner": "é™
 def render():
     opening = "".join([
         statement(
-            draft("Where graduate nursing education in Taiwan began."),
+            draft("A pioneer of master's-level nursing education in Taiwan since 1979."),
             draft("The Graduate Institute of Nursing is part of the College of Nursing, National Defense Medical "
                   "University. This section introduces the Director, the Institute's history and its goals."),
         ),
@@ -20,7 +20,7 @@ def render():
     ])
 
     origin = tape_surface(
-        p("The Institute was established in 1979 to meet the needs of education and research, "
+        p("The Institute was established in 1979 to meet the needs of nursing education and research, "
           "and became a pioneer of master's-level nursing education in Taiwan."),
         p(draft("Translated from the Institute's history page.") + "ã€€" + text_link("Source (Chinese)", U_HISTORY),
           muted=True),

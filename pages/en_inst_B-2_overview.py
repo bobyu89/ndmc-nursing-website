@@ -16,18 +16,17 @@ def render():
     opening = "".join([
         statement(
             draft("Graduate nursing education since 1979."),
-            draft("The Institute educates experienced nurses to specialise in one field of practice and to design "
+            draft("The Institute educates experienced nurses to specialize in one field of practice and to design "
                   "and carry out research. This page gives the Institute's history, goals and programs."),
         ),
         actions(zh("inst:C-2")),
     ])
 
     intro = tape_surface(
-        p("In 1979, the Institute was established to meet the needs of education and research. "
-          "It was the first graduate nursing program in Taiwan."),
-        p(draft("The mission of the School of Nursing is to train nurses to provide nursing care during combat "
-                "casualty, to provide nursing education and clinical services, and to develop military nursing "
-                "research to meet national and societal needs.")),
+        p("In 1979, the Institute was established to meet the needs of nursing education and research, "
+          "and became a pioneer of master's-level nursing education in Taiwan."),
+        p(draft("Our mission is to educate nurses who can care for combat casualties, to provide nursing education and "
+                "clinical services, and to develop military nursing research that meets national and societal needs.")),
         p(draft("[Overview] 150–250 words on the Institute today: its place in the College of Nursing, faculty, "
                 "research environment and partnership with Tri-Service General Hospital.")),
     )
@@ -43,7 +42,7 @@ def render():
         ("1949", "Move to Taiwan",
          "The Department moved with the National Defense Medical Center to Shuiyuandi, Taipei."),
         ("1979", "Graduate Institute of Nursing founded",
-         "The Institute was established to meet the needs of education and research, and became a pioneer of "
+         "The Institute was established to meet the needs of nursing education and research, and became a pioneer of "
          "master's-level nursing education in Taiwan.", "inst"),
         ("1999", "Move to Neihu",
          "The campus moved to the National Defense Medical Center in Neihu, Taipei."),
@@ -79,8 +78,8 @@ def render():
         opening,
         name_tape("The Institute Today"),
         intro,
-        note("第一句譯自研究所〈歷史沿革〉，並與學院舊英文頁「In 1979, we established the first graduate nursing program "
-             "in Taiwan.」一致。第二句（School of Nursing 的使命）取自舊英文頁 uniten/100010/3353，年代不明，"
+        note("第一句譯自研究所〈歷史沿革〉（「先驅」的說法，與學院英文站一致）；學院舊英文頁寫「the first graduate nursing program "
+             "in Taiwan」，能否採用待院窗口確認（見研究所英文首頁備註）。第二句（使命，與學院英文站同一句）取自舊英文頁 uniten/100010/3353，年代不明，"
              "請院窗口確認是否仍適用於護理學院／研究所。第三段請院窗口提供英文研究所簡介 150–250 字；"
              "教師、研究生、畢業生人數若要放，請附資料來源與統計日期。"),
         name_tape("History"),

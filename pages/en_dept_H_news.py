@@ -25,7 +25,7 @@ def render():
             actions(text_link("College of Nursing News", L("en:H")),
                     text_link("中文：學系公告", L("dept:B"))),
         ]),
-        illo_slot("Students reading a notice board (CocoMaterial, recoloured)", "4/3", unit="dept"),
+        illo_slot("Students reading a notice board (CocoMaterial, recolored)", "4/3", unit="dept"),
         cols=(7, 5),
     )
 

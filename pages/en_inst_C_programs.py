@@ -13,7 +13,7 @@ META = {"id": "C", "slug": "programs", "title": "Graduate Programs", "owner": "é
 def render():
     opening = "".join([
         statement(
-            draft("Graduate study for nurses who want to specialise and do research."),
+            draft("Graduate study for nurses who want to specialize and do research."),
             draft("The Institute's master's program takes registered nurses with clinical experience into one field "
                   "of advanced practice and trains them to carry out research. This page describes the programs for "
                   "visiting researchers and partner institutions; it is not an admissions page."),
@@ -34,7 +34,7 @@ def render():
             p(draft("Translated from the Institute's study regulations.") + "ã€€"
               + text_link("Source (Chinese)", U_RULES), muted=True),
         ]),
-        illo_slot("Graduate seminar around a table (CocoMaterial, recoloured)", "4/3", unit="inst"),
+        illo_slot("Graduate seminar around a table (CocoMaterial, recolored)", "4/3", unit="inst"),
         cols=(7, 5), align="start",
     )
 

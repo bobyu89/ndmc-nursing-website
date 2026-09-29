@@ -4,7 +4,7 @@ from links import L
 
 META = {"id": "F", "slug": "faculty", "title": "Faculty", "owner": "院窗口", "site": "en_dept"}
 
-# Teaching areas summarise the specialties listed on the full-time faculty roster
+# Teaching areas summarize the specialties listed on the full-time faculty roster
 # (Doclist/191/100010/1738, via pages/E-1_faculty.py); practicum teaching from the 114學年兼任老師名冊
 # (unit/100010/1470). No names or counts are repeated here: the College Faculty Directory is the single source.
 
@@ -12,7 +12,7 @@ META = {"id": "F", "slug": "faculty", "title": "Faculty", "owner": "院窗口", 
 def render():
     opening = "".join([
         statement(
-            draft("Teachers who practise, research and teach."),
+            draft("Teachers who practice, research and teach."),
             draft("Department courses are taught by the full-time faculty of the College of Nursing, together with "
                   "adjunct clinical instructors who guide students in practicum."),
         ),
@@ -24,7 +24,7 @@ def render():
          "Medical-surgical nursing, critical care, emergency nursing, cardiovascular care, burn care and "
          "cardiopulmonary rehabilitation.", None, "dept", "A"),
         ("Women, children and families",
-         "Obstetric and paediatric nursing, premature infant care, and children with cancer and their families.",
+         "Obstetric and pediatric nursing, premature infant care, and children with cancer and their families.",
          None, "dept", "F"),
         ("Mental health",
          "Mental health and psychiatric nursing, stress and sleep, and digital mental health monitoring.",
@@ -39,9 +39,9 @@ def render():
     practicum = split(
         "".join([
             p("Adjunct instructors listed in the college's 2025–26 roster teach many of the clinical practicum "
-              "courses, including fundamentals, medical-surgical, obstetric, paediatric, mental health and "
+              "courses, including fundamentals, medical-surgical, obstetric, pediatric, mental health and "
               "community health nursing practicum."),
-            p(draft("They bring current clinical practice into the programme and supervise students on the wards.")),
+            p(draft("They bring current clinical practice into the program and supervise students on the wards.")),
         ]),
         photo_slot("Clinical instructor with students on a ward (4:3)", "4/3"),
         cols=(7, 5), align="start",

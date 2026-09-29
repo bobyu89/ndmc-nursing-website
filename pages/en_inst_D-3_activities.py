@@ -26,9 +26,9 @@ def render():
         ("Jan", "Lecture: Applications of AI in Clinical Nursing and Research",
          "15 January 2025.", "inst"),
         ("Mar", draft("Four-Nation Conference"),
-         "19–23 March 2025. " + draft("Participating countries and programme to be added."), "inst"),
+         "19–23 March 2025. " + draft("Participating countries and program to be added."), "inst"),
         ("Jun", draft("Trauma and Disaster Nursing Training"),
-         "18–19 June 2025. " + draft("Organisers, participants and content to be added."), "inst"),
+         "18–19 June 2025. " + draft("Organizers, participants and content to be added."), "inst"),
     ])
 
     photos = split(photo_slot("Four-Nation Conference, March 2025 (existing photo on the Institute site)", "4/3"),

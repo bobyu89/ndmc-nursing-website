@@ -5,14 +5,14 @@ from links import L
 META = {"id": "C", "slug": "program", "title": "Undergraduate Program", "owner": "課委會", "site": "en_dept"}
 
 # Verified facts: 115 學年度軍事學校正期班甄選入學招生簡章 (via pages/F_admissions.py, pages/dept_D_admissions.py);
-# aim from 學士班課程地圖 unit/100010/3642; simulation centre use from 教學設備 unit/100010/1463 (pages/E-3_facilities.py).
+# aim from 學士班課程地圖 unit/100010/3642; simulation center use from 教學設備 unit/100010/1463 (pages/E-3_facilities.py).
 
 
 def render():
     opening = "".join([
         statement(
-            draft("One programme for the ward, the community and the field."),
-            draft("The Bachelor of Science in Nursing programme combines nursing education with military training. "
+            draft("One program for the ward, the community and the field."),
+            draft("The Bachelor of Science in Nursing program combines nursing education with military training. "
                   "This page gives international colleagues a short map of how it is built."),
         ),
         actions(text_link("Curriculum", L("en_dept:C-1")), text_link("中文：課程", L("dept:F"))),
@@ -23,7 +23,7 @@ def render():
         ("Degree", "Bachelor's degree in nursing, awarded by the Department of Nursing"),
         ("Basic training", "8 weeks of military basic training before nursing studies begin"),
         ("Teaching hospital", "Tri-Service General Hospital"),
-        ("Educational aim", "Professionals with humanistic literacy and nursing competence for both the military "
+        ("Educational aim", "Professionals with a grounding in the humanities and strong nursing competence for both the military "
                             "and the civilian health care systems"),
     ])
 
@@ -40,20 +40,20 @@ def render():
 
     practice = split(
         "".join([
-            p("The simulation centre is used for advanced medical-surgical, advanced obstetric and paediatric, "
-              "and critical care nursing courses, and for OSCE teaching in the bachelor's programme."),
+            p("The simulation center is used for advanced medical-surgical, advanced obstetric and pediatric, "
+              "and critical care nursing courses, and for OSCE teaching in the bachelor's program."),
             p(draft("Clinical practicum then takes students into the teaching hospital, the community and "
                     "military nursing settings.")),
         ]),
-        photo_slot("Students in the simulation centre (4:3)", "4/3"),
+        photo_slot("Students in the simulation center (4:3)", "4/3"),
         cols=(7, 5), align="start",
     )
 
     tasks = route_list([
-        ("Curriculum", draft("Structure, course sequence and the core-ability map"), L("en_dept:C-1")),
+        ("Curriculum", draft("Structure, course sequence and the core-competency map"), L("en_dept:C-1")),
         ("Clinical and Military Nursing Practicum", draft("Hospital, community and military nursing practicum"),
          L("en_dept:C-2")),
-        ("Simulation and Learning Spaces", draft("Simulation centre, demonstration ward and self-learning spaces"),
+        ("Simulation and Learning Spaces", draft("Simulation center, demonstration ward and self-learning spaces"),
          L("en_dept:C-3")),
         ("Student Learning Outcomes", draft("What students achieve, told through photos and short stories"),
          L("en_dept:C-4")),

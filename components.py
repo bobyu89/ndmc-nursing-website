@@ -35,12 +35,21 @@ def page(*blocks, owner="院窗口", updated=None):
     )
 
 
+PUBLIC_UNIT = {
+    "zh": {"college": "護理學院", "dept": "護理學系", "inst": "護理研究所"},
+    "en": {"college": "College of Nursing", "dept": "Department of Nursing", "inst": "Graduate Institute of Nursing"},
+}
+
+
 def status_stamp(owner, updated):
+    """Public stamp names the maintaining unit, never an internal contact; `owner` stays in META for editors."""
+    unit = PUBLIC_UNIT[SITE_LANG][SITE_UNIT]
+    text = (f"Last updated {updated} · Maintained by {unit}" if SITE_LANG == "en"
+            else f"最後更新 {updated}　｜　維護單位：{unit}")
     return (
         f'<p style="margin:{S[8]} 0 0;{TYPE["small"]}color:{C["ink_soft"]};">'
         f'<span style="display:inline-block;padding:6px 12px;border:1.5px dashed {C["rule"]};border-radius:4px;background:{C["tape"]};">'
-        + (f'{icon("calendar-check-o")}&nbsp;Last updated {updated}　|　Maintained by {owner}</span></p>' if SITE_LANG == "en"
-           else f'{icon("calendar-check-o")}&nbsp;最後更新 {updated}　｜　維護：{owner}</span></p>')
+        f'{icon("calendar-check-o")}&nbsp;{text}</span></p>'
     )
 
 
@@ -128,7 +137,7 @@ def button(label, href, primary=True):
 
 def text_link(label, href):
     return (
-        f'<a href="{href}" style="display:inline-flex;align-items:center;gap:8px;min-height:44px;color:{C["thread"]};'
+        f'<a href="{href}" style="display:inline;padding:12px 0;line-height:1.9;color:{C["thread"]};'
         f'font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;">'
         f'{label}&nbsp;{icon("angle-right")}</a>'
     )

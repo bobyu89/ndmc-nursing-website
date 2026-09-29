@@ -70,7 +70,7 @@ def render():
              "innovative nursing education", "https://sites.google.com/view/wywang"),
             ("Hsiang-Yun Lan Lab", "Pediatric nursing, obstetric nursing, military and disaster nursing, oncology nursing",
              "https://sites.google.com/view/hsiang-yun-lan-lab-ndmc/lab"),
-            ("Chien Mei Sung Lab", "Medical-surgical nursing, acute and critical care nursing, geriatric nursing, nursing "
+            ("Chien-Mei Sung Lab", "Medical-surgical nursing, acute and critical care nursing, geriatric nursing, nursing "
              "administration, cognitive training, 3D printing, nurse practitioner practice",
              "https://bobyu89.github.io/sung-lab-website/index.html"),
             ("Yen-Chung Ho Lab", "Psychiatric and mental health nursing, digital psychological monitoring tools, "

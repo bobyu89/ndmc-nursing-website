@@ -16,7 +16,7 @@ U_MATRIX = SITE + "/files/web/192/file_up/100010/8644/@學士班核心能力與�
 
 def render():
     opening = statement(
-        draft("A four-year curriculum mapped to thirteen core abilities."),
+        draft("A four-year curriculum mapped to thirteen core competencies."),
         draft("General education, basic medical sciences and nursing courses are sequenced so that each year "
               "builds on the last, alongside military education."),
     )
@@ -25,11 +25,11 @@ def render():
         "".join([
             p("The whole curriculum is designed around five concepts: Person, Life span, Family, Nursing process "
               "and Dynamics."),
-            p("Every course is linked to one or more of the programme's thirteen core abilities, from humanistic "
+            p("Every course is linked to one or more of the program's thirteen core competencies, from humanistic "
               "care and evidence-based nursing to military nursing and lifelong learning."),
-            actions(text_link("Core abilities and course map (PDF, Chinese)", U_MATRIX)),
+            actions(text_link("Core competencies and course map (PDF, Chinese)", U_MATRIX)),
         ]),
-        illo_slot("Curriculum map: courses linked to core abilities (redrawn in English)", "4/3", unit="dept"),
+        illo_slot("Curriculum map: courses linked to core competencies (redrawn in English)", "4/3", unit="dept"),
         cols=(7, 5), align="start",
     )
 
@@ -63,7 +63,7 @@ def render():
     military = "".join([
         p("New students complete eight weeks of military basic training before starting nursing studies."),
         p(draft("Military nursing education runs alongside the nursing curriculum in all four years, "
-                "totalling 1,228 hours. Its main components by year:")),
+                "totaling 1,228 hours. Its main components by year:")),
         years,
         note("「1,228 hours」與逐年軍陣護理教育內容取自英文孤兒頁 uniten/100010/3396，屬舊資料；"
              "請課委會依現行課程規劃（中文站 F-1-1）核對，並補上每一學年的主要護理課程（中文課程架構目前為圖片，無法轉錄）。"),
