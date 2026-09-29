@@ -59,23 +59,30 @@ def main(final=False):
     PREVIEW.mkdir(exist_ok=True)
     index = []
     problems = 0
+    groups = {"college": [], "dept": [], "inst": []}
     for m in load_pages():
         meta = m.META
+        site = meta.get("site", "college")
+        components.SITE_UNIT = site
         html = cms_normalize(m.render())
         for pat in FORBIDDEN:
             if re.search(pat, html, re.I):
                 print(f"FORBIDDEN {pat} in {meta['id']}")
                 problems += 1
-        name = f"{meta['id']}_{meta['slug']}"
+        name = f"{meta['id']}_{meta['slug']}" if site == "college" else f"{site}_{meta['id']}_{meta['slug']}"
         (DIST / f"{name}.html").write_text(html, encoding="utf-8")
         (PREVIEW / f"{name}.html").write_text(CHROME.format(title=meta["title"], body=html), encoding="utf-8")
         drafts = html.count("待確認")
-        index.append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · 待確認 {drafts}</small></li>')
-        print(f"{meta['id']:5} {meta['title']:12} {len(html):7} bytes  drafts={drafts}")
+        groups[site].append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · 待確認 {drafts}</small></li>')
+        print(f"{site:7} {meta['id']:6} {meta['title']:12} {len(html):7} bytes  drafts={drafts}")
+    labels = {"college": "護理學院", "dept": "護理學系", "inst": "護理研究所"}
+    for site, items in groups.items():
+        if items:
+            index.append(f"<h2>{labels[site]}（{len(items)} 頁）</h2><ol>" + "".join(items) + "</ol>")
     (PREVIEW / "index.html").write_text(
         '<!doctype html><meta charset="utf-8"><title>護理學院頁面預覽</title>'
-        '<body style="font-family:Microsoft JhengHei,sans-serif;padding:24px;line-height:2;"><h1>護理學院中文站 預覽</h1><ol>'
-        + "".join(index) + "</ol></body>", encoding="utf-8")
+        '<body style="font-family:Microsoft JhengHei,sans-serif;padding:24px;line-height:2;"><h1>護理學院・學系・研究所 中文站預覽</h1>'
+        + "".join(index) + "</body>", encoding="utf-8")
     return problems
 
 

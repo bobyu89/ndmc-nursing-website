@@ -4,6 +4,7 @@ inline styles, Bootstrap 5.0.2 classes, FontAwesome 4 icons, <img>; never <style
 from tokens import C, S, TYPE, FONT, TWILL_BG, UNIT
 
 DRAFT_MARKS = True
+SITE_UNIT = "college"  # set by build.py from META["site"]
 UPDATED = "待確認"
 
 
@@ -53,9 +54,9 @@ def statement(text, sub=None):
     return out
 
 
-def name_tape(text, level=3, unit="college", top=S[8]):
+def name_tape(text, level=3, unit=None, top=S[8]):
     """Section heading sewn on as a white name tape with the unit's cloth as a selvedge."""
-    cloth = UNIT[unit]["cloth"]
+    cloth = UNIT[unit or SITE_UNIT]["cloth"]
     return (
         f'<h{level} style="display:inline-flex;align-items:center;gap:12px;margin:{top} 0 {S[3]};padding:11px 18px 10px 12px;'
         f'background:{C["tape"]};color:{C["thread"]};font-size:18px;line-height:1.2;font-weight:800;letter-spacing:.12em;'
