@@ -78,10 +78,9 @@ def bullets(items):
 
 
 def tape_surface(*blocks):
-    """A long-reading passage laid on name-tape cloth, sewn over an offset sage layer."""
-    inner = (f'<div style="background:{C["tape"]};border:1px solid {C["rule"]};border-radius:3px;'
-             f'padding:{S[4]} {S[4]} {S[2]};">{_join(blocks)}</div>')
-    return f'<div style="margin:0 0 {S[5]};">{backed(inner)}</div>'
+    """A long-reading passage laid on name-tape cloth."""
+    return (f'<div style="background:{C["tape"]};border:1px solid {C["rule"]};border-radius:3px;'
+            f'padding:{S[4]} {S[4]} {S[2]};margin:0 0 {S[4]};">{_join(blocks)}</div>')
 
 # ---------- actions ----------
 
@@ -133,17 +132,6 @@ def photo_slot(label, ratio="4/3"):
 
 # ---------- identity pieces ----------
 
-def backed(inner, cloth=None, offset=8):
-    """Depth by overlap: the block is sewn over a second flat cloth layer offset on the grid. No shadows."""
-    cloth = cloth or C["sage_pale"]
-    return (
-        f'<div style="position:relative;margin:0 {offset}px {offset}px 0;">'
-        f'<div aria-hidden="true" style="position:absolute;left:{offset}px;top:{offset}px;right:-{offset}px;bottom:-{offset}px;'
-        f'background:{cloth};border:1.5px dashed rgba(51,73,63,.4);border-radius:4px;"></div>'
-        f'<div style="position:relative;">{inner}</div></div>'
-    )
-
-
 def rocker(text):
     """An arched tab sewn above a shield patch; carries the parent name instead of an eyebrow label."""
     return (
@@ -154,8 +142,9 @@ def rocker(text):
     )
 
 
-def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None, width="100%", tab=None):
-    """An embroidered unit patch: cloth, merrowed edge, stitched inset. Optionally a link and a rocker tab."""
+def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None, width="100%", tab=None, backing=None):
+    """An embroidered unit patch: cloth, merrowed edge, stitched inset. Optionally a link, a rocker tab,
+    and a backing cloth cut to the same outline, larger on every side (depth by layered cloth, not shadow)."""
     cloth = C["tape"] if unit == "tape" else UNIT[unit]["cloth"]
     radius = {
         "shield": "14px 14px 48% 48% / 14px 14px 30% 30%",
@@ -180,6 +169,12 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
     if shape == "round":
         box += "aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;"
     body = f'<a href="{href}" style="{box}">{inner}</a>' if href else f'<div style="{box}">{inner}</div>'
+    if backing:
+        body = (
+            f'<div style="position:relative;margin:10px;">'
+            f'<div aria-hidden="true" style="position:absolute;inset:-10px;background:{backing};border-radius:{radius};'
+            f'border:1.5px dashed rgba(51,73,63,.45);"></div>{body}</div>'
+        )
     return (rocker(tab) + body) if tab else body
 
 
@@ -249,8 +244,7 @@ def feature_lead(title, text_blocks, illo, unit="college", href=None, link_label
         *text_blocks,
         text_link(link_label, href) if href else "",
     ])
-    cloth = UNIT[unit]["pale"] if unit in UNIT else None
-    return split(body, f'<div class="mx-auto" style="max-width:300px;">{backed(patch(title, unit=unit, illo=illo), cloth, 12)}</div>', cols=(7, 5))
+    return split(body, f'<div class="mx-auto" style="max-width:300px;">{patch(title, unit=unit, illo=illo, backing=C["tape"])}</div>', cols=(7, 5))
 
 
 def feature_list(items):
@@ -281,16 +275,14 @@ def unit_pair(units):
 
 def timeline(events):
     """History as year patches sewn along one thread, oldest first: [(year, title, text[, unit]), ...].
-    Each patch wears its unit's cloth (college/dept/inst); events owned by no unit wear tape cloth.
-    Each patch overlaps the one above it, so the years stack as they accrue."""
+    Each patch wears its unit's cloth (college/dept/inst); events owned by no unit wear tape cloth."""
     rows = []
     for i, ev in enumerate(events):
         year, title, text = ev[:3]
         unit = ev[3] if len(ev) > 3 else "tape"
         cloth = C["tape"] if unit == "tape" else UNIT[unit]["cloth"]
-        lift = "" if i == 0 else f"margin-top:-{S[2]};"
         rows.append(
-            f'<div class="d-flex" style="gap:{S[3]};position:relative;padding-bottom:{S[4]};{lift}">'
+            f'<div class="d-flex" style="gap:{S[3]};position:relative;padding-bottom:{S[4]};">'
             f'<span style="flex:none;position:relative;z-index:{i + 1};width:84px;height:84px;border-radius:50%;background:{cloth};'
             f'border:5px solid {C["thread"]};outline:1.5px dashed rgba(51,73,63,.45);outline-offset:-10px;display:flex;'
             f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:17px;letter-spacing:.04em;">{year}</span>'
@@ -377,5 +369,5 @@ def note(text):
     """A plain editorial note for the content owner (e.g. what goes here), shown only while drafts are marked."""
     if not DRAFT_MARKS:
         return ""
-    return (f'<p style="margin:0 0 {S[3]};padding:{S[1]} {S[2]};max-width:40em;{TYPE["small"]}color:{C["rose"]};'
+    return (f'<p style="margin:{S[3]} 0 {S[3]};padding:{S[1]} {S[2]};max-width:40em;{TYPE["small"]}color:{C["rose"]};'
             f'background:{C["rose_pale"]};border-radius:3px;">{icon("info-circle")}&nbsp;編輯備註：{text}</p>')

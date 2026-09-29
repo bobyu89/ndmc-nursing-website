@@ -1,6 +1,7 @@
 from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo_slot,
-                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note, backed)
+                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note)
 from links import L
+from tokens import C
 
 META = {"id": "A", "slug": "home", "title": "護理學院", "owner": "院窗口"}
 
@@ -15,8 +16,8 @@ def render():
             ),
             actions(button("招生專區", L("F")), text_link("認識本院", L("C"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + backed(patch("護理學院", "College of Nursing", unit="college",
-              illo=illo_slot("身著制服的護理師（CocoMaterial，重新上色）", "1/1"), tab="國防醫學大學"), None, 12) + "</div>",
+        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch("護理學院", "College of Nursing", unit="college",
+              illo=illo_slot("身著制服的護理師（CocoMaterial，重新上色）", "1/1"), tab="國防醫學大學", backing=C["tape"]) + "</div>",
         cols=(7, 5),
     )
 

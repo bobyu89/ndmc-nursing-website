@@ -1,0 +1,462 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-29T04:29:11+00:00",
+  "title": "Design System: 國防醫學大學護理學院 中文站",
+  "extensions": {
+    "colorMeta": {
+      "twill": {
+        "role": "neutral",
+        "displayName": "Oatmeal Twill",
+        "canonical": "oklch(93.0% 0.014 78.3)",
+        "tonalRamp": [
+          "#0E0A05",
+          "#28231D",
+          "#443F38",
+          "#625D55",
+          "#827C74",
+          "#A39E95",
+          "#C9C3BA",
+          "#F4EEE5"
+        ]
+      },
+      "tape": {
+        "role": "neutral",
+        "displayName": "Name-Tape White",
+        "canonical": "oklch(96.8% 0.007 80.7)",
+        "tonalRamp": [
+          "#0D0B08",
+          "#262420",
+          "#423F3B",
+          "#605D59",
+          "#7F7D78",
+          "#A19E99",
+          "#C6C4BF",
+          "#F1EEE9"
+        ]
+      },
+      "thread": {
+        "role": "primary",
+        "displayName": "Deep Sage Thread",
+        "canonical": "oklch(38.4% 0.032 165.0)",
+        "tonalRamp": [
+          "#000F08",
+          "#142920",
+          "#2F453B",
+          "#4D6459",
+          "#6C8478",
+          "#8DA599",
+          "#B2CBBF",
+          "#DCF6E9"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(31.9% 0.007 67.6)",
+        "tonalRamp": [
+          "#0D0B08",
+          "#262321",
+          "#423F3C",
+          "#605D5A",
+          "#807C79",
+          "#A19E9A",
+          "#C7C3BF",
+          "#F2EEEA"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(46.4% 0.012 67.5)",
+        "tonalRamp": [
+          "#0F0A06",
+          "#28231E",
+          "#443F39",
+          "#625C56",
+          "#827C76",
+          "#A49D96",
+          "#CAC3BC",
+          "#F4EDE6"
+        ]
+      },
+      "college-sage": {
+        "role": "secondary",
+        "displayName": "College Sage",
+        "canonical": "oklch(75.9% 0.025 159.0)",
+        "tonalRamp": [
+          "#030E07",
+          "#192820",
+          "#35443B",
+          "#526258",
+          "#718278",
+          "#92A399",
+          "#B7C9BE",
+          "#E1F4E8"
+        ]
+      },
+      "college-sage-pale": {
+        "role": "secondary",
+        "displayName": "Pale Sage",
+        "canonical": "oklch(89.2% 0.013 157.0)",
+        "tonalRamp": [
+          "#070D09",
+          "#1F2622",
+          "#3B423D",
+          "#58605B",
+          "#77807A",
+          "#98A19B",
+          "#BEC7C1",
+          "#E8F1EB"
+        ]
+      },
+      "dept-pink": {
+        "role": "secondary",
+        "displayName": "Dusty Pink",
+        "canonical": "oklch(81.0% 0.039 28.1)",
+        "tonalRamp": [
+          "#190503",
+          "#351C19",
+          "#533834",
+          "#725651",
+          "#937570",
+          "#B69691",
+          "#DCBBB6",
+          "#FFE5E0"
+        ]
+      },
+      "dept-pink-pale": {
+        "role": "secondary",
+        "displayName": "Pale Pink",
+        "canonical": "oklch(91.8% 0.017 31.1)",
+        "tonalRamp": [
+          "#120907",
+          "#2C211F",
+          "#483D3A",
+          "#675A58",
+          "#877A77",
+          "#A99B98",
+          "#CFC0BD",
+          "#FAEBE8"
+        ]
+      },
+      "inst-blue": {
+        "role": "secondary",
+        "displayName": "Misty Blue",
+        "canonical": "oklch(81.8% 0.017 227.0)",
+        "tonalRamp": [
+          "#040D11",
+          "#1C262A",
+          "#374247",
+          "#546065",
+          "#737F85",
+          "#94A1A7",
+          "#BAC7CD",
+          "#E4F1F7"
+        ]
+      },
+      "inst-blue-pale": {
+        "role": "secondary",
+        "displayName": "Pale Blue",
+        "canonical": "oklch(91.4% 0.009 225.1)",
+        "tonalRamp": [
+          "#080C0E",
+          "#202527",
+          "#3B4143",
+          "#595F61",
+          "#787E81",
+          "#99A0A2",
+          "#BFC5C8",
+          "#E9F0F3"
+        ]
+      },
+      "rose": {
+        "role": "primary",
+        "displayName": "Deep Rose Thread",
+        "canonical": "oklch(49.7% 0.080 20.3)",
+        "tonalRamp": [
+          "#230001",
+          "#430F13",
+          "#632C2E",
+          "#854A4A",
+          "#A86A69",
+          "#CB8B8A",
+          "#F4B0AF",
+          "#FFDAD8"
+        ]
+      },
+      "rose-pale": {
+        "role": "neutral",
+        "displayName": "Rose Pale",
+        "canonical": "oklch(93.0% 0.017 31.1)",
+        "tonalRamp": [
+          "#120907",
+          "#2C211F",
+          "#483D3A",
+          "#675A58",
+          "#877A77",
+          "#A99B98",
+          "#CFC0BD",
+          "#FAEBE8"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Stitch Line",
+        "canonical": "oklch(83.0% 0.020 77.3)",
+        "tonalRamp": [
+          "#100A03",
+          "#2A2319",
+          "#463F34",
+          "#645C51",
+          "#847C70",
+          "#A69D91",
+          "#CCC3B6",
+          "#F6EDE0"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The page's opening statement; one per page."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "One or two sentences under the statement, max 34em."
+      },
+      "name-tape": {
+        "displayName": "Name Tape",
+        "purpose": "Every section heading, set on a tape."
+      },
+      "patch-title": {
+        "displayName": "Patch Title",
+        "purpose": "Type embroidered on a patch."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "h4 within sections and ledger row titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text, max 40em."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Descriptions, ranks, stamp, slot captions."
+      }
+    },
+    "shadows": [],
+    "materials": [
+      {
+        "name": "twill-weave",
+        "value": "repeating-linear-gradient(135deg,rgba(51,73,63,.045) 0 1px,transparent 1px 5px)",
+        "purpose": "Page ground texture on twill; the only background gradient."
+      },
+      {
+        "name": "patch-stitch",
+        "value": "outline:2px dashed rgba(247,244,239,.85);outline-offset:-13px",
+        "purpose": "Dashed inset stitch on shield and tab patches."
+      },
+      {
+        "name": "tape-stitch",
+        "value": "outline:1px dashed rgba(51,73,63,.35);outline-offset:-5px",
+        "purpose": "Dashed inset stitch on name tapes."
+      },
+      {
+        "name": "stitch-divider",
+        "value": "border-top:1.5px dashed #CFC6B9",
+        "purpose": "Row divider in every ledger."
+      },
+      {
+        "name": "backing-cloth",
+        "value": "position:absolute;inset:-10px;border:1.5px dashed rgba(51,73,63,.45)",
+        "purpose": "Layered cloth behind a patch; depth without shadow."
+      }
+    ],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "992px"
+      }
+    ],
+    "platform": {
+      "stripped": [
+        "<style>",
+        "<svg>",
+        "section",
+        "article",
+        "details",
+        "summary",
+        "script"
+      ],
+      "fonts": "System CJK stack only; no @font-face.",
+      "icons": "FontAwesome 4.7 only.",
+      "responsive": "Bootstrap 5.0.2 classes only; intrinsic flex (flex:1 1 Npx) instead of auto .col-md.",
+      "contrastCheck": "python tokens.py",
+      "finalBuild": "python build.py --final removes 待確認 chips and 編輯備註 notes."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Rose filled action; exactly one per view.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">招生專區 <i class=\"ds-arrow\">→</i></a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;background:#8A4F4F;color:#FFFFFF;border:2px solid #8A4F4F;border-radius:3px;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-weight:800;font-size:16px;letter-spacing:.06em;text-decoration:none;} .ds-btn-primary .ds-arrow{font-style:normal;} .ds-btn-primary:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Thread-outlined action when a second button is needed.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">認識本院 <i class=\"ds-arrow\">→</i></a>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;background:transparent;color:#33493F;border:2px solid #33493F;border-radius:3px;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-weight:800;font-size:16px;letter-spacing:.06em;text-decoration:none;} .ds-btn-secondary .ds-arrow{font-style:normal;} .ds-btn-secondary:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
+    },
+    {
+      "name": "Text Link",
+      "kind": "button",
+      "refersTo": "text-link",
+      "description": "Quiet underlined thread link with a 44px target.",
+      "html": "<a class=\"ds-text-link\" href=\"#\">認識本院 ›</a>",
+      "css": ".ds-text-link{display:inline-flex;align-items:center;min-height:44px;color:#33493F;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;} .ds-text-link:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
+    },
+    {
+      "name": "Name Tape",
+      "kind": "custom",
+      "refersTo": "name-tape",
+      "description": "Every section heading, sewn on with its unit's selvedge.",
+      "html": "<div class=\"ds-twill\"><h3 class=\"ds-name-tape\"><span class=\"ds-selvedge\"></span>學術單位</h3></div>",
+      "css": ".ds-twill{background-color:#EDE7DE;background-image:repeating-linear-gradient(135deg,rgba(51,73,63,.045) 0 1px,transparent 1px 5px);padding:24px;} .ds-name-tape{display:inline-flex;align-items:center;gap:12px;margin:0;padding:11px 18px 10px 12px;background:#F7F4EF;color:#33493F;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-size:18px;line-height:1.2;font-weight:800;letter-spacing:.12em;border:1px solid #CFC6B9;border-radius:2px;outline:1px dashed rgba(51,73,63,.35);outline-offset:-5px;} .ds-selvedge{flex:none;width:12px;height:20px;background:#A4B6AB;border:1.5px solid #33493F;border-radius:1px;}"
+    },
+    {
+      "name": "Shield Patch",
+      "kind": "card",
+      "refersTo": "patch-dept",
+      "description": "A unit entrance: cloth, merrowed thread edge, dashed inset stitch, backing cloth behind.",
+      "html": "<div class=\"ds-twill\"><div class=\"ds-backing-wrap\"><div class=\"ds-backing\"></div><a class=\"ds-shield\" href=\"#\"><span class=\"ds-patch-title\">護理學系</span><span class=\"ds-patch-sub\">學士班・臨床與軍陣實習</span></a></div></div>",
+      "css": ".ds-twill{background-color:#EDE7DE;background-image:repeating-linear-gradient(135deg,rgba(51,73,63,.045) 0 1px,transparent 1px 5px);padding:24px;} .ds-backing-wrap{position:relative;margin:10px;max-width:300px;} .ds-backing{position:absolute;inset:-10px;background:#F7F4EF;border-radius:14px 14px 48% 48% / 14px 14px 30% 30%;border:1.5px dashed rgba(51,73,63,.45);} .ds-shield{display:block;position:relative;background:#D9B8B3;border:6px solid #33493F;border-radius:14px 14px 48% 48% / 14px 14px 30% 30%;outline:2px dashed rgba(247,244,239,.85);outline-offset:-13px;padding:32px 24px 48px;text-align:center;text-decoration:none;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;} .ds-patch-title{display:block;color:#33493F;font-size:21px;font-weight:900;letter-spacing:.08em;line-height:1.35;} .ds-patch-sub{display:block;margin-top:6px;color:#33493F;font-size:14px;line-height:1.7;font-weight:600;} .ds-shield:focus-visible{outline:3px solid #33493F;outline-offset:4px;}"
+    },
+    {
+      "name": "Ribbon Rack",
+      "kind": "nav",
+      "refersTo": "ribbon-bar",
+      "description": "Quick entrances as striped ribbons butted edge to edge, labelled beneath; wraps intrinsically.",
+      "html": "<div class=\"ds-rack\"><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r1\"></span><span class=\"ds-rlabel\">招生專區</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r2\"></span><span class=\"ds-rlabel\">學術單位</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r3\"></span><span class=\"ds-rlabel\">學術資源</span></a></div>",
+      "css": ".ds-rack{display:flex;flex-wrap:wrap;margin:0 0 0 2px;padding:24px 0 8px;border-top:1.5px dashed #CFC6B9;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;} .ds-ribbon{flex:1 1 104px;display:block;margin:0 0 16px -2px;color:#33493F;text-decoration:none;} .ds-bar{display:block;height:40px;border:2px solid #33493F;} .ds-r1{background:linear-gradient(90deg,#A4B6AB 0% 34%,#F7F4EF 34% 39%,#33493F 39% 45%,#F7F4EF 45% 50%,#A4B6AB 50% 100%);} .ds-r2{background:linear-gradient(90deg,#D9B8B3 0% 20%,#33493F 20% 24%,#D9B8B3 24% 76%,#33493F 76% 80%,#D9B8B3 80% 100%);} .ds-r3{background:linear-gradient(90deg,#B9C6CC 0% 42%,#F7F4EF 42% 58%,#B9C6CC 58% 100%);} .ds-rlabel{display:block;margin-top:10px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:.06em;} .ds-ribbon:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
+    },
+    {
+      "name": "Route List",
+      "kind": "nav",
+      "refersTo": "route-list",
+      "description": "Stitched rows of destinations; rows, not cards.",
+      "html": "<div class=\"ds-routes\"><a class=\"ds-route\" href=\"#\"><span><b>院務公告</b><small>影響全院或跨系所的行政事項</small></span><i>›</i></a><a class=\"ds-route\" href=\"#\"><span><b>招生訊息</b><small>各學制招生消息與時程</small></span><i>›</i></a></div>",
+      "css": ".ds-routes{max-width:44em;border-bottom:1.5px dashed #CFC6B9;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;} .ds-route{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:16px 8px 16px 0;border-top:1.5px dashed #CFC6B9;text-decoration:none;color:#35322F;} .ds-route b{display:block;color:#33493F;font-weight:800;font-size:18px;letter-spacing:.04em;} .ds-route small{display:block;margin-top:2px;font-size:14px;line-height:1.7;color:#5E5852;} .ds-route i{font-style:normal;flex:none;color:#33493F;font-size:22px;} .ds-route:focus-visible{outline:2px solid #33493F;outline-offset:2px;}"
+    },
+    {
+      "name": "Year Patch Timeline",
+      "kind": "custom",
+      "refersTo": "year-patch",
+      "description": "History as round year patches strung on one thread, oldest first.",
+      "html": "<div class=\"ds-tl\"><div class=\"ds-thread\"></div><div class=\"ds-ev\"><span class=\"ds-year ds-c\">1943</span><div><h4>上海江灣「高級護理職業班」</h4><p>周美玉將軍創立。</p></div></div><div class=\"ds-ev\"><span class=\"ds-year ds-d\">1947</span><div><h4>設立護理學系</h4><p>我國首創之護理高等學府。</p></div></div></div>",
+      "css": ".ds-tl{position:relative;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;color:#35322F;} .ds-thread{position:absolute;left:40px;top:0;bottom:0;width:3px;background:#33493F;} .ds-ev{display:flex;gap:24px;position:relative;padding-bottom:32px;} .ds-year{flex:none;position:relative;width:84px;height:84px;border-radius:50%;border:5px solid #33493F;outline:1.5px dashed rgba(51,73,63,.45);outline-offset:-10px;display:flex;align-items:center;justify-content:center;color:#33493F;font-weight:900;font-size:17px;letter-spacing:.04em;} .ds-c{background:#A4B6AB;} .ds-d{background:#D9B8B3;} .ds-ev h4{margin:24px 0 6px;color:#33493F;font-size:19px;line-height:1.5;font-weight:700;} .ds-ev p{margin:0;font-size:16.5px;line-height:1.85;}"
+    },
+    {
+      "name": "Status Stamp",
+      "kind": "chip",
+      "refersTo": "status-stamp",
+      "description": "Closes every page with last-updated date and owner.",
+      "html": "<span class=\"ds-stamp\">最後更新 2026-09-29　｜　維護：院窗口</span>",
+      "css": ".ds-stamp{display:inline-block;padding:6px 12px;border:1.5px dashed #CFC6B9;border-radius:4px;background:#F7F4EF;color:#5E5852;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-size:14px;line-height:1.7;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Uniform Roll",
+    "overview": "The only military nursing college in Taiwan speaks through its uniform's identity system. The page is a length of oatmeal twill with a fine 45° weave. Section headings are off-white name tapes sewn onto it, each carrying a short selvedge of its unit's cloth. Units are embroidered patches with a thick merrowed edge in thread colour and a dashed stitch line inset. The quick entrances are a ribbon rack. Everything reads as cloth and thread, flat and orderly, the way a uniform reads.\n\nThe system is quiet by construction. Colour is Morandi (warm ground, cool cloth) and one deep-rose thread is reserved for the single primary action in view. Depth comes only from cloth layered on cloth: a backing cut to the same outline, a rocker tab stitched above a shield, year patches strung on one thread. Nothing floats. Density is reading density: one column of about 40em inside the university's ~800px content column, with stitched ledgers (dashed rows) in place of card grids.\n\nIt is built entirely inside a hostile CMS. There is no `<style>`, `<svg>`, `section/article/details/summary` or script; the server strips them. Every rule lives as inline style generated from `tokens.py`, responsiveness comes only from Bootstrap 5.0.2 classes, icons only from FontAwesome 4.7, and type only from the system CJK stack (no `@font-face`). Confirmed rejections: the category default of photo hero + three equal cards + news list, and the College of Pharmacy page's emoji card grid.",
+    "keyCharacteristics": [
+      "Twill ground, name-tape headings, patch units, ribbon-rack entrances.",
+      "Unit identity derived from one token seed: college sage, department pink, institute blue.",
+      "One rose accent per view, reserved for the primary action.",
+      "Flat cloth; depth by layering on the 8px grid, never by shadow.",
+      "Stitched dashed rules as the universal divider.",
+      "Every page ends with an honest status stamp: last updated and owner.",
+      "Inline style only; Bootstrap 5.0.2 and FontAwesome 4.7 are the only libraries."
+    ],
+    "rules": [
+      {
+        "name": "The Single Seed Rule",
+        "body": "Unit colour is never picked per page. It comes from `UNIT` in `tokens.py` (college, dept, inst); a patch, selvedge or year patch names its unit and inherits its cloth.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Rose Rule",
+        "body": "Rose appears on one primary action per view. Secondary actions are sage-outlined or underlined text links.",
+        "section": "colors"
+      },
+      {
+        "name": "The Checked Pair Rule",
+        "body": "A new foreground/background pair is added to `TEXT_PAIRS` and must pass `python tokens.py` (4.5:1) before it ships. Thread on sage is the tightest passing pair (4.55); do not lighten either.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sewn Heading Rule",
+        "body": "A section heading is a name tape; there is no separate eyebrow or kicker above it. The only text stitched above a patch is a rocker tab carrying the parent institution's name, as on a real shoulder patch.",
+        "section": "typography"
+      },
+      {
+        "name": "The System Stack Rule",
+        "body": "No web fonts. Weight and letter-spacing do the display work the platform will not let a typeface do.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sewn, Not Floating Rule",
+        "body": "When something needs to sit forward, give it another layer of cloth behind it. Never a shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Thread Rule",
+        "body": "History is year patches strung on a single 3px thread, oldest first. Entries do not physically overlap each other; entries of real length cannot.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** generate every colour, space and type value from `tokens.py`; add a new text pair to `TEXT_PAIRS` and run `python tokens.py`.",
+      "**Do** open each section with a name tape carrying its unit's selvedge.",
+      "**Do** give each unit its own cloth: college sage, department pink, institute blue.",
+      "**Do** keep one rose primary action per view; everything else is thread.",
+      "**Do** separate rows with 1.5px dashed stitch lines in the rule colour.",
+      "**Do** wrap content-driven rows with intrinsic flex (`flex: 1 1 Npx`) and split columns with explicit `col-md-N`.",
+      "**Do** end every page with the status stamp naming the date and owner.",
+      "**Do** run `python build.py`; it fails any page containing `<style>`, `<svg>`, `<section>`, `<article>`, `<details>`, `<summary>` or `<script>`."
+    ],
+    "donts": [
+      "**Don't** use drop shadows, glows, or decorative gradients; depth is layered cloth.",
+      "**Don't** lay routes out as equal card grids or use emoji as icons; use stitched ledgers and FontAwesome 4.7.",
+      "**Don't** put an eyebrow or kicker above a heading; the name tape is the heading.",
+      "**Don't** load web fonts or rely on `<style>`, `<svg>`, collapsibles or scripts; the CMS strips them.",
+      "**Don't** use auto `.col-md`; the site's Bootstrap ordering breaks it.",
+      "**Don't** overlap timeline entries; string them on one thread.",
+      "**Don't** ship with draft marks; publish from `python build.py --final`."
+    ]
+  }
+}
