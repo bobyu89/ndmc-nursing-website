@@ -1,6 +1,8 @@
 """Uniform-identity components. Every function returns a CMS-safe HTML string:
 inline styles, Bootstrap 5.0.2 classes, FontAwesome 4 icons, <img>; never <style>, <svg>, <section>, <details>."""
 
+import re
+
 from tokens import C, S, TYPE, FONT, TWILL_BG, UNIT
 
 DRAFT_MARKS = True
@@ -11,6 +13,11 @@ UPDATED = "待確認"
 
 def _join(parts):
     return "\n".join(p for p in parts if p)
+
+
+def _tr(v):
+    """Letter-spacing that suits the script: open tracking for CJK, near-default for Latin."""
+    return ".01em" if SITE_LANG == "en" else v
 
 
 def icon(name):
@@ -48,9 +55,19 @@ def draft(text):
 
 # ---------- type ----------
 
+def _phrases(text):
+    """Wrap each CJK phrase (split after ，、：；) in an inline-block span so lines only break between phrases."""
+    cut = text.find("<")
+    head, tail = (text, "") if cut < 0 else (text[:cut], text[cut:])
+    parts = [p for p in re.split(r"(?<=[，、：；])", head) if p]
+    if len(parts) < 2:
+        return text
+    return "".join(f'<span style="display:inline-block;max-width:100%;">{p}</span>' for p in parts) + tail
+
+
 def statement(text, sub=None):
     """The page's opening claim, in words, before any image."""
-    out = f'<h2 style="margin:0 0 {S[2]};color:{C["thread"]};{TYPE["display"]}">{text}</h2>'
+    out = f'<h2 style="margin:0 0 {S[2]};color:{C["thread"]};text-wrap:balance;{TYPE["display"]}">{_phrases(text)}</h2>'
     if sub:
         out += f'\n<p style="margin:0 0 {S[3]};max-width:34em;font-size:18px;line-height:1.8;color:{C["ink"]};">{sub}</p>'
     return out
@@ -61,7 +78,7 @@ def name_tape(text, level=3, unit=None, top=S[8]):
     cloth = UNIT[unit or SITE_UNIT]["cloth"]
     return (
         f'<h{level} style="display:inline-flex;align-items:center;gap:12px;margin:{top} 0 {S[3]};padding:11px 18px 10px 12px;'
-        f'background:{C["tape"]};color:{C["thread"]};font-size:25.5px;line-height:1.2;font-weight:900;letter-spacing:.1em;'
+        f'background:{C["tape"]};color:{C["thread"]};font-size:25.5px;line-height:1.2;font-weight:900;letter-spacing:{_tr(".1em")};'
         f'border:1px solid {C["rule"]};border-radius:2px;outline:1px dashed rgba(51,73,63,.35);outline-offset:-5px;">'
         f'<span aria-hidden="true" style="flex:none;width:14px;height:26px;background:{cloth};border:1.5px solid {C["thread"]};border-radius:1px;"></span>'
         f'{text}</h{level}>'
@@ -74,11 +91,11 @@ def h4(text):
 
 def p(text, muted=False):
     color = C["ink_soft"] if muted else C["ink"]
-    return f'<p style="margin:0 0 {S[2]};max-width:40em;color:{color};">{text}</p>'
+    return f'<p style="margin:0 0 {S[2]};max-width:40em;color:{color};overflow-wrap:anywhere;">{text}</p>'
 
 
 def bullets(items):
-    lis = "".join(f'<li style="margin:0 0 {S[1]};">{t}</li>' for t in items)
+    lis = "".join(f'<li style="margin:0 0 {S[1]};overflow-wrap:anywhere;">{t}</li>' for t in items)
     return f'<ul style="margin:0 0 {S[3]};padding-left:1.3em;max-width:40em;">{lis}</ul>'
 
 
@@ -96,7 +113,7 @@ def button(label, href, primary=True):
         style = (f'background:transparent;color:{C["thread"]};border:2px solid {C["thread"]};')
     return (
         f'<a href="{href}" style="display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;'
-        f'{style}border-radius:3px;font-weight:800;font-size:16px;letter-spacing:.06em;text-decoration:none;">'
+        f'{style}border-radius:3px;font-weight:800;font-size:16px;letter-spacing:{_tr(".06em")};text-decoration:none;">'
         f'{label}&nbsp;{icon("long-arrow-right")}</a>'
     )
 
@@ -157,10 +174,11 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
         "tab": "8px",
     }[shape]
     pad_bottom = S[6] if shape == "shield" else S[3]
+    pad_x = S[1] if shape == "tab" else S[3]
     inner = ""
     if illo:
         inner += f'<div style="margin:0 auto {S[2]};width:78%;">{illo}</div>'
-    inner += (f'<span style="display:block;color:{C["thread"]};font-size:21px;font-weight:900;letter-spacing:.08em;'
+    inner += (f'<span style="display:block;color:{C["thread"]};font-size:clamp(16px,4.6vw,21px);font-weight:900;letter-spacing:{_tr(".06em")};word-break:keep-all;'
               f'line-height:1.35;">{title}</span>')
     if sub:
         inner += f'<span style="display:block;margin-top:6px;color:{C["thread"]};{TYPE["small"]}font-weight:600;">{sub}</span>'
@@ -168,7 +186,7 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
         inner += f'<span style="display:inline-block;margin-top:{S[1]};color:{C["thread"]};font-size:20px;">{icon("arrow-circle-right")}</span>'
     box = (
         f'display:block;position:relative;width:{width};background:{cloth};border:6px solid {C["thread"]};border-radius:{radius};'
-        f'outline:2px dashed rgba(247,244,239,.85);outline-offset:-13px;padding:{S[4]} {S[3]} {pad_bottom};'
+        f'outline:2px dashed rgba(247,244,239,.85);outline-offset:-13px;padding:{S[4]} {pad_x} {pad_bottom};'
         f'text-align:center;text-decoration:none;'
     )
     if shape == "round":
@@ -202,14 +220,16 @@ def _stripes(bands):
 
 
 def ribbon_bar(items):
-    """Quick entrances as a ribbon rack: ribbons butted edge to edge, each labelled beneath. [(label, href), ...]"""
+    """Quick entrances as a ribbon rack: ribbons butted edge to edge, each labelled beneath. [(label, href), ...]
+    Four ribbons wrap 2+2 on phones; five wrap 3+2."""
+    basis = "140px" if len(items) == 4 else "104px"
     cells = []
     for i, (label, href) in enumerate(items):
         stripes = _stripes(RIBBON_STRIPES[i % len(RIBBON_STRIPES)])
         cells.append(
-            f'<a href="{href}" style="flex:1 1 104px;display:block;text-decoration:none;color:{C["thread"]};margin:0 0 {S[2]} -2px;">'
+            f'<a href="{href}" style="flex:1 1 {basis};display:block;text-decoration:none;color:{C["thread"]};margin:0 0 {S[2]} -2px;">'
             f'<span style="display:block;height:40px;background:{stripes};border:2px solid {C["thread"]};"></span>'
-            f'<span style="display:block;margin-top:10px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:.06em;">{label}</span></a>'
+            f'<span style="display:block;margin-top:10px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:{_tr(".06em")};">{label}</span></a>'
         )
     return (
         f'<div style="display:flex;flex-wrap:wrap;margin:{S[5]} 0 0 2px;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
@@ -223,7 +243,7 @@ def route_list(items, unit="college"):
         rows.append(
             f'<a href="{href}" style="display:flex;align-items:center;justify-content:space-between;gap:{S[2]};'
             f'padding:{S[2]} {S[1]} {S[2]} 0;min-height:56px;border-top:1.5px dashed {C["rule"]};text-decoration:none;color:{C["ink"]};">'
-            f'<span><span style="display:block;color:{C["thread"]};font-weight:800;font-size:18px;letter-spacing:.04em;">{title}</span>'
+            f'<span><span style="display:block;color:{C["thread"]};font-weight:800;font-size:18px;letter-spacing:{_tr(".04em")};">{title}</span>'
             + (f'<span style="display:block;margin-top:2px;{TYPE["small"]}color:{C["ink_soft"]};">{desc}</span>' if desc else "")
             + f'</span><span style="flex:none;color:{C["thread"]};font-size:22px;">{icon("angle-right")}</span></a>'
         )
@@ -242,12 +262,12 @@ def split(left, right, cols=(7, 5), reverse=False, align="center"):
     )
 
 
-def feature_lead(title, text_blocks, illo, unit="college", href=None, link_label="了解更多"):
+def feature_lead(title, text_blocks, illo, unit="college", href=None, link_label=None):
     """The one feature that leads: big patch beside text, overlapping the tape surface."""
     body = _join([
         f'<h4 style="margin:0 0 {S[2]};color:{C["thread"]};font-size:26px;font-weight:900;line-height:1.35;">{title}</h4>',
         *text_blocks,
-        text_link(link_label, href) if href else "",
+        text_link(link_label or ("Learn more" if SITE_LANG == "en" else "了解更多"), href) if href else "",
     ])
     return split(body, f'<div class="mx-auto" style="max-width:300px;">{patch(title, unit=unit, illo=illo, backing=C["tape"])}</div>', cols=(7, 5))
 
@@ -290,7 +310,7 @@ def timeline(events):
             f'<div class="d-flex" style="gap:{S[3]};position:relative;padding-bottom:{S[4]};">'
             f'<span style="flex:none;position:relative;z-index:{i + 1};width:84px;height:84px;border-radius:50%;background:{cloth};'
             f'border:5px solid {C["thread"]};outline:1.5px dashed rgba(51,73,63,.45);outline-offset:-10px;display:flex;'
-            f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:17px;letter-spacing:.04em;">{year}</span>'
+            f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:17px;letter-spacing:{_tr(".04em")};">{year}</span>'
             f'<div style="padding-top:{S[3]};"><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
             f'<p style="margin:0;max-width:36em;">{text}</p></div></div>'
         )
@@ -334,12 +354,17 @@ def faq_index(items, prefix="q"):
     )
     return f'<ol style="margin:0 0 {S[4]};padding-left:1.4em;max-width:40em;color:{C["thread"]};">{lis}</ol>'
 
+def _label_width(label):
+    plain = re.sub(r"<[^>]+>", "", label)
+    return "white-space:nowrap;" if len(plain) <= 7 else "width:40%;"
+
+
 def facts(rows):
     """Label/value ledger, e.g. contact details: [(label, value_html), ...]."""
     trs = "".join(
-        f'<tr><th scope="row" style="padding:{S[2]} {S[3]} {S[2]} 0;vertical-align:top;white-space:nowrap;color:{C["thread"]};'
+        f'<tr><th scope="row" style="padding:{S[2]} {S[3]} {S[2]} 0;vertical-align:top;{_label_width(k)}color:{C["thread"]};'
         f'font-weight:800;border-top:1.5px dashed {C["rule"]};">{k}</th>'
-        f'<td style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};">{v}</td></tr>'
+        f'<td style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};overflow-wrap:anywhere;">{v}</td></tr>'
         for k, v in rows
     )
     return f'<table style="width:100%;max-width:44em;border-collapse:collapse;margin:0 0 {S[4]};">{trs}</table>'
@@ -354,7 +379,7 @@ def org_tree(head, branches, head_unit=None):
             f'<li style="padding:6px 8px;border-top:1px dashed {C["rule"]};{TYPE["small"]}">{k}</li>' for k in children
         )
         cols.append(
-            f'<div style="flex:1 1 180px;position:relative;z-index:1;">'
+            f'<div style="flex:1 1 0;min-width:0;position:relative;z-index:1;margin-bottom:{S[3]};">'
             f'<div aria-hidden="true" style="width:3px;height:{S[3]};margin:0 auto;background:{C["thread"]};"></div>'
             f'{patch(title, unit=unit, shape="tab")}'
             + (f'<ul style="list-style:none;margin:{S[2]} 0 0;padding:0;background:{C["tape"]};border:1px solid {C["rule"]};border-radius:3px;">{kids}</ul>' if kids else "")
@@ -365,8 +390,8 @@ def org_tree(head, branches, head_unit=None):
         f'<div aria-hidden="true" class="d-md-none" style="position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:{C["thread"]};"></div>'
         f'<div style="position:relative;z-index:1;max-width:320px;margin:0 auto;">{patch(head, unit=head_unit or SITE_UNIT, shape="tab")}</div>'
         f'<div aria-hidden="true" class="d-none d-md-block" style="width:3px;height:{S[3]};background:{C["thread"]};margin:0 auto;"></div>'
-        f'<div aria-hidden="true" class="d-none d-md-block" style="height:3px;background:{C["thread"]};margin:0 90px;"></div>'
-        f'<div style="display:flex;flex-wrap:wrap;gap:{S[3]};">'
+        f'<div aria-hidden="true" class="d-none d-md-block" style="height:3px;background:{C["thread"]};margin:0 calc((100% - {len(branches) - 1} * {S[2]}) / {2 * len(branches)});"></div>'
+        f'<div class="d-md-flex" style="gap:{S[2]};">'
         + "".join(cols) + "</div></div>"
     )
 

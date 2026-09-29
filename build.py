@@ -34,6 +34,14 @@ CHROME = """<!doctype html><html lang="{lang}"><head><meta charset="utf-8">
 </div></body></html>"""
 
 
+LINK_STYLE = "color:#33493F;font-weight:700;text-decoration:underline;text-underline-offset:4px;"
+
+
+def theme_bare_links(html):
+    """Any <a> written without a style gets the site's thread link style instead of the chrome's default blue."""
+    return re.sub(r'<a href="([^"]*)">', lambda m: f'<a href="{m.group(1)}" style="{LINK_STYLE}">', html)
+
+
 def cms_normalize(html):
     """Apply the CMS server's save filter (verified byte-for-byte on test node 7696): <i> -> <em>, aria-*/role dropped."""
     html = re.sub(r'<i class="([^"]+)" aria-hidden="true"></i>', r'<em class="\1"></em>', html)
@@ -65,7 +73,7 @@ def main(final=False):
         site = meta.get("site", "college")
         components.SITE_UNIT = site.replace("en_", "")
         components.SITE_LANG = "en" if site.startswith("en_") else "zh"
-        html = cms_normalize(m.render())
+        html = cms_normalize(theme_bare_links(m.render()))
         for pat in FORBIDDEN:
             if re.search(pat, html, re.I):
                 print(f"FORBIDDEN {pat} in {meta['id']}")
