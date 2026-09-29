@@ -1,0 +1,132 @@
+{
+  "title": "護理學院網站：選定視覺世界",
+  "question": "抽籤指定「制服名條與臂章」。保留、改選其他卡，或重抽。",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "制服名條與臂章",
+      "kicker": "THE ROLL",
+      "lineage": "國軍制服識別系統：白底名條、刺繡單位臂章、勳表條",
+      "thesis": "全台唯一的軍護學院，用制服上的識別系統說話：每個單位是一枚臂章，每個段落有一條名條。",
+      "palette": ["#EDE7DE", "#8FA69A", "#3F5A4E", "#F6F3EE", "#D9B8B3", "#8C5A5A"],
+      "materials": ["斜紋布（燕麥與鼠尾草）", "鎖邊刺繡臂章", "白底名條", "勳表色條"],
+      "viewport": "燕麥斜紋底上一句學院定位大字；右側疊一枚大型學院臂章（手繪插圖佔位）；下方一條勳表色條就是五個快速入口。",
+      "risk": "做得太字面會像軍品店；臂章與名條必須保持功能（單位入口、段落標籤），不能只是裝飾。",
+      "raised": [
+        {"from": "Łowicz 剪紙", "raise": "深度只靠平色塊錯位疊壓，全站不用陰影、不用漸層：臂章縫在布面上是疊出來的，不是浮起來的。"},
+        {"from": "示波器訊號台", "raise": "所有段落對齊同一套 8px 量尺格線，名條、臂章、文字欄都以格線為準，不隨意置中。"},
+        {"from": "Cyworld 小窩", "raise": "每頁頁尾一枚誠實的小狀態章：更新日期與負責單位，對應 UI/UX 準則九。"},
+        {"from": "貼紙堆疊", "raise": "歷史沿革以年代疊縫臂章呈現，越早的越底層，時間就是深度。"},
+        {"from": "參數化識別", "raise": "單一 tokens 種子衍生三站單位色：學院鼠尾草、學系灰粉、研究所霧藍，臂章與站色同步。"},
+        {"from": "吸積盤", "raise": "每個畫面只留一個勳表強調色給主要行動，其餘一律中性。"}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "醫院地板動線",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "醫院地板彩色指引線與樓層標示",
+      "thesis": "每種訪客一條地板色線：考生走綠線、家長走粉線、在校生走藍線，一路帶到要去的地方。",
+      "palette": ["#F6F3EE", "#8FA69A", "#D9B8B3", "#B9C6CC", "#3B3835"],
+      "materials": ["地坪色線", "樓層指示牌", "圓角號碼標"],
+      "viewport": "定位文字下方三條平行色線橫過畫面，各自標著「我是考生／家長／在校生」並延伸到入口。",
+      "risk": "最直覺也最熟悉，很多大學受眾分流頁都長這樣；軍護特色要靠文字補。"
+    },
+    {
+      "id": "challenger-oscilloscope",
+      "label": "示波器訊號台",
+      "verdict": "declined",
+      "lineage": "CRT 示波器與格線刻度",
+      "thesis": "把生命徵象監視器當介面，一切量在格線上。",
+      "palette": ["#0B0F0C", "#39FF6A", "#6B7A70", "#F2A93B"],
+      "materials": ["磷光", "蝕刻格線"],
+      "viewport": "黑底監視器上一條心電圖描出學院名稱。",
+      "case": "護生認得監視器，但黑底螢光違反已選定的莫蘭迪，且說不出軍護特色。",
+      "risk": "像科技展，不像學院。",
+      "kept": "嚴格的量尺格線紀律。",
+      "hero": "https://impeccable.style/worlds/cards/scientific-notation-oscilloscope-signal-bench-hero.webp"
+    },
+    {
+      "id": "challenger-minihompy",
+      "label": "Cyworld 小窩",
+      "verdict": "declined",
+      "lineage": "韓式個人小窩與訪客簿",
+      "thesis": "把學院當可佈置的等角小房間。",
+      "palette": ["#F4D9E4", "#CFE3F0", "#FFF6D8", "#7A6A8C"],
+      "materials": ["等角房間", "貼紙家具"],
+      "viewport": "一間示範病房的等角插圖，點家具進入各頁。",
+      "case": "粉彩與莫蘭迪相容，但台灣考生與家長不熟這個語彙，且等角圖在無 SVG 限制下難以維護。",
+      "risk": "像遊戲，不像招生。",
+      "kept": "誠實的小狀態章（更新日期、負責單位）。",
+      "hero": "https://impeccable.style/worlds/cards/cyworld-minihompy-room-hero.webp"
+    },
+    {
+      "id": "challenger-papercut",
+      "label": "Łowicz 剪紙",
+      "verdict": "declined",
+      "lineage": "波蘭層疊剪紙",
+      "thesis": "平色紙一層層貼上，沒有陰影也有深度。",
+      "palette": ["#D93A2B", "#2F7D4A", "#F2C230", "#1F3A93"],
+      "materials": ["平色紙", "對摺剪形"],
+      "viewport": "對稱剪紙圓章中嵌學院名稱。",
+      "case": "與受眾及軍護定位都沒有關聯。",
+      "risk": "民俗裝飾感蓋過資訊。",
+      "kept": "只用疊壓、不用陰影的深度紀律。",
+      "hero": "https://impeccable.style/worlds/cards/craft-making-lowicz-layered-papercut-hero.webp"
+    },
+    {
+      "id": "challenger-stickers",
+      "label": "貼紙堆疊",
+      "verdict": "declined",
+      "lineage": "巡演箱上層層覆蓋的貼紙",
+      "thesis": "時間就是深度，後貼的蓋住先貼的。",
+      "palette": ["#141414", "#E83F6F", "#FFD23F", "#3BCEAC"],
+      "materials": ["黑色箱面", "撕角貼紙"],
+      "viewport": "背包上縫滿歷屆臂章。",
+      "case": "「沒有一個標誌完整可讀」直接違反清楚優先。",
+      "risk": "可讀性崩潰。",
+      "kept": "以年代疊層呈現歷史。",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-layered-sticker-accretion-hero.webp"
+    },
+    {
+      "id": "challenger-generative",
+      "label": "參數化識別",
+      "verdict": "declined",
+      "lineage": "由種子生成的品牌系統",
+      "thesis": "一個種子推導全站配色與節奏。",
+      "palette": ["#5B6CFF", "#FF7A59", "#F7F7F2", "#1E1E24"],
+      "materials": ["向量平面", "動態標誌"],
+      "viewport": "會隨參數重繪的學院標誌。",
+      "case": "需要 JS 與 SVG，CMS 都會洗掉；受眾也不需要會變的標誌。",
+      "risk": "技術上做不出來。",
+      "kept": "單一 tokens 種子衍生三站單位色。",
+      "hero": "https://impeccable.style/worlds/cards/generative-parametric-identity-hero.webp"
+    },
+    {
+      "id": "challenger-accretion",
+      "label": "吸積盤",
+      "verdict": "declined",
+      "lineage": "黑洞吸積盤影像",
+      "thesis": "物質越過不可逆的邊界。",
+      "palette": ["#000000", "#9EC9FF", "#E0563B", "#E8C15A"],
+      "materials": ["光環", "著色器"],
+      "viewport": "中心留黑，標籤環繞。",
+      "case": "與護理、軍護、受眾皆無關。",
+      "risk": "完全失焦。",
+      "kept": "每畫面只留一個強調色給主要行動。",
+      "hero": "https://impeccable.style/worlds/cards/galaxies-nebulae-deep-time-accretion-disk-threshold-hero.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "label": "大學學院網站標準版",
+    "thesis": "大學學院首頁的標準做法，做到最精緻。",
+    "palette": ["#FFFFFF", "#1F2937", "#3F5A4E"],
+    "materials": ["整齊格線", "照片主視覺"],
+    "viewport": "大照片、學院簡介、三格入口、最新消息。",
+    "risk": "與藥學院及其他學院無從區分。"
+  },
+  "steer": true
+}
