@@ -56,12 +56,20 @@ def draft(text):
 # ---------- type ----------
 
 def _phrases(text):
-    """Wrap each CJK phrase (split after ，、：；) in an inline-block span so lines only break between phrases."""
+    """Wrap each CJK phrase in an inline-block span so lines only break between phrases.
+    Phrases split after ，、：； and at an author hint ｜ (removed from output); phrases under 4 characters
+    merge into the next so no short fragment sits alone on a line."""
     cut = text.find("<")
     head, tail = (text, "") if cut < 0 else (text[:cut], text[cut:])
-    parts = [p for p in re.split(r"(?<=[，、：；])", head) if p]
+    raw = [p for p in re.split(r"(?<=[，、：；])|｜", head) if p]
+    parts = []
+    for p in raw:
+        if parts and len(parts[-1]) < 4:
+            parts[-1] += p
+        else:
+            parts.append(p)
     if len(parts) < 2:
-        return text
+        return head + tail
     return "".join(f'<span style="display:inline-block;max-width:100%;">{p}</span>' for p in parts) + tail
 
 
@@ -355,8 +363,10 @@ def faq_index(items, prefix="q"):
     return f'<ol style="margin:0 0 {S[4]};padding-left:1.4em;max-width:40em;color:{C["thread"]};">{lis}</ol>'
 
 def _label_width(label):
+    """Short labels stay on one line; digits and Latin count as half a CJK character."""
     plain = re.sub(r"<[^>]+>", "", label)
-    return "white-space:nowrap;" if len(plain) <= 7 else "width:40%;"
+    visual = sum(0.5 if ch.isascii() else 1 for ch in plain)
+    return "white-space:nowrap;" if visual <= 8 else "width:40%;"
 
 
 def facts(rows):

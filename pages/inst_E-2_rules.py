@@ -19,7 +19,7 @@ def _source(text, href, label):
 
 def render():
     opening = statement(
-        draft("學分、年限與畢業條件，看你入學那一年的規定。"),
+        draft("學分、年限與畢業條件，看你入學｜那一年的規定。"),
         draft("以下規定逐字取自研究所學生專區，完整內容以研究生手冊為準。先找到你的入學學年度與學組，再對照學分表。"),
     )
 
