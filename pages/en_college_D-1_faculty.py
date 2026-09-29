@@ -116,7 +116,7 @@ GROUPS = ["Dean", "Chair and Director", "Professors", "Associate Professors", "A
 def _name(en, zh_name):
     """Plain text only: _roster() also uses the name as the photo slot's label attribute.
     Never a Chinese-only name: a missing English name shows a visible placeholder that survives --final."""
-    return f"{en}　{zh_name}" if en else f"〔English name pending〕 ({zh_name})"
+    return f"{en}　{zh_name}" if en else f"[English name pending] ({zh_name})"
 
 
 def _fields(degree, specialty, pid):
@@ -139,7 +139,7 @@ def _roster(people):
     for name, rank, unit, fields in people:
         rows.append(
             f'<div class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
-            f'<div class="col-12 col-md-2"><div style="max-width:96px;">{photo_slot(name, "3/4")}</div></div>'
+            f'<div class="col-12 col-md-2"><div style="max-width:128px;">{photo_slot(name, "3/4")}</div></div>'
             f'<div class="col-12 col-md-10">'
             f'<span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;word-break:keep-all;'
             f'overflow-wrap:normal;">{name}</span>'
@@ -179,7 +179,7 @@ def render():
     return page(
         opening,
         name_tape("Full-time Faculty"),
-        note("莊蕙婉老師不在學校英文師資頁上，名單暫列「〔English name pending〕 (莊蕙婉)」（正式版也會顯示），"
+        note("莊蕙婉老師不在學校英文師資頁上，名單暫列「[English name pending] (莊蕙婉)」（正式版也會顯示），"
              "請院窗口提供老師本人確認的正式英文姓名拼法（羅馬拼音）與英文個人頁，收到後替換。"
              "馮欣蓓老師職級：中文名單列副教授，中英文個人頁皆寫助理教授，請確認（暫依名單列副教授並標待確認）。"
              "照片可沿用各教師個人頁大頭照。"),
