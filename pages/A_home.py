@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo_slot,
-                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note)
+                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note, backed)
 from links import L
 
 META = {"id": "A", "slug": "home", "title": "護理學院", "owner": "院窗口"}
@@ -8,7 +8,6 @@ META = {"id": "A", "slug": "home", "title": "護理學院", "owner": "院窗口"
 def render():
     opening = split(
         "".join([
-            name_tape("國防醫學大學　護理學院", level=3, top="0"),
             statement(
                 draft("在這裡，護理師也是軍官。"),
                 draft("我們培育能在醫院照護病人、也能在戰傷與災難現場執行任務的軍護人才。"
@@ -16,8 +15,8 @@ def render():
             ),
             actions(button("招生專區", L("F")), text_link("認識本院", L("C"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch("護理學院", "College of Nursing", unit="college",
-              illo=illo_slot("身著制服的護理師（CocoMaterial，重新上色）", "1/1")) + "</div>",
+        '<div class="mx-auto" style="width:72%;max-width:320px;">' + backed(patch("護理學院", "College of Nursing", unit="college",
+              illo=illo_slot("身著制服的護理師（CocoMaterial，重新上色）", "1/1"), tab="國防醫學大學"), None, 12) + "</div>",
         cols=(7, 5),
     )
 
@@ -52,9 +51,9 @@ def render():
         href=L("E-2"), link_label="學術研究",
     )
     others = feature_list([
-        ("戰傷與災難護理", draft("以戰傷救護與大量傷患應變為研究與教學重點，連結模擬教學與實地演練。"), L("E-2"), "college"),
-        ("國際交流", draft("與國外護理院校互訪、學生短期交流與學者來訪。"), L("G"), "inst"),
-        ("研究能量", draft("教師研究計畫與代表成果，由研究所研究成果頁完整呈現。"), L("E-2"), "dept"),
+        ("戰傷與災難護理", draft("以戰傷救護與大量傷患應變為研究與教學重點，連結模擬教學與實地演練。"), L("E-2"), "college", "戰"),
+        ("國際交流", draft("與國外護理院校互訪、學生短期交流與學者來訪。"), L("G"), "college", "際"),
+        ("研究能量", draft("教師研究計畫與代表成果，由研究所研究成果頁完整呈現。"), L("E-2"), "inst", "研"),
     ])
 
     news = route_list([

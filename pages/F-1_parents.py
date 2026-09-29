@@ -1,4 +1,4 @@
-from components import page, name_tape, statement, p, text_link, actions, faq, facts, draft, note
+from components import page, name_tape, statement, p, text_link, actions, faq, faq_index, facts, draft, note
 from links import L
 
 META = {"id": "F-1", "slug": "parents", "title": "家長資訊", "owner": "院窗口"}
@@ -105,11 +105,13 @@ def render():
     ]
 
     return page(
+        opening,
+        actions(text_link("招生專區：三種學制", L("F")), text_link("暑期營隊", L("F-2"))),
         note("公費、服役、授階、分發等內容可公開到什麼程度尚未決定。全頁上線前，須由院窗口確認每一題的可公開範圍。"
              "標示「簡章原文」者，逐字摘自《115 學年度軍事學校正期班甄選入學招生簡章》（" + U_BROCHURE + "）；"
              "其餘文字為草稿。"),
-        opening,
-        actions(text_link("招生專區：三種學制", L("F")), text_link("暑期營隊", L("F-2"))),
+        name_tape("九個問題"),
+        faq_index(items),
         name_tape("常見問題"),
         faq(items),
         owner=META["owner"],

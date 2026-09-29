@@ -38,9 +38,8 @@ def draft(text):
         return text
     return (
         f'{text}<span style="display:inline-block;margin-left:6px;padding:0 6px;{TYPE["small"]}font-weight:700;'
-        f'color:{C["rose"]};background:{C["rose_pale"]};border-radius:3px;">待確認</span>'
+        f'color:{C["ink_soft"]};background:{C["tape"]};border:1px dashed {C["ink_soft"]};border-radius:3px;">待確認</span>'
     )
-
 
 # ---------- type ----------
 
@@ -79,12 +78,10 @@ def bullets(items):
 
 
 def tape_surface(*blocks):
-    """A long-reading passage laid on name-tape cloth, overlapping the twill."""
-    return (
-        f'<div style="background:{C["tape"]};border:1px solid {C["rule"]};border-radius:3px;'
-        f'padding:{S[4]} {S[4]} {S[2]};margin:0 0 {S[4]};">{_join(blocks)}</div>'
-    )
-
+    """A long-reading passage laid on name-tape cloth, sewn over an offset sage layer."""
+    inner = (f'<div style="background:{C["tape"]};border:1px solid {C["rule"]};border-radius:3px;'
+             f'padding:{S[4]} {S[4]} {S[2]};">{_join(blocks)}</div>')
+    return f'<div style="margin:0 0 {S[5]};">{backed(inner)}</div>'
 
 # ---------- actions ----------
 
@@ -136,9 +133,30 @@ def photo_slot(label, ratio="4/3"):
 
 # ---------- identity pieces ----------
 
-def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None, width="100%"):
-    """An embroidered unit patch: cloth, merrowed edge, stitched inset. Optionally a link."""
-    cloth = UNIT[unit]["cloth"]
+def backed(inner, cloth=None, offset=8):
+    """Depth by overlap: the block is sewn over a second flat cloth layer offset on the grid. No shadows."""
+    cloth = cloth or C["sage_pale"]
+    return (
+        f'<div style="position:relative;margin:0 {offset}px {offset}px 0;">'
+        f'<div aria-hidden="true" style="position:absolute;left:{offset}px;top:{offset}px;right:-{offset}px;bottom:-{offset}px;'
+        f'background:{cloth};border:1.5px dashed rgba(51,73,63,.4);border-radius:4px;"></div>'
+        f'<div style="position:relative;">{inner}</div></div>'
+    )
+
+
+def rocker(text):
+    """An arched tab sewn above a shield patch; carries the parent name instead of an eyebrow label."""
+    return (
+        f'<div style="position:relative;z-index:1;width:84%;margin:0 auto -10px;padding:12px 8px 14px;text-align:center;'
+        f'background:{C["tape"]};border:5px solid {C["thread"]};border-radius:50% 50% 8px 8px / 100% 100% 8px 8px;'
+        f'outline:1.5px dashed rgba(51,73,63,.45);outline-offset:-10px;color:{C["thread"]};font-weight:900;'
+        f'font-size:15px;letter-spacing:.2em;line-height:1.2;">{text}</div>'
+    )
+
+
+def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None, width="100%", tab=None):
+    """An embroidered unit patch: cloth, merrowed edge, stitched inset. Optionally a link and a rocker tab."""
+    cloth = C["tape"] if unit == "tape" else UNIT[unit]["cloth"]
     radius = {
         "shield": "14px 14px 48% 48% / 14px 14px 30% 30%",
         "round": "50%",
@@ -155,51 +173,48 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
     if href:
         inner += f'<span style="display:inline-block;margin-top:{S[1]};color:{C["thread"]};font-size:20px;">{icon("arrow-circle-right")}</span>'
     box = (
-        f'display:block;width:{width};background:{cloth};border:6px solid {C["thread"]};border-radius:{radius};'
+        f'display:block;position:relative;width:{width};background:{cloth};border:6px solid {C["thread"]};border-radius:{radius};'
         f'outline:2px dashed rgba(247,244,239,.85);outline-offset:-13px;padding:{S[4]} {S[3]} {pad_bottom};'
         f'text-align:center;text-decoration:none;'
     )
     if shape == "round":
         box += "aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;"
-    if href:
-        return f'<a href="{href}" style="{box}">{inner}</a>'
-    return f'<div style="{box}">{inner}</div>'
+    body = f'<a href="{href}" style="{box}">{inner}</a>' if href else f'<div style="{box}">{inner}</div>'
+    return (rocker(tab) + body) if tab else body
 
 
 RIBBON_STRIPES = [
-    [C["sage"], C["tape"], C["thread"], C["tape"], C["sage"]],
-    [C["pink"], C["rose"], C["pink"], C["rose"], C["pink"]],
-    [C["blue"], C["thread"], C["blue"], C["thread"], C["blue"]],
-    [C["tape"], C["sage"], C["rose"], C["sage"], C["tape"]],
-    [C["thread"], C["blue"], C["tape"], C["blue"], C["thread"]],
-    [C["rose"], C["tape"], C["sage"], C["tape"], C["rose"]],
+    [(C["sage"], 34), (C["tape"], 5), (C["thread"], 6), (C["tape"], 5), (C["sage"], 50)],
+    [(C["pink"], 20), (C["thread"], 4), (C["pink"], 52), (C["thread"], 4), (C["pink"], 20)],
+    [(C["blue"], 42), (C["tape"], 16), (C["blue"], 42)],
+    [(C["thread"], 10), (C["sage"], 80), (C["thread"], 10)],
+    [(C["tape"], 30), (C["blue"], 6), (C["thread"], 28), (C["blue"], 6), (C["tape"], 30)],
+    [(C["sage_pale"], 44), (C["thread"], 3), (C["sage_pale"], 6), (C["thread"], 3), (C["sage_pale"], 44)],
 ]
 
 
-def _stripes(colors):
-    n = len(colors)
-    stops = []
-    for i, col in enumerate(colors):
-        a, b = round(i * 100 / n, 2), round((i + 1) * 100 / n, 2)
-        stops.append(f"{col} {a}% {b}%")
+def _stripes(bands):
+    stops, a = [], 0
+    for col, w in bands:
+        stops.append(f"{col} {a}% {a + w}%")
+        a += w
     return "linear-gradient(90deg," + ",".join(stops) + ")"
 
 
 def ribbon_bar(items):
-    """Quick entrances as a ribbon bar: [(label, href), ...]. Stripes are material, not decoration."""
+    """Quick entrances as a ribbon rack: ribbons butted edge to edge, each labelled beneath. [(label, href), ...]"""
     cells = []
     for i, (label, href) in enumerate(items):
         stripes = _stripes(RIBBON_STRIPES[i % len(RIBBON_STRIPES)])
         cells.append(
-            f'<a href="{href}" style="flex:1 1 104px;display:block;text-decoration:none;color:{C["thread"]};padding:0 4px {S[2]};">'
-            f'<span style="display:block;height:30px;background:{stripes};border:1.5px solid {C["thread"]};border-radius:2px;"></span>'
+            f'<a href="{href}" style="flex:1 1 104px;display:block;text-decoration:none;color:{C["thread"]};margin:0 0 {S[2]} -2px;">'
+            f'<span style="display:block;height:40px;background:{stripes};border:2px solid {C["thread"]};"></span>'
             f'<span style="display:block;margin-top:10px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:.06em;">{label}</span></a>'
         )
     return (
-        f'<div style="display:flex;flex-wrap:wrap;margin:{S[5]} -4px 0;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
+        f'<div style="display:flex;flex-wrap:wrap;margin:{S[5]} 0 0 2px;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
         + "".join(cells) + "</div>"
     )
-
 
 def route_list(items, unit="college"):
     """Stitched list of destinations: [(title, desc, href), ...]. Rows, not cards."""
@@ -234,24 +249,27 @@ def feature_lead(title, text_blocks, illo, unit="college", href=None, link_label
         *text_blocks,
         text_link(link_label, href) if href else "",
     ])
-    return split(body, f'<div class="mx-auto" style="max-width:300px;">{patch(title, unit=unit, illo=illo)}</div>', cols=(7, 5))
+    cloth = UNIT[unit]["pale"] if unit in UNIT else None
+    return split(body, f'<div class="mx-auto" style="max-width:300px;">{backed(patch(title, unit=unit, illo=illo), cloth, 12)}</div>', cols=(7, 5))
 
 
 def feature_list(items):
-    """Secondary features as a stitched ledger: [(title, text, href, unit), ...] with small round patches."""
+    """Secondary features as a stitched ledger: [(title, text, href, unit[, mark]), ...]; each round patch carries a mark."""
     rows = []
-    for title, text, href, unit in items:
-        cloth = UNIT[unit]["cloth"]
+    for item in items:
+        title, text, href, unit = item[:4]
+        mark = item[4] if len(item) > 4 else title[0]
+        cloth = C["tape"] if unit == "tape" else UNIT[unit]["cloth"]
         rows.append(
             f'<div class="d-flex" style="gap:{S[3]};padding:{S[3]} 0;border-top:1.5px dashed {C["rule"]};">'
-            f'<span aria-hidden="true" style="flex:none;width:56px;height:56px;border-radius:50%;background:{cloth};'
-            f'border:4px solid {C["thread"]};outline:1.5px dashed rgba(247,244,239,.9);outline-offset:-9px;"></span>'
+            f'<span aria-hidden="true" style="flex:none;width:60px;height:60px;border-radius:50%;background:{cloth};'
+            f'border:4px solid {C["thread"]};outline:1.5px dashed rgba(247,244,239,.9);outline-offset:-9px;display:flex;'
+            f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:22px;">{mark}</span>'
             f'<div><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
             f'<p style="margin:0 0 6px;max-width:38em;">{text}</p>'
             + (text_link("前往", href) if href else "") + "</div></div>"
         )
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
-
 
 def unit_pair(units):
     """Peer units as two patches: [(unit, title, sub, href), ...]."""
@@ -262,23 +280,26 @@ def unit_pair(units):
 
 
 def timeline(events):
-    """History as year patches sewn along one thread: [(year, title, text), ...] oldest first."""
+    """History as year patches sewn along one thread, oldest first: [(year, title, text[, unit]), ...].
+    Each patch wears its unit's cloth (college/dept/inst); events owned by no unit wear tape cloth.
+    Each patch overlaps the one above it, so the years stack as they accrue."""
     rows = []
-    cloths = [C["sage"], C["pink"], C["blue"]]
-    for i, (year, title, text) in enumerate(events):
-        cloth = cloths[i % 3]
+    for i, ev in enumerate(events):
+        year, title, text = ev[:3]
+        unit = ev[3] if len(ev) > 3 else "tape"
+        cloth = C["tape"] if unit == "tape" else UNIT[unit]["cloth"]
+        lift = "" if i == 0 else f"margin-top:-{S[2]};"
         rows.append(
-            f'<div class="d-flex" style="gap:{S[3]};position:relative;padding-bottom:{S[4]};">'
-            f'<span style="flex:none;position:relative;z-index:1;width:84px;height:84px;border-radius:50%;background:{cloth};'
-            f'border:5px solid {C["thread"]};outline:1.5px dashed rgba(247,244,239,.9);outline-offset:-10px;display:flex;'
+            f'<div class="d-flex" style="gap:{S[3]};position:relative;padding-bottom:{S[4]};{lift}">'
+            f'<span style="flex:none;position:relative;z-index:{i + 1};width:84px;height:84px;border-radius:50%;background:{cloth};'
+            f'border:5px solid {C["thread"]};outline:1.5px dashed rgba(51,73,63,.45);outline-offset:-10px;display:flex;'
             f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:17px;letter-spacing:.04em;">{year}</span>'
-            f'<div style="padding-top:{S[2]};"><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
+            f'<div style="padding-top:{S[3]};"><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
             f'<p style="margin:0;max-width:36em;">{text}</p></div></div>'
         )
     return (f'<div style="position:relative;margin:0 0 {S[4]};">'
             f'<div aria-hidden="true" style="position:absolute;left:40px;top:0;bottom:0;width:3px;background:{C["thread"]};"></div>'
             + "".join(rows) + "</div>")
-
 
 def roster(people):
     """Unit roster rows: [(name, rank, unit, fields, href), ...]. Photo 3:4 left."""
@@ -286,8 +307,8 @@ def roster(people):
     for name, rank, unit, fields, href in people:
         rows.append(
             f'<div class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
-            f'<div class="col-3 col-md-2">{photo_slot(name, "3/4")}</div>'
-            f'<div class="col-9 col-md-10"><span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;">{name}'
+            f'<div class="col-4 col-md-2">{photo_slot(name, "3/4")}</div>'
+            f'<div class="col-8 col-md-10"><span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;">{name}'
             f'<span style="margin-left:10px;{TYPE["small"]}font-weight:700;color:{C["ink_soft"]};">{rank}｜{unit}</span></span>'
             f'<span style="display:block;margin-top:4px;">{fields}</span>'
             + (text_link("個人研究頁", href) if href else "") + "</div></div>"
@@ -295,17 +316,26 @@ def roster(people):
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
 
 
-def faq(items):
-    """Questions fully expanded (no collapse available): [(q, a_html), ...]."""
+def faq(items, prefix="q"):
+    """Questions fully expanded (no collapse available): [(q, a_html), ...]. Each question carries an id for faq_index."""
     rows = []
-    for q, a in items:
+    for i, (q, a) in enumerate(items, 1):
         rows.append(
-            f'<div style="padding:{S[3]} 0;border-top:1.5px dashed {C["rule"]};">'
-            f'<h4 style="margin:0 0 {S[1]};color:{C["thread"]};{TYPE["h3"]}">{q}</h4>'
+            f'<div id="{prefix}{i}" style="padding:{S[4]} 0 {S[3]};border-top:1.5px dashed {C["rule"]};">'
+            f'<h4 style="margin:0 0 {S[2]};color:{C["thread"]};font-size:21px;line-height:1.45;font-weight:900;">{q}</h4>'
             f'<div style="max-width:40em;">{a}</div></div>'
         )
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
 
+
+def faq_index(items, prefix="q"):
+    """Jump list to every question on a long FAQ page."""
+    lis = "".join(
+        f'<li><a href="#{prefix}{i}" style="display:block;padding:10px 0;min-height:44px;color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{q}</a></li>'
+        for i, (q, _) in enumerate(items, 1)
+    )
+    return f'<ol style="margin:0 0 {S[4]};padding-left:1.4em;max-width:40em;color:{C["thread"]};">{lis}</ol>'
 
 def facts(rows):
     """Label/value ledger, e.g. contact details: [(label, value_html), ...]."""
@@ -319,25 +349,29 @@ def facts(rows):
 
 
 def org_tree(head, branches):
-    """Chain of command: head patch, then branches [(title, [children...], unit)] hanging from one stitched bar."""
+    """Chain of command: head patch, branches [(title, [children...], unit)].
+    Desktop: branches hang from one stitched bar. Phone: one vertical thread runs from the head through every branch."""
     cols = []
     for title, children, unit in branches:
         kids = "".join(
-            f'<li style="padding:6px 0;border-top:1px dashed {C["rule"]};{TYPE["small"]}">{k}</li>' for k in children
+            f'<li style="padding:6px 8px;border-top:1px dashed {C["rule"]};{TYPE["small"]}">{k}</li>' for k in children
         )
         cols.append(
-            f'<div style="flex:1 1 180px;">'
+            f'<div style="flex:1 1 180px;position:relative;z-index:1;">'
             f'<div aria-hidden="true" style="width:3px;height:{S[3]};margin:0 auto;background:{C["thread"]};"></div>'
             f'{patch(title, unit=unit, shape="tab")}'
-            + (f'<ul style="list-style:none;margin:{S[2]} 0 0;padding:0;">{kids}</ul>' if kids else "") + "</div>"
+            + (f'<ul style="list-style:none;margin:{S[2]} 0 0;padding:0;background:{C["tape"]};border:1px solid {C["rule"]};border-radius:3px;">{kids}</ul>' if kids else "")
+            + "</div>"
         )
     return (
-        f'<div style="max-width:320px;margin:0 auto;">{patch(head, unit="college", shape="tab")}</div>'
-        f'<div style="width:3px;height:{S[3]};background:{C["thread"]};margin:0 auto;"></div>'
-        f'<div style="display:flex;flex-wrap:wrap;gap:{S[3]};border-top:3px solid {C["thread"]};margin:0 0 {S[5]};">'
-        + "".join(cols) + "</div>"
+        f'<div style="position:relative;margin:0 0 {S[5]};">'
+        f'<div aria-hidden="true" class="d-md-none" style="position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:{C["thread"]};"></div>'
+        f'<div style="position:relative;z-index:1;max-width:320px;margin:0 auto;">{patch(head, unit="college", shape="tab")}</div>'
+        f'<div aria-hidden="true" class="d-none d-md-block" style="width:3px;height:{S[3]};background:{C["thread"]};margin:0 auto;"></div>'
+        f'<div aria-hidden="true" class="d-none d-md-block" style="height:3px;background:{C["thread"]};margin:0 90px;"></div>'
+        f'<div style="display:flex;flex-wrap:wrap;gap:{S[3]};">'
+        + "".join(cols) + "</div></div>"
     )
-
 
 def note(text):
     """A plain editorial note for the content owner (e.g. what goes here), shown only while drafts are marked."""
