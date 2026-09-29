@@ -48,6 +48,14 @@
 - FAQ 折疊不可行（無 details、無 JS）→ 全展開呈現。
 - 測試原始檔：`tools/phase0_test.html`；存檔後讀回：`tools/phase0_result.html`。
 
+### 2.4 首頁實貼結果（2026-09-29，測試節點 7696）
+將護理學院首頁（dist/A_home.html，--final）貼入並存檔後讀回，與送出內容逐位元比對，伺服器另外做了兩件事（2.3 未測到）：
+- `<i>` 一律改成 `<em>`（class 保留，FontAwesome 以 class 套字型，圖示照常顯示）。
+- 所有 `aria-*` 與 `role` 屬性刪除。影響：圖片佔位的 aria-label 消失（佔位內有可見文字，無實質損失）；裝飾元素的 aria-hidden 消失（皆為空元素或 FontAwesome 圖示）。
+其餘（inline style 含 clamp()/inset/漸層/outline、class、中文錨點 href、&nbsp;、換行）完全保留。
+`build.py` 的 `cms_normalize()` 已在輸出時套用同樣轉換，dist/ 內容即為 CMS 實際儲存內容（首頁 SHA-256 與讀回一致）。
+停用（啟用未勾）的節點前台會轉址至校首頁，無法在前台預覽；以 preview/ 代替。
+
 ## 3. 視覺系統（初版，階段 1 定稿）
 
 ### 3.1 色票（草案，階段 1 以腳本驗證 AA 後定案）

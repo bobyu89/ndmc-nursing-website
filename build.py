@@ -34,6 +34,12 @@ CHROME = """<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
 </div></body></html>"""
 
 
+def cms_normalize(html):
+    """Apply the CMS server's save filter (verified byte-for-byte on test node 7696): <i> -> <em>, aria-*/role dropped."""
+    html = re.sub(r'<i class="([^"]+)" aria-hidden="true"></i>', r'<em class="\1"></em>', html)
+    return re.sub(r' (aria-hidden|aria-label|role)="[^"]*"', "", html)
+
+
 def load_pages():
     sys.path.insert(0, str(ROOT))
     mods = []
@@ -55,7 +61,7 @@ def main(final=False):
     problems = 0
     for m in load_pages():
         meta = m.META
-        html = m.render()
+        html = cms_normalize(m.render())
         for pat in FORBIDDEN:
             if re.search(pat, html, re.I):
                 print(f"FORBIDDEN {pat} in {meta['id']}")
