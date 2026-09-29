@@ -46,6 +46,9 @@ def load_pages():
 
 def main(final=False):
     components.DRAFT_MARKS = not final
+    if final:
+        import datetime
+        components.UPDATED = datetime.date.today().isoformat()
     DIST.mkdir(exist_ok=True)
     PREVIEW.mkdir(exist_ok=True)
     index = []

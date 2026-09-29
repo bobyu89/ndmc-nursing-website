@@ -4,6 +4,7 @@ inline styles, Bootstrap 5.0.2 classes, FontAwesome 4 icons, <img>; never <style
 from tokens import C, S, TYPE, FONT, TWILL_BG, UNIT
 
 DRAFT_MARKS = True
+UPDATED = "待確認"
 
 
 def _join(parts):
@@ -16,8 +17,9 @@ def icon(name):
 
 # ---------- page frame ----------
 
-def page(*blocks, owner="院窗口", updated="待確認"):
+def page(*blocks, owner="院窗口", updated=None):
     body = _join(blocks)
+    updated = updated or UPDATED
     return (
         f'<div class="p-3 p-md-4" style="{TWILL_BG}font-family:{FONT};color:{C["ink"]};{TYPE["body"]}">\n'
         f"{body}\n{status_stamp(owner, updated)}\n</div>"

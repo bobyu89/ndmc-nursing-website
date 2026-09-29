@@ -1,6 +1,6 @@
 """Design tokens: the single seed every page and unit colour derives from."""
 
-FONT = '"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif'
+FONT = "'Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC',sans-serif"
 
 C = {
     "twill": "#EDE7DE",       # page ground (oatmeal twill)
