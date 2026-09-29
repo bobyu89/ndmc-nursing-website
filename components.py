@@ -191,12 +191,12 @@ def ribbon_bar(items):
     for i, (label, href) in enumerate(items):
         stripes = _stripes(RIBBON_STRIPES[i % len(RIBBON_STRIPES)])
         cells.append(
-            f'<a href="{href}" class="col-4 col-md" style="display:block;text-decoration:none;color:{C["thread"]};padding:0 4px {S[2]};">'
+            f'<a href="{href}" style="flex:1 1 104px;display:block;text-decoration:none;color:{C["thread"]};padding:0 4px {S[2]};">'
             f'<span style="display:block;height:30px;background:{stripes};border:1.5px solid {C["thread"]};border-radius:2px;"></span>'
             f'<span style="display:block;margin-top:10px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:.06em;">{label}</span></a>'
         )
     return (
-        f'<div class="row g-0" style="margin:{S[5]} -4px 0;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
+        f'<div style="display:flex;flex-wrap:wrap;margin:{S[5]} -4px 0;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
         + "".join(cells) + "</div>"
     )
 
@@ -275,8 +275,9 @@ def timeline(events):
             f'<div style="padding-top:{S[2]};"><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
             f'<p style="margin:0;max-width:36em;">{text}</p></div></div>'
         )
-    return (f'<div style="position:relative;margin:0 0 {S[4]};background-image:linear-gradient({C["thread"]},{C["thread"]});'
-            f'background-size:3px 100%;background-repeat:no-repeat;background-position:40px 0;">' + "".join(rows) + "</div>")
+    return (f'<div style="position:relative;margin:0 0 {S[4]};">'
+            f'<div aria-hidden="true" style="position:absolute;left:40px;top:0;bottom:0;width:3px;background:{C["thread"]};"></div>'
+            + "".join(rows) + "</div>")
 
 
 def roster(people):
@@ -325,15 +326,15 @@ def org_tree(head, branches):
             f'<li style="padding:6px 0;border-top:1px dashed {C["rule"]};{TYPE["small"]}">{k}</li>' for k in children
         )
         cols.append(
-            f'<div class="col-md" style="padding-top:{S[3]};background-image:linear-gradient({C["thread"]},{C["thread"]});'
-            f'background-size:3px {S[3]};background-repeat:no-repeat;background-position:center top;">'
+            f'<div style="flex:1 1 180px;">'
+            f'<div aria-hidden="true" style="width:3px;height:{S[3]};margin:0 auto;background:{C["thread"]};"></div>'
             f'{patch(title, unit=unit, shape="tab")}'
             + (f'<ul style="list-style:none;margin:{S[2]} 0 0;padding:0;">{kids}</ul>' if kids else "") + "</div>"
         )
     return (
         f'<div style="max-width:320px;margin:0 auto;">{patch(head, unit="college", shape="tab")}</div>'
         f'<div style="width:3px;height:{S[3]};background:{C["thread"]};margin:0 auto;"></div>'
-        f'<div class="row" style="--bs-gutter-x:{S[3]};row-gap:{S[3]};border-top:3px solid {C["thread"]};margin:0 0 {S[5]};">'
+        f'<div style="display:flex;flex-wrap:wrap;gap:{S[3]};border-top:3px solid {C["thread"]};margin:0 0 {S[5]};">'
         + "".join(cols) + "</div>"
     )
 

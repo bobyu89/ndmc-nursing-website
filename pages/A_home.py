@@ -16,7 +16,7 @@ def render():
             ),
             actions(button("招生專區", L("F")), text_link("認識本院", L("C"))),
         ]),
-        '<div class="mx-auto" style="max-width:320px;">' + patch("護理學院", "College of Nursing", unit="college",
+        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch("護理學院", "College of Nursing", unit="college",
               illo=illo_slot("身著制服的護理師（CocoMaterial，重新上色）", "1/1")) + "</div>",
         cols=(7, 5),
     )
@@ -41,7 +41,7 @@ def render():
 
     units = unit_pair([
         ("dept", "護理學系", "學士班・臨床與軍陣實習", L("D-1")),
-        ("inst", "護理研究所", "碩士班・博士班・研究", L("D-2")),
+        ("inst", "護理研究所", draft("碩士班・博士班・研究"), L("D-2")),
     ])
 
     lead = feature_lead(
