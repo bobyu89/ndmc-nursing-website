@@ -61,9 +61,9 @@ def name_tape(text, level=3, unit=None, top=S[8]):
     cloth = UNIT[unit or SITE_UNIT]["cloth"]
     return (
         f'<h{level} style="display:inline-flex;align-items:center;gap:12px;margin:{top} 0 {S[3]};padding:11px 18px 10px 12px;'
-        f'background:{C["tape"]};color:{C["thread"]};font-size:18px;line-height:1.2;font-weight:800;letter-spacing:.12em;'
+        f'background:{C["tape"]};color:{C["thread"]};font-size:25.5px;line-height:1.2;font-weight:900;letter-spacing:.1em;'
         f'border:1px solid {C["rule"]};border-radius:2px;outline:1px dashed rgba(51,73,63,.35);outline-offset:-5px;">'
-        f'<span aria-hidden="true" style="flex:none;width:12px;height:20px;background:{cloth};border:1.5px solid {C["thread"]};border-radius:1px;"></span>'
+        f'<span aria-hidden="true" style="flex:none;width:14px;height:26px;background:{cloth};border:1.5px solid {C["thread"]};border-radius:1px;"></span>'
         f'{text}</h{level}>'
     )
 
@@ -143,7 +143,7 @@ def rocker(text):
         f'<div style="position:relative;z-index:1;width:84%;margin:0 auto -10px;padding:12px 8px 14px;text-align:center;'
         f'background:{C["tape"]};border:5px solid {C["thread"]};border-radius:50% 50% 8px 8px / 100% 100% 8px 8px;'
         f'outline:1.5px dashed rgba(51,73,63,.45);outline-offset:-10px;color:{C["thread"]};font-weight:900;'
-        f'font-size:15px;letter-spacing:.2em;line-height:1.2;">{text}</div>'
+        f'font-size:{"13px;letter-spacing:.04em" if text.isascii() else "15px;letter-spacing:.2em"};line-height:1.2;">{text}</div>'
     )
 
 
@@ -266,7 +266,7 @@ def feature_list(items):
             f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:22px;">{mark}</span>'
             f'<div><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
             f'<p style="margin:0 0 6px;max-width:38em;">{text}</p>'
-            + (text_link("前往", href) if href else "") + "</div></div>"
+            + (text_link("Explore" if SITE_LANG == "en" else "前往", href) if href else "") + "</div></div>"
         )
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
 
@@ -308,7 +308,7 @@ def roster(people):
             f'<div class="col-8 col-md-10"><span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;">{name}'
             f'<span style="margin-left:10px;{TYPE["small"]}font-weight:700;color:{C["ink_soft"]};">{rank}｜{unit}</span></span>'
             f'<span style="display:block;margin-top:4px;">{fields}</span>'
-            + (text_link("個人研究頁", href) if href else "") + "</div></div>"
+            + (text_link("Research page" if SITE_LANG == "en" else "個人研究頁", href) if href else "") + "</div></div>"
         )
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
 
@@ -345,7 +345,7 @@ def facts(rows):
     return f'<table style="width:100%;max-width:44em;border-collapse:collapse;margin:0 0 {S[4]};">{trs}</table>'
 
 
-def org_tree(head, branches):
+def org_tree(head, branches, head_unit=None):
     """Chain of command: head patch, branches [(title, [children...], unit)].
     Desktop: branches hang from one stitched bar. Phone: one vertical thread runs from the head through every branch."""
     cols = []
@@ -363,7 +363,7 @@ def org_tree(head, branches):
     return (
         f'<div style="position:relative;margin:0 0 {S[5]};">'
         f'<div aria-hidden="true" class="d-md-none" style="position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:{C["thread"]};"></div>'
-        f'<div style="position:relative;z-index:1;max-width:320px;margin:0 auto;">{patch(head, unit="college", shape="tab")}</div>'
+        f'<div style="position:relative;z-index:1;max-width:320px;margin:0 auto;">{patch(head, unit=head_unit or SITE_UNIT, shape="tab")}</div>'
         f'<div aria-hidden="true" class="d-none d-md-block" style="width:3px;height:{S[3]};background:{C["thread"]};margin:0 auto;"></div>'
         f'<div aria-hidden="true" class="d-none d-md-block" style="height:3px;background:{C["thread"]};margin:0 90px;"></div>'
         f'<div style="display:flex;flex-wrap:wrap;gap:{S[3]};">'

@@ -32,7 +32,7 @@ S = {1: "8px", 2: "16px", 3: "24px", 4: "32px", 5: "40px", 6: "48px", 8: "64px",
 TYPE = {
     "display": "font-size:clamp(30px,7.6vw,40px);line-height:1.28;font-weight:900;letter-spacing:.01em;",
     "h2": "font-size:24px;line-height:1.4;font-weight:800;",
-    "h3": "font-size:19px;line-height:1.5;font-weight:700;",
+    "h3": "font-size:20.5px;line-height:1.45;font-weight:800;",
     "body": "font-size:16.5px;line-height:1.85;",
     "small": "font-size:14px;line-height:1.7;",
     "tape": "font-size:15px;line-height:1;font-weight:700;letter-spacing:.14em;",
