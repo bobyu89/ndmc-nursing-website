@@ -5,6 +5,7 @@ from tokens import C, S, TYPE, FONT, TWILL_BG, UNIT
 
 DRAFT_MARKS = True
 SITE_UNIT = "college"  # set by build.py from META["site"]
+SITE_LANG = "zh"  # "en" on the English sites
 UPDATED = "待確認"
 
 
@@ -31,7 +32,8 @@ def status_stamp(owner, updated):
     return (
         f'<p style="margin:{S[8]} 0 0;{TYPE["small"]}color:{C["ink_soft"]};">'
         f'<span style="display:inline-block;padding:6px 12px;border:1.5px dashed {C["rule"]};border-radius:4px;background:{C["tape"]};">'
-        f'{icon("calendar-check-o")}&nbsp;最後更新 {updated}　｜　維護：{owner}</span></p>'
+        + (f'{icon("calendar-check-o")}&nbsp;Last updated {updated}　|　Maintained by {owner}</span></p>' if SITE_LANG == "en"
+           else f'{icon("calendar-check-o")}&nbsp;最後更新 {updated}　｜　維護：{owner}</span></p>')
     )
 
 
@@ -120,7 +122,7 @@ def illo_slot(label, ratio="4/3", unit="college"):
         f'<div role="img" aria-label="插圖預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
         f'align-items:center;justify-content:center;gap:6px;background:{pale};color:{C["ink_soft"]};{TYPE["small"]}text-align:center;'
         f'border:1.5px dashed rgba(51,73,63,.35);border-radius:4px;padding:{S[2]};">'
-        f'{icon("pencil")}<span>插圖：{label}</span></div>'
+        f'{icon("pencil")}<span>{"Illustration" if SITE_LANG == "en" else "插圖"}：{label}</span></div>'
     )
 
 
@@ -129,7 +131,7 @@ def photo_slot(label, ratio="4/3"):
         f'<div role="img" aria-label="照片預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
         f'align-items:center;justify-content:center;gap:6px;background:{C["tape"]};color:{C["ink_soft"]};{TYPE["small"]}text-align:center;'
         f'border:1.5px dashed {C["rule"]};border-radius:3px;padding:{S[2]};">'
-        f'{icon("camera")}<span>照片：{label}</span></div>'
+        f'{icon("camera")}<span>{"Photo" if SITE_LANG == "en" else "照片"}：{label}</span></div>'
     )
 
 

@@ -14,7 +14,7 @@ PREVIEW = ROOT / "preview"
 
 FORBIDDEN = [r"<style", r"<svg", r"<section", r"<article", r"<details", r"<summary", r"<script"]
 
-CHROME = """<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+CHROME = """<!doctype html><html lang="{lang}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} — 預覽</title>
 <link rel="stylesheet" href="https://wwwndmc.ndmutsgh.edu.tw/formsndmc_19/ndmc/css/bootstrap5.0.2.min.css">
@@ -59,11 +59,12 @@ def main(final=False):
     PREVIEW.mkdir(exist_ok=True)
     index = []
     problems = 0
-    groups = {"college": [], "dept": [], "inst": []}
+    groups = {"college": [], "dept": [], "inst": [], "en_college": [], "en_dept": [], "en_inst": []}
     for m in load_pages():
         meta = m.META
         site = meta.get("site", "college")
-        components.SITE_UNIT = site
+        components.SITE_UNIT = site.replace("en_", "")
+        components.SITE_LANG = "en" if site.startswith("en_") else "zh"
         html = cms_normalize(m.render())
         for pat in FORBIDDEN:
             if re.search(pat, html, re.I):
@@ -71,11 +72,13 @@ def main(final=False):
                 problems += 1
         name = f"{meta['id']}_{meta['slug']}" if site == "college" else f"{site}_{meta['id']}_{meta['slug']}"
         (DIST / f"{name}.html").write_text(html, encoding="utf-8")
-        (PREVIEW / f"{name}.html").write_text(CHROME.format(title=meta["title"], body=html), encoding="utf-8")
+        (PREVIEW / f"{name}.html").write_text(CHROME.format(title=meta["title"], body=html, lang="en" if site.startswith("en_") else "zh-Hant"), encoding="utf-8")
         drafts = html.count("待確認")
         groups[site].append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · 待確認 {drafts}</small></li>')
         print(f"{site:7} {meta['id']:6} {meta['title']:12} {len(html):7} bytes  drafts={drafts}")
-    labels = {"college": "護理學院", "dept": "護理學系", "inst": "護理研究所"}
+    labels = {"college": "護理學院", "dept": "護理學系", "inst": "護理研究所",
+              "en_college": "College of Nursing (EN)", "en_dept": "Department of Nursing (EN)",
+              "en_inst": "Graduate Institute of Nursing (EN)"}
     for site, items in groups.items():
         if items:
             index.append(f"<h2>{labels[site]}（{len(items)} 頁）</h2><ol>" + "".join(items) + "</ol>")

@@ -45,6 +45,9 @@ INST_NODE = {
     "G-2": "100181/6794",
 }
 
+# English sites: no live nodes yet (an orphan uniten/100010/843 exists in the CMS).
+EN_NODE, EN_DEPT_NODE, EN_INST_NODE = {}, {}, {}
+
 EXTERNAL = {
     "J": "#English-site-pending",
     "facebook": "https://www.facebook.com/",
@@ -57,7 +60,8 @@ def L(pid):
     if pid in EXTERNAL:
         return EXTERNAL[pid]
     site, _, key = pid.rpartition(":")
-    table = {"": NODE, "dept": DEPT_NODE, "inst": INST_NODE}[site]
+    table = {"": NODE, "dept": DEPT_NODE, "inst": INST_NODE,
+             "en": EN_NODE, "en_dept": EN_DEPT_NODE, "en_inst": EN_INST_NODE}[site]
     if key in table:
         return f"{SITE}/unit/{table[key]}"
     return f"#待建-{pid.replace(':', '-')}"
