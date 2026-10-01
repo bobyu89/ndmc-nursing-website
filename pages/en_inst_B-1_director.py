@@ -53,6 +53,6 @@ def render():
         name_tape("Director's Message"),
         message,
         actions(text_link("Overview and Educational Goals", L("en_inst:B-2")),
-                text_link("Research", L("en_inst:D"))),
+                text_link("Institute Research", L("en_inst:D"))),
         owner=META["owner"],
     )

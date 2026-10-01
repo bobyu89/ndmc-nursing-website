@@ -21,7 +21,7 @@ def render():
             draft("Our students live, study and train together. Their days combine lectures, skills practice, "
                   "physical training and the ceremonies that mark each step into the profession."),
         ),
-        actions(text_link("Visit the Department", L("en_dept:G")), text_link("中文：校園生活", L("dept:I"))),
+        actions(text_link("Visit the Department", L("en_dept:G")), text_link("中文版：校園生活", L("dept:I"))),
     ])
 
     campus = split(

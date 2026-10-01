@@ -59,7 +59,7 @@ def render():
     ledger = "".join([
         p("國防醫學大學護理學院護理研究所碩士班研究生獎學金明細（111年7月 學生事務委員會製）"),
         "".join(_scholarship(*s) for s in SCHOLARSHIPS),
-        _source("以上摘自護理研究所〈獎學金專區〉。", U_FUND, "原頁面"),
+        _source("以上摘自護理研究所〈獎學金專區〉。", U_FUND, "現行網站：研究所獎學金專區"),
         actions(text_link("趙理事長獎學金發放辦法（PDF）", U_ZHAO_RULES),
                 text_link("趙理事長獎學金申請表（Word）", U_ZHAO_FORM)),
         note("明細表是 111年7月 製作，請院窗口與學生事務委員會確認每一項今年是否仍開放、金額是否更新。"

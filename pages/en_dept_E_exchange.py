@@ -23,7 +23,7 @@ def render():
             draft("Selected exchange outcomes: where our students went, who visited us, and what both sides "
                   "took home. This is a record of exchange, not an application page."),
         ),
-        actions(text_link("Visit and collaborate with the College", L("en:G")), text_link("中文：海外交流專區", L("dept:H"))),
+        actions(text_link("Visit and collaborate with the College", L("en:G")), text_link("中文版：海外交流專區", L("dept:H"))),
     ])
 
     outbound = split(

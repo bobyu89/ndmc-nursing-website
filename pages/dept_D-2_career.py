@@ -1,5 +1,5 @@
-from components import (page, name_tape, statement, p, text_link, actions, timeline, facts, split, photo_slot,
-                        draft, note)
+from components import (as_of, page, name_tape, statement, p, text_link, actions, timeline, facts, split, photo_slot,
+                        fact_line, source_quote, icon, draft, note)
 from links import L
 
 META = {"id": "D-2", "slug": "career", "title": "職涯發展", "owner": "學生事務", "site": "dept"}
@@ -15,7 +15,8 @@ U_VAC = "https://www.vac.gov.tw/mp-1.html"
 
 
 def _official(text):
-    return p(f"簡章原文：「{text}」")
+    return source_quote(f"「{text}」", "簡章原文（115 學年度）")
+
 
 
 def _cite(label="出自《115 學年度軍事學校正期班甄選入學招生簡章》；每年以最新簡章為準。", href=U_BACH, link="簡章下載頁"):
@@ -43,12 +44,15 @@ def render():
     ])
 
     training = "".join([
+        fact_line(draft("錄取後先到陸軍軍官學校接受八週新生入伍訓練。")),
+        as_of("115 學年度軍事學校正期班甄選入學招生簡章"),
         _official("起赴陸軍軍官學校統一實施新生入伍訓練"),
         facts([("入伍訓練", "八週")]),
         _cite(),
     ])
 
     funding = "".join([
+        fact_line(draft("在學期間公費：軍費生與代訓生都享有公費待遇；待遇依國防部規定辦理。")),
         p(draft("學士班分為「軍費生」與「代訓生（輔導會公費生）」兩種身分，在學期間都享有公費待遇，"
                 "但畢業後服務的單位與年限不同。")),
         _official("公費待遇包括主（副）食費、學雜費（含實驗費）、書籍費、制服費、平安保險費、宿舍費（含電腦網路使用費）"
@@ -63,6 +67,7 @@ def render():
     ])
 
     service = "".join([
+        fact_line(draft("軍費生：自任官之日起服常備軍官現役最少 10 年；代訓生：由輔導會分發所屬機構服務 4 年。")),
         _official("護理學院護理學系、公共衛生學院公共衛生學系畢業後服常備軍官現役最少年限 10 年。"),
         _official("自任官之日起服常備軍官現役最少年限 10 年。"),
         _official("畢業後，應依國軍退除役官兵輔導委員會（以下稱輔導會）分發規定，由輔導會分發所屬機構服務 4 年；"
@@ -71,15 +76,18 @@ def render():
         _official("各學系軍費生於規定之服役期間，未履行其服役義務期滿者，專業證書(醫師證書、牙醫師證書、藥師證書、護理師證書、"
                   "公共衛生師證書)由軍醫局保管；另依應服滿與未服滿役期之比率賠償，償還其在學期間所受領公費待遇、津貼總金額之四倍賠償金。"),
         _cite(),
+        p(draft("服役年限是報名前要全家一起想清楚的事。有任何不確定，歡迎先打電話問清楚。")
+          + "　" + text_link("招生諮詢電話", L("dept:D"))),
     ])
 
     rank = "".join([
-        p(draft("軍費生畢業後「任官」，也就是正式成為軍官；任官的階級與相關規定，依國防部規定辦理。")),
+        fact_line(draft("軍費生畢業後任官，正式成為軍官；階級依國防部規定辦理。")),
+        p(draft("「任官」就是正式成為軍官，服役年限從任官那天開始計算。")),
         note("簡章沒有寫明任官階級。若要在本頁寫出階級，請學生事務提供可公開的正式出處。"),
     ])
 
     assignment = "".join([
-        p(draft("軍費生畢業後的分發，依國防部相關規定辦理；代訓生由輔導會分發所屬機構。")),
+        fact_line(draft("軍費生依國防部相關規定分發；代訓生由輔導會分發所屬機構。")),
         _official("畢業時，由輔導會統籌協調相關單位辦理分發作業；其分發作業服務要點，由輔導會另定之。"),
         _cite(),
         actions(text_link("國軍退除役官兵輔導委員會", U_VAC)),
@@ -90,6 +98,7 @@ def render():
         "".join([
             p(draft("畢業後的職涯，從臨床護理開始，也可以往專科、教學、管理或研究發展。")),
             p(draft("護理研究所的碩士班設有給現職軍人進修的身分別：")),
+            as_of("116 學年度博、碩士班招生簡章"),
             facts([("研究所身分別", "全時進修軍費生、全時進修自費生、公餘進修軍職生、公餘進修自費生")]),
             _cite("研究所身分別摘自《116 學年度博、碩士班招生簡章》。", U_GRAD, "碩博士班招生簡章"),
             actions(text_link("護理研究所", L("inst:A"))),

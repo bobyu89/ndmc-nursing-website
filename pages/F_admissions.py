@@ -1,5 +1,5 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, illo_slot, split,
-                        feature_list, route_list, facts, draft, note)
+from components import (as_of, page, name_tape, statement, p, button, text_link, actions, illo_slot, split,
+                        route_list, facts, draft, note, icon)
 from links import L
 
 META = {"id": "F", "slug": "admissions", "title": "招生專區", "owner": "院窗口"}
@@ -18,6 +18,7 @@ def _source(text, href, label):
     return p(draft(text) + "　" + text_link(label, href), muted=True)
 
 
+
 def render():
     opening = "".join([
         statement(
@@ -25,28 +26,23 @@ def render():
             draft("護理學院有學士班與碩士班。高中畢業就能報考學士班；已經是護理師、想再深造，就讀碩士班。"
                   "三種學制、適合誰、去哪裡報名，這一頁都看得到。"),
         ),
-        actions(button("看學士班招生簡章", U_BACH), text_link("家長常見問題", L("F-1"))),
+        actions(button("看學士班招生簡章", U_BACH)),
     ])
 
-    overview = feature_list([
-        ("學士班（護理學系）",
+    # One router for the one decision: which programme fits (the three programmes, plus parents and the camp).
+    choose = route_list([
+        ("學士班（護理學系）：高中（職）生，想成為軍護",
          draft("給高中（職）畢業生。四年學護理、也接受軍事訓練，畢業後任官，成為軍中的護理人員。"
                "每年 3 月透過「軍事學校正期班甄選入學」報名。"),
-         "#bachelor", "dept"),
-        ("碩士班（護理研究所）",
+         "#bachelor"),
+        ("碩士班（護理研究所）：已是護理師，想專精或當專科護理師",
          draft("給已有護理學士學位或護理師證書、想專精一科的人，包括想成為專科護理師的臨床護理師。"
-               "每年秋天甄試、冬天一般考試。"),
-         "#master", "inst"),
-        ("博士班（護理研究所）",
+               "分四個組，每年秋天甄試、冬天一般考試。"),
+         "#master"),
+        ("博士班（護理研究所）：有護理碩士學位，想走研究與教學",
          draft("給已有護理相關碩士學位、想投入研究與教學的人。招生資訊整理中，以學校公告為準。"),
-         "#doctoral", "college"),
-    ])
-
-    choose = route_list([
-        ("我是高中（職）生，想成為軍護", draft("看學士班，並參加暑期營隊先體驗"), "#bachelor"),
+         "#doctoral"),
         ("我是家長，想先了解公費與服役", draft("家長常見問題一次整理"), L("F-1")),
-        ("我已是護理師，想專精或當專科護理師", draft("看碩士班的四個分組"), "#master"),
-        ("我有護理碩士學位，想走研究與教學", draft("看博士班說明"), "#doctoral"),
         ("還不確定軍旅適不適合自己", draft("先來暑期營隊待一天"), "#camp"),
     ])
 
@@ -54,6 +50,7 @@ def render():
         f'<div id="bachelor"></div>',
         p(draft("學士班由護理學系負責。入學前要先通過國防部的甄選、體檢與測驗，入學後先完成入伍訓練，"
                 "再開始四年的護理課程與臨床實習。")),
+        as_of("115 學年度軍事學校正期班甄選入學招生簡章"),
         facts([
             ("招生對象", "一、年齡：社會青年、後備役士官兵及替代役備役人員：17 歲至22 歲。<br>"
                         "二、學歷：公私立高中（職）畢業或同等學力。"),
@@ -74,6 +71,7 @@ def render():
         f'<div id="master"></div>',
         p("民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。"),
         _source("摘自護理研究所〈歷史沿革〉。", U_INST_HISTORY, "護理研究所歷史沿革"),
+        as_of("116 學年度博、碩士班招生簡章"),
         facts([
             ("分組", "成人暨老人護理學組、婦兒護理學組、精神衛生護理學組、專科護理師組"),
             ("身分別", "全時進修軍費生、全時進修自費生、公餘進修軍職生、公餘進修自費生"),
@@ -124,9 +122,7 @@ def render():
     return page(
         opening,
         note("本頁的 CMS 節點目前是學校招生專區（unit/100143/1861），不是學院自己的頁面；上線時需為學院新建「招生專區」節點。"),
-        name_tape("三種學制"),
-        overview,
-        name_tape("怎麼選"),
+        name_tape("三種學制，怎麼選"),
         choose,
         name_tape("學士班", unit="dept"),
         bachelor,

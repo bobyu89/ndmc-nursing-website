@@ -20,7 +20,7 @@ def render():
             draft("From the amphitheater and the demonstration ward to the simulation center, students rehearse "
                   "assessment, nursing skills and critical care in settings close to real practice."),
         ),
-        actions(text_link("Visit the Department", L("en_dept:G")), text_link("中文：教學設備", L("E-3"))),
+        actions(text_link("Visit the Department", L("en_dept:G")), text_link("中文版：教學設備", L("E-3"))),
     ])
 
     center = split(

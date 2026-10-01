@@ -46,6 +46,6 @@ def render():
         routes,
         p(draft("Photos and day-to-day updates, mostly in Chinese, are posted on the 國防護理 (Defense Nursing) "
                 "Facebook page."), muted=True),
-        actions(text_link("國防護理 on Facebook", FACEBOOK), text_link("中文公告", L("inst:B"))),
+        actions(text_link("國防護理 on Facebook", FACEBOOK), zh("inst:B")),
         owner=META["owner"],
     )

@@ -22,7 +22,7 @@ def render():
             draft("The College of Nursing brings together the Department of Nursing and the Graduate Institute of Nursing. "
                   "Its students study nursing, receive military training and serve as nursing officers after graduation."),
         ),
-        actions(zh("C-2", "中文：學院簡介"), zh("C-3", "中文：歷史沿革")),
+        actions(zh("C-2", "中文版：學院簡介"), zh("C-3", "中文版：歷史沿革")),
     ])
 
     today = "".join([
@@ -49,7 +49,7 @@ def render():
           "skills in nursing."),
         p("Our philosophy rests on four concepts:"),
         bullets(["the person", "nursing", "health", "the environment"]),
-        actions(zh("C-5", "中文：教育理念全文")),
+        actions(zh("C-5", "中文版：教育理念全文")),
     )
 
     general = split(

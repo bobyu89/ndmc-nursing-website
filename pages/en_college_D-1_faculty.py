@@ -1,6 +1,7 @@
 import importlib
 
-from components import page, name_tape, statement, p, h4, text_link, actions, photo, photo_slot, draft, note
+from components import (page, name_tape, statement, p, h4, text_link, actions, photo, photo_slot, roster_index,
+                        back_to_top, draft, note)
 from links import L
 from tokens import C, TYPE, S
 from pages._en_college_shared import zh, PROFILE, FACULTY_EN
@@ -136,15 +137,16 @@ def _rows(people):
             for _g, en, zh_name, rank, role, degree, spec, pid in people]
 
 
-def _roster(people):
+def _roster(people, anchor="p", start=1):
     """Roster rows as in components.roster(), but phone-safe: the photo stacks above the text below md (capped at
-    96px wide), and the name never breaks inside a word or a CJK name. [(name, rank, unit, fields, zh_name), ...]"""
+    96px wide), and the name never breaks inside a word or a CJK name. [(name, rank, unit, fields, zh_name), ...]
+    Each row gets id anchor{n} (counting from `start`) for roster_index."""
     rows = []
-    for name, rank, unit, fields, zh_name in people:
+    for n, (name, rank, unit, fields, zh_name) in enumerate(people, start):
         portrait = (photo(PHOTO[zh_name], f"Portrait of {name}", "3/4") if zh_name in PHOTO
                     else photo_slot(name, "3/4"))
         rows.append(
-            f'<div class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
+            f'<div id="{anchor}{n}" class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
             f'<div class="col-12 col-md-2"><div style="max-width:128px;">{portrait}</div></div>'
             f'<div class="col-12 col-md-10">'
             f'<span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;word-break:keep-all;'
@@ -169,11 +171,16 @@ def render():
              "（目前信箱只在個人頁，部分老師個人頁用的是私人信箱）。"),
     ])
 
-    fulltime = []
+    # Name index by rank group; row ids run p1..pN across groups (start offset per group).
+    fulltime, index, start = [], [], 1
     for g in GROUPS:
-        people = [x for x in FULLTIME if x[0] == g]
+        people = _rows([x for x in FULLTIME if x[0] == g])
+        index.append(h4(g))
+        index.append(roster_index(people, anchor="p", start=start))
         fulltime.append(h4(g))
-        fulltime.append(_roster(_rows(people)))
+        fulltime.append(_roster(people, anchor="p", start=start))
+        fulltime.append(back_to_top())
+        start += len(people)
 
     others = "".join([
         p("The College also has one joint-appointment professor and a roster of adjunct faculty who teach courses and "
@@ -184,6 +191,9 @@ def render():
 
     return page(
         opening,
+        name_tape("Find a Faculty Member"),
+        p("Select a name to jump to that faculty member's entry.", muted=True),
+        *index,
         name_tape("Full-time Faculty"),
         note("莊蕙婉老師不在學校英文師資頁上，名單暫列「[English name pending] (莊蕙婉)」（正式版也會顯示），"
              "請院窗口提供老師本人確認的正式英文姓名拼法（羅馬拼音）與英文個人頁，收到後替換。"

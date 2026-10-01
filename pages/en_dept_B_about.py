@@ -54,6 +54,6 @@ def render():
         routes,
         note("周將軍英文名 General Mei-Yu Chow 沿用現行英文孤兒頁 uniten/100010/3353 的寫法；"
              "「高級護理職業班」譯為 Advanced Nursing Vocational Class 為本頁譯法。請院窗口確認學院正式英文用語。"),
-        actions(text_link("中文：認識本系", L("dept:C")), text_link("College of Nursing", L("en:A"))),
+        actions(text_link("中文版：認識本系", L("dept:C")), text_link("College of Nursing", L("en:A"))),
         owner=META["owner"],
     )

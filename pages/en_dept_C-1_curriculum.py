@@ -81,6 +81,6 @@ def render():
         h4("Related pages"),
         actions(text_link("Clinical and Military Nursing Practicum", L("en_dept:C-2")),
                 text_link("Simulation and Learning Spaces", L("en_dept:C-3")),
-                text_link("中文：課程資訊", L("dept:F-1"))),
+                text_link("中文版：課程資訊", L("dept:F-1"))),
         owner=META["owner"],
     )

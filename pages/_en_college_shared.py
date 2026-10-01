@@ -5,6 +5,9 @@ Underscore-prefixed, so build.py does not render it as a page. Every value here 
   faculty profiles — official English Faculty page https://wwwndmc.ndmutsgh.edu.tw/Doclisten/191/100010/3351
 """
 
+import re
+from pathlib import Path
+
 from components import text_link, icon
 from links import L
 from tokens import SITE
@@ -42,8 +45,26 @@ IMG_TALK = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100181/slider/LI
 PROFILE = SITE + "/DocDetEn/191/100010/3351/"
 
 
-def zh(pid, label="中文"):
-    """Link to the Chinese counterpart page."""
+def zh_title(pid):
+    """Title of the Chinese page `pid` ("E-1", "dept:A", "inst:F-1"), read from that page's META; None if not found."""
+    site, _, key = pid.rpartition(":")
+    prefix = {"": "", "dept": "dept_", "inst": "inst_"}.get(site)
+    if prefix is None:
+        return None
+    for path in sorted(Path(__file__).parent.glob(f"{prefix}{key}_*.py")):
+        if not prefix and path.name.startswith(("dept_", "inst_", "en_")):
+            continue
+        m = re.search(r'"title":\s*"([^"]+)"', path.read_text(encoding="utf-8"))
+        if m:
+            return m.group(1)
+    return None
+
+
+def zh(pid, label=None):
+    """Language switch to the Chinese counterpart page. The default label names it: 中文版：{Chinese page title}."""
+    if label is None:
+        title = zh_title(pid)
+        label = f"中文版：{title}" if title else "中文版"
     return text_link(label, L(pid))
 
 

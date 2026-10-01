@@ -22,7 +22,7 @@ def render():
     # 原文照錄自研究所「歷史沿革」頁。
     origin = tape_surface(
         p("民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。"),
-        p(draft("摘自護理研究所〈歷史沿革〉。") + "　" + text_link("原頁面", U_INST_HISTORY), muted=True),
+        p(draft("摘自護理研究所〈歷史沿革〉。") + "　" + text_link("現行網站：研究所歷史沿革", U_INST_HISTORY), muted=True),
         actions(text_link("研究所簡介與發展沿革", L("inst:C-2"))),
     )
 

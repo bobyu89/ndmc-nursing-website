@@ -2,7 +2,7 @@ from components import (page, name_tape, statement, p, button, text_link, action
                         ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, facts, draft, note)
 from links import L
 from tokens import C
-from pages._en_college_shared import zh, mark, email_link, ADDRESS, DEAN_PHOTO
+from pages._en_college_shared import mark, email_link, ADDRESS, DEAN_PHOTO
 
 META = {"id": "A", "slug": "home", "title": "College of Nursing", "owner": "院窗口", "site": "en_college"}
 
@@ -23,8 +23,7 @@ def render():
                       "for care in hospitals, in the field and in disasters. Its roots go back to 1943, "
                       "and its students train clinically at Tri-Service General Hospital."),
             ),
-            actions(button("Visit and Collaborate", L("en:G")), text_link("About the College", L("en:B")),
-                    zh("A")),
+            actions(button("Visit and Collaborate", L("en:G")), text_link("About the College", L("en:B"))),
         ]),
         '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
             "College of Nursing", "護理學院", unit="college",
@@ -33,12 +32,14 @@ def render():
         cols=(7, 5),
     )
 
+    # Audience router: each ribbon is a reader; the sub-line says what is behind it. The Chinese site link
+    # lives here only (no separate 中文 links in the opening or at the foot of the page). Delegations reach
+    # Academic Visits through the primary button (Visit and Collaborate), so they get no ribbon of their own.
     quick = ribbon_bar([
-        ("Faculty", L("en:D-1")),
-        ("Research", L("en:D-2")),
-        ("Programs", L("en:E")),
-        ("International", L("en:F")),
-        ("Visit Us", L("en:G")),
+        ("Visiting scholars", L("en:G-2"), "Research or teach"),
+        ("Partner schools", L("en:F"), "Partnership results"),
+        ("Exchange students", L("en_dept:E"), "Exchange stories"),
+        ("中文", L("A"), "護理學院中文網站"),
     ])
 
     quick_facts = "".join([
@@ -82,7 +83,7 @@ def render():
          None, "dept", mark("heartbeat")),
         ("International collaboration",
          draft("Academic visits, visiting scholars and exchanges with nursing schools abroad.") + " "
-         + text_link("International Collaboration", L("en:F")),
+         + text_link("Global Partnership Map", L("en:F-1")),
          None, "inst", mark("globe")),
     ])
 
@@ -125,6 +126,5 @@ def render():
         news,
         name_tape("Contact"),
         contact,
-        actions(text_link("護理學院中文網站", L("A"))),
         owner=META["owner"],
     )

@@ -92,7 +92,7 @@ def render():
         goals,
         name_tape("Core Competencies"),
         abilities,
-        actions(text_link("中文：教育目標與核心能力", L("dept:C-2-2")),
-                text_link("中文：學系特色與定位", L("dept:C-2-1"))),
+        actions(text_link("中文版：教育目標與核心能力", L("dept:C-2-2")),
+                text_link("中文版：學系特色與定位", L("dept:C-2-1"))),
         owner=META["owner"],
     )

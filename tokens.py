@@ -31,10 +31,19 @@ S = {1: "8px", 2: "16px", 3: "24px", 4: "32px", 5: "40px", 6: "48px", 8: "64px",
 
 TYPE = {
     "display": "font-size:clamp(30px,7.6vw,40px);line-height:1.28;font-weight:900;letter-spacing:.01em;",
-    "h3": "font-size:20.5px;line-height:1.45;font-weight:800;",
+    "h3": "font-size:21px;line-height:1.45;font-weight:800;",
     "body": "font-size:16.5px;line-height:1.85;",
     "small": "font-size:14px;line-height:1.7;",
 }
+
+def _blend(fg, bg, a):
+    f = [int(fg.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    b = [int(bg.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#" + "".join(f"{round(a * x + (1 - a) * y):02X}" for x, y in zip(f, b))
+
+
+# The weave's darkest line (thread at 4.5% over twill): text on twill is checked against this too.
+C["twill_dark"] = _blend(C["thread"], C["twill"], 0.045)
 
 TWILL_BG = (
     f"background-color:{C['twill']};"
@@ -62,6 +71,7 @@ TEXT_PAIRS = [
     ("rose", "twill"), ("thread", "sage"), ("thread", "pink"), ("thread", "blue"),
     ("thread", "sage_pale"), ("thread", "pink_pale"), ("thread", "blue_pale"),
     ("ink", "rose_pale"), ("thread", "rose_pale"), ("ink_soft", "sage_pale"),
+    ("thread", "twill_dark"), ("ink", "twill_dark"), ("ink_soft", "twill_dark"), ("rose", "twill_dark"),
 ]
 
 if __name__ == "__main__":

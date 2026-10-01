@@ -84,7 +84,7 @@ def render():
              "教師、研究生、畢業生人數若要放，請附資料來源與統計日期。"),
         name_tape("History"),
         events,
-        p(draft("Translated from the Institute's history page.") + "　" + text_link("Source (Chinese)", U_HISTORY),
+        p(draft("Translated from the Institute's history page.") + "　" + text_link("Chinese page: Institute History", U_HISTORY),
           muted=True),
         name_tape("Educational Goals"),
         goals,
@@ -95,7 +95,7 @@ def render():
         p("The master's program has four tracks."),
         tracks,
         p(draft("Track names translated from the Institute's student page.") + "　"
-          + text_link("Source (Chinese)", U_RULES), muted=True),
+          + text_link("Chinese page: Graduate Student Area", U_RULES), muted=True),
         note("學組英文名稱為本站翻譯，請院窗口確認正式英文名稱；各學組一句說明為草稿。"),
         h4("Doctoral program"),
         doctoral,

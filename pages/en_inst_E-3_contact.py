@@ -18,7 +18,7 @@ def render():
             draft("Research collaboration and visit inquiries for the Graduate Institute of Nursing go to the "
                   "College of Nursing office, which forwards them to the right faculty member."),
         ),
-        actions(button("Email Us", MAILTO), zh("inst:A", "中文")),
+        actions(button("Email Us", MAILTO), zh("inst:A")),
     ])
 
     details = facts([

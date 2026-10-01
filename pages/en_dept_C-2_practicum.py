@@ -35,7 +35,7 @@ def render():
             draft("Practicum is where students turn classroom knowledge into clinical judgment. "
                   "Each setting asks for a different kind of judgment."),
         ),
-        actions(text_link("Curriculum", L("en_dept:C-1")), text_link("中文：實習資訊", L("dept:F-2"))),
+        actions(text_link("Curriculum", L("en_dept:C-1")), text_link("中文版：實習資訊", L("dept:F-2"))),
     ])
 
     before = split(

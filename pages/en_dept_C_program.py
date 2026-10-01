@@ -17,7 +17,7 @@ def render():
             draft("The Bachelor of Science in Nursing program combines nursing education with military training. "
                   "This page gives international colleagues a short map of how it is built."),
         ),
-        actions(text_link("Curriculum", L("en_dept:C-1")), text_link("中文：課程", L("dept:F"))),
+        actions(text_link("Curriculum", L("en_dept:C-1")), text_link("中文版：課程", L("dept:F"))),
     ])
 
     at_a_glance = facts([

@@ -76,6 +76,6 @@ def render():
         name_tape("Milestones"),
         gallery,
         note("加冠典禮、畢業照片沿用學系首頁輪播「N76加冠」「114小畢典」（114 年＝2025）；英文圖說為暫擬，請確認。"),
-        actions(text_link("Campus Experience", L("en_dept:D")), text_link("中文：大專生研究計畫", L("dept:G"))),
+        actions(text_link("Campus Experience", L("en_dept:D")), text_link("中文版：大專生研究計畫", L("dept:G"))),
         owner=META["owner"],
     )

@@ -1,5 +1,5 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, facts, route_list, split,
-                        illo_slot, draft, note)
+from components import (as_of, page, name_tape, statement, p, button, text_link, actions, facts, route_list, split,
+                        illo_slot, draft, note, icon)
 from links import L
 
 META = {"id": "D-1", "slug": "admissions-info", "title": "招生資訊", "owner": "學生事務", "site": "dept"}
@@ -19,6 +19,7 @@ def _source(text, href, label):
     return p(draft(text) + "　" + text_link(label, href), muted=True)
 
 
+
 def render():
     opening = "".join([
         statement(
@@ -31,6 +32,7 @@ def render():
 
     eligibility = "".join([
         p(draft("護理學系學士班透過「軍事學校正期班甄選入學」招生，由國防部統一辦理報名、體檢與測驗。")),
+        as_of("115 學年度軍事學校正期班甄選入學招生簡章"),
         facts([
             ("招生對象", "一、年齡：社會青年、後備役士官兵及替代役備役人員：17 歲至22 歲。<br>"
                         "二、學歷：公私立高中（職）畢業或同等學力。"),

@@ -30,7 +30,7 @@ def page(*blocks, owner="院窗口", updated=None):
     body = _join(blocks)
     updated = updated or UPDATED
     return (
-        f'<div class="p-3 p-md-4" style="{TWILL_BG}font-family:{FONT};color:{C["ink"]};{TYPE["body"]}">\n'
+        f'<div id="page-top" class="p-3 p-md-4" style="{TWILL_BG}font-family:{FONT};color:{C["ink"]};{TYPE["body"]}">\n'
         f"{body}\n{status_stamp(owner, updated)}\n</div>"
     )
 
@@ -49,8 +49,14 @@ def status_stamp(owner, updated):
     return (
         f'<p style="margin:{S[8]} 0 0;{TYPE["small"]}color:{C["ink_soft"]};">'
         f'<span style="display:inline-block;padding:6px 12px;border:1.5px dashed {C["rule"]};border-radius:4px;background:{C["tape"]};">'
-        f'{icon("calendar-check-o")}&nbsp;{text}</span></p>'
+        f'{icon("calendar-check-o")}&nbsp;{text}</span>'
+        f'<span style="display:inline-block;margin-left:{S[2]};">{back_to_top()}</span></p>'
     )
+
+
+def back_to_top():
+    """Return link for long pages; also closes every page beside the status stamp."""
+    return text_link("Back to top" if SITE_LANG == "en" else "回到頁首", "#page-top", icon_name="angle-up")
 
 
 def draft(text):
@@ -94,10 +100,10 @@ def name_tape(text, level=3, unit=None, top=S[8]):
     """Section heading sewn on as a white name tape with the unit's cloth as a selvedge."""
     cloth = UNIT[unit or SITE_UNIT]["cloth"]
     return (
-        f'<h{level} style="display:inline-flex;align-items:center;gap:12px;margin:{top} 0 {S[3]};padding:11px 18px 10px 12px;'
-        f'background:{C["tape"]};color:{C["thread"]};font-size:25.5px;line-height:1.2;font-weight:900;letter-spacing:{_tr(".1em")};'
+        f'<h{level} style="display:inline-flex;align-items:center;gap:12px;margin:{top} 0 {S[3]};padding:12px 20px 12px 14px;'
+        f'background:{C["tape"]};color:{C["thread"]};font-size:26.5px;line-height:1.2;font-weight:900;letter-spacing:{_tr(".1em")};'
         f'border:1px solid {C["rule"]};border-radius:2px;outline:1px dashed rgba(51,73,63,.35);outline-offset:-5px;">'
-        f'<span aria-hidden="true" style="flex:none;width:14px;height:26px;background:{cloth};border:1.5px solid {C["thread"]};border-radius:1px;"></span>'
+        f'<span aria-hidden="true" style="flex:none;width:9px;height:30px;background:{cloth};border-left:3px solid {C["thread"]};"></span>'
         f'{text}</h{level}>'
     )
 
@@ -135,11 +141,12 @@ def button(label, href, primary=True):
     )
 
 
-def text_link(label, href):
+def text_link(label, href, icon_name="angle-right"):
+    """Inline link. The label names the destination (build.py rejects bare 前往/了解更多/Learn more)."""
     return (
         f'<a href="{href}" style="display:inline;padding:12px 0;line-height:1.9;color:{C["thread"]};'
         f'font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;">'
-        f'{label}&nbsp;{icon("angle-right")}</a>'
+        f'{label}&nbsp;{icon(icon_name)}</a>'
     )
 
 
@@ -150,28 +157,40 @@ def actions(*items):
 # ---------- material placeholders ----------
 
 def illo_slot(label, ratio="4/3", unit="college"):
-    """Space reserved for a CocoMaterial illustration recoloured to the palette."""
+    """Space reserved for a CocoMaterial illustration recoloured to the palette. Hidden on phones until the art exists."""
     pale = UNIT[unit]["pale"]
     return (
-        f'<div role="img" aria-label="插圖預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
+        f'<div class="d-none d-md-flex" role="img" aria-label="插圖預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
         f'align-items:center;justify-content:center;gap:6px;background:{pale};color:{C["ink_soft"]};{TYPE["small"]}text-align:center;'
         f'border:1.5px dashed rgba(51,73,63,.35);border-radius:4px;padding:{S[2]};">'
         f'{icon("pencil")}<span>{"Illustration: " if SITE_LANG == "en" else "插圖："}{label}</span></div>'
     )
 
 
-def photo_slot(label, ratio="4/3"):
+def photo_slot(label, ratio="4/3", phone=False):
+    """Space reserved for a photograph. Hidden on phones (phone=True keeps it, e.g. inside a roster row)."""
+    cls = "d-flex" if phone else "d-none d-md-flex"
     return (
-        f'<div role="img" aria-label="照片預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
+        f'<div class="{cls}" role="img" aria-label="照片預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
         f'align-items:center;justify-content:center;gap:6px;background:{C["tape"]};color:{C["ink_soft"]};{TYPE["small"]}text-align:center;'
         f'border:1.5px dashed {C["rule"]};border-radius:3px;padding:{S[2]};">'
         f'{icon("camera")}<span>{"Photo: " if SITE_LANG == "en" else "照片："}{label}</span></div>'
     )
 
 
-def photo(src, alt, ratio="4/3", fit="cover", caption=None):
+def _is_slot(html):
+    return bool(html) and ('aria-label="插圖預留' in html or 'aria-label="照片預留' in html)
+
+
+def photo(src, alt, ratio="4/3", fit="cover", caption=None, phone_cap=None):
     """A real image already published on the public site, in the same frame a photo_slot reserves.
-    `src` is a full https URL on the university site; `alt` says what the picture shows; `fit="contain"` for logos and charts."""
+    `src` is a full https URL on the university site; `alt` says what the picture shows; `fit="contain"` for logos and charts.
+    Portraits (3/4) are capped to 5/12 of the phone width so a face never fills a whole phone screen."""
+    if phone_cap is None:
+        phone_cap = ratio == "3/4"
+    if phone_cap:
+        return (f'<div class="row g-0"><div class="col-5 col-md-12">'
+                f'{photo(src, alt, ratio, fit, caption, phone_cap=False)}</div></div>')
     pad = f"padding:{S[2]};background:{C['tape']};" if fit == "contain" else ""
     img = (f'<img src="{src}" alt="{alt}" style="display:block;width:100%;aspect-ratio:{ratio};object-fit:{fit};{pad}'
            f'border:1.5px solid {C["rule"]};border-radius:3px;">')
@@ -192,6 +211,11 @@ def rocker(text):
     )
 
 
+def _patch_title_size():
+    """Latin unit names ("Department") need a smaller phone size to stay whole inside a half-width shield."""
+    return "font-size:clamp(14px,3.9vw,21px);" if SITE_LANG == "en" else "font-size:clamp(16px,4.6vw,21px);"
+
+
 def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None, width="100%", tab=None, backing=None):
     """An embroidered unit patch: cloth, merrowed edge, stitched inset. Optionally a link, a rocker tab,
     and a backing cloth cut to the same outline, larger on every side (depth by layered cloth, not shadow)."""
@@ -202,12 +226,14 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
         "tab": "8px",
     }[shape]
     pad_bottom = S[6] if shape == "shield" else S[3]
-    pad_x = S[1] if shape == "tab" else S[3]
+    pad_x = S[1] if shape == "tab" else ("12px" if SITE_LANG == "en" else S[3])  # Latin unit names need the width
     inner = ""
     if illo:
-        inner += f'<div style="margin:0 auto {S[2]};width:78%;">{illo}</div>'
-    inner += (f'<span style="display:block;color:{C["thread"]};font-size:clamp(16px,4.6vw,21px);font-weight:900;letter-spacing:{_tr(".06em")};word-break:keep-all;overflow-wrap:anywhere;'
-              f'line-height:1.35;">{title}</span>')
+        hide = ' class="d-none d-md-block"' if _is_slot(illo) else ""
+        inner += f'<div{hide} style="margin:0 auto {S[2]};width:78%;">{illo}</div>'
+    if title:
+        inner += (f'<span style="display:block;color:{C["thread"]};{_patch_title_size()}font-weight:900;letter-spacing:{_tr(".06em")};word-break:keep-all;overflow-wrap:{"break-word" if SITE_LANG == "en" else "anywhere"};'
+                  f'line-height:1.35;">{title}</span>')
     if sub:
         inner += f'<span style="display:block;margin-top:6px;color:{C["thread"]};{TYPE["small"]}font-weight:600;">{sub}</span>'
     if href:
@@ -229,14 +255,18 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
     return (rocker(tab) + body) if tab else body
 
 
-RIBBON_STRIPES = [
-    [(C["sage"], 34), (C["tape"], 5), (C["thread"], 6), (C["tape"], 5), (C["sage"], 50)],
-    [(C["pink"], 20), (C["thread"], 4), (C["pink"], 52), (C["thread"], 4), (C["pink"], 20)],
-    [(C["blue"], 42), (C["tape"], 16), (C["blue"], 42)],
-    [(C["thread"], 10), (C["sage"], 80), (C["thread"], 10)],
-    [(C["tape"], 30), (C["blue"], 6), (C["thread"], 28), (C["blue"], 6), (C["tape"], 30)],
-    [(C["sage_pale"], 44), (C["thread"], 3), (C["sage_pale"], 6), (C["thread"], 3), (C["sage_pale"], 44)],
-]
+def _ribbon_patterns():
+    """Six stripe patterns cut from the site's own cloth and the neutrals; no other unit's colour."""
+    cloth, pale = UNIT[SITE_UNIT]["cloth"], UNIT[SITE_UNIT]["pale"]
+    t, th = C["tape"], C["thread"]
+    return [
+        [(cloth, 34), (t, 5), (th, 6), (t, 5), (cloth, 50)],
+        [(pale, 20), (th, 4), (cloth, 52), (th, 4), (pale, 20)],
+        [(cloth, 42), (t, 16), (cloth, 42)],
+        [(th, 10), (cloth, 80), (th, 10)],
+        [(t, 30), (cloth, 6), (th, 28), (cloth, 6), (t, 30)],
+        [(pale, 44), (th, 3), (pale, 6), (th, 3), (pale, 44)],
+    ]
 
 
 def _stripes(bands):
@@ -248,16 +278,19 @@ def _stripes(bands):
 
 
 def ribbon_bar(items):
-    """Quick entrances as a ribbon rack: ribbons butted edge to edge, each labelled beneath. [(label, href), ...]
-    Four ribbons wrap 2+2 on phones; five wrap 3+2."""
+    """Entrances as a ribbon rack: ribbons butted edge to edge, each labelled beneath. [(label, href[, sub]), ...]
+    The optional sub-line says what is behind the ribbon. Four ribbons wrap 2+2 on phones; five wrap 3+2."""
     basis = "140px" if len(items) == 4 else "104px"
+    patterns = _ribbon_patterns()
     cells = []
-    for i, (label, href) in enumerate(items):
-        stripes = _stripes(RIBBON_STRIPES[i % len(RIBBON_STRIPES)])
+    for i, (label, href, *sub) in enumerate(items):
+        stripes = _stripes(patterns[i % len(patterns)])
+        sub_html = (f'<span style="display:block;margin-top:2px;padding:0 4px;text-align:center;{TYPE["small"]}font-weight:400;'
+                    f'color:{C["ink_soft"]};letter-spacing:0;">{sub[0]}</span>') if sub and sub[0] else ""
         cells.append(
             f'<a href="{href}" style="flex:1 1 {basis};display:block;text-decoration:none;color:{C["thread"]};margin:0 0 {S[2]} -2px;">'
             f'<span style="display:block;height:40px;background:{stripes};border:2px solid {C["thread"]};"></span>'
-            f'<span style="display:block;margin-top:10px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:{_tr(".06em")};">{label}</span></a>'
+            f'<span style="display:block;margin-top:10px;padding:0 6px;text-align:center;overflow-wrap:anywhere;font-weight:800;font-size:15.5px;letter-spacing:{_tr(".06em")};">{label}</span>{sub_html}</a>'
         )
     return (
         f'<div style="display:flex;flex-wrap:wrap;margin:{S[5]} 0 0 2px;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
@@ -295,9 +328,20 @@ def feature_lead(title, text_blocks, illo, unit="college", href=None, link_label
     body = _join([
         f'<h4 style="margin:0 0 {S[2]};color:{C["thread"]};font-size:26px;font-weight:900;line-height:1.35;">{title}</h4>',
         *text_blocks,
-        text_link(link_label or ("Learn more" if SITE_LANG == "en" else "了解更多"), href) if href else "",
+        text_link(link_label or _more(title), href) if href else "",
     ])
-    return split(body, f'<div class="mx-auto" style="max-width:300px;">{patch(title, unit=unit, illo=illo, backing=C["tape"])}</div>', cols=(7, 5))
+    hide = " d-none d-md-block" if _is_slot(illo) else ""
+    return split(body, f'<div class="mx-auto{hide}" style="max-width:300px;">{patch(None, unit=unit, illo=illo, backing=C["tape"])}</div>', cols=(7, 5))
+
+
+def _plain(html):
+    return re.sub(r"<[^>]+>", "", html)
+
+
+def _more(title):
+    """A link label that names where it goes."""
+    t = _plain(title)
+    return f"More on {t}" if SITE_LANG == "en" else f"更多{t}"
 
 
 def feature_list(items):
@@ -305,7 +349,8 @@ def feature_list(items):
     rows = []
     for item in items:
         title, text, href, unit = item[:4]
-        mark = item[4] if len(item) > 4 else title[0]
+        mark = item[4] if len(item) > 4 and item[4] else title[0]
+        label = item[5] if len(item) > 5 else _more(title)
         cloth = C["tape"] if unit == "tape" else UNIT[unit]["cloth"]
         rows.append(
             f'<div class="d-flex" style="gap:{S[3]};padding:{S[3]} 0;border-top:1.5px dashed {C["rule"]};">'
@@ -314,7 +359,7 @@ def feature_list(items):
             f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:22px;">{mark}</span>'
             f'<div><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
             f'<p style="margin:0 0 6px;max-width:38em;">{text}</p>'
-            + (text_link("Explore" if SITE_LANG == "en" else "前往", href) if href else "") + "</div></div>"
+            + (text_link(label, href) if href else "") + "</div></div>"
         )
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
 
@@ -329,6 +374,20 @@ def unit_pair(units):
 def timeline(events):
     """History as year patches sewn along one thread, oldest first: [(year, title, text[, unit]), ...].
     Each patch wears its unit's cloth (college/dept/inst); events owned by no unit wear tape cloth."""
+    used = []
+    for ev in events:
+        u = ev[3] if len(ev) > 3 else "tape"
+        if u not in used:
+            used.append(u)
+    used.sort(key=["college", "dept", "inst", "tape"].index)
+    names = {"college": PUBLIC_UNIT[SITE_LANG]["college"], "dept": PUBLIC_UNIT[SITE_LANG]["dept"],
+             "inst": PUBLIC_UNIT[SITE_LANG]["inst"], "tape": "Other" if SITE_LANG == "en" else "其他"}
+    keys = "".join(
+        f'<span style="display:inline-flex;align-items:center;gap:6px;margin-right:{S[3]};">'
+        f'<span aria-hidden="true" style="width:16px;height:16px;border-radius:50%;background:{C["tape"] if u == "tape" else UNIT[u]["cloth"]};'
+        f'border:2px solid {C["thread"]};"></span>{names[u]}</span>' for u in used)
+    legend = (f'<p style="margin:0 0 {S[3]};{TYPE["small"]}color:{C["ink_soft"]};">'
+              f'{"Patch colour shows the unit: " if SITE_LANG == "en" else "年份臂章的顏色代表單位："}{keys}</p>') if len(used) > 1 else ""
     rows = []
     for i, ev in enumerate(events):
         year, title, text = ev[:3]
@@ -342,24 +401,36 @@ def timeline(events):
             f'<div style="padding-top:{S[3]};"><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
             f'<p style="margin:0;max-width:36em;">{text}</p></div></div>'
         )
-    return (f'<div style="position:relative;margin:0 0 {S[4]};">'
+    return (legend + f'<div style="position:relative;margin:0 0 {S[4]};">'
             f'<div aria-hidden="true" style="position:absolute;left:40px;top:0;bottom:0;width:3px;background:{C["thread"]};"></div>'
             + "".join(rows) + "</div>")
 
-def roster(people):
-    """Unit roster rows: [(name, rank, unit, fields, href[, img]), ...]. Photo 3:4 left; `img` is a public portrait URL."""
+def roster(people, anchor=None, start=1):
+    """Unit roster rows: [(name, rank, unit, fields, href[, img]), ...]. Photo 3:4 left; `img` is a public portrait URL.
+    With `anchor="p"` each row gets id p1, p2 ... (counting from `start`) for roster_index."""
     rows = []
-    for name, rank, unit, fields, href, *img in people:
-        pic = photo(img[0], name, "3/4") if img and img[0] else photo_slot(name, "3/4")
+    for n, (name, rank, unit, fields, href, *img) in enumerate(people, start):
+        pic = photo(img[0], _plain(name), "3/4", phone_cap=False) if img and img[0] else photo_slot(name, "3/4", phone=True)
+        rid = f' id="{anchor}{n}"' if anchor else ""
         rows.append(
-            f'<div class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
+            f'<div{rid} class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
             f'<div class="col-4 col-md-2">{pic}</div>'
             f'<div class="col-8 col-md-10"><span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;">{name}'
             f'<span style="margin-left:10px;{TYPE["small"]}font-weight:700;color:{C["ink_soft"]};">{rank}｜{unit}</span></span>'
             f'<span style="display:block;margin-top:4px;">{fields}</span>'
-            + (text_link("Research page" if SITE_LANG == "en" else "個人研究頁", href) if href else "") + "</div></div>"
+            + (text_link(f"{_plain(name)}’s research page" if SITE_LANG == "en" else f"{_plain(name)}的研究頁", href) if href else "")
+            + "</div></div>"
         )
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
+
+
+def roster_index(people, anchor="p", start=1):
+    """Compact name index for a long roster: names wrap as a line of links to roster(..., anchor=) rows."""
+    links = "".join(
+        f'<a href="#{anchor}{n}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{_plain(p[0])}</a>'
+        for n, p in enumerate(people, start))
+    return f'<div style="margin:0 0 {S[3]};max-width:44em;line-height:1.4;">{links}</div>'
 
 
 def faq(items, prefix="q"):
@@ -372,6 +443,50 @@ def faq(items, prefix="q"):
             f'<div style="max-width:40em;">{a}</div></div>'
         )
     return f'<div style="border-bottom:1.5px dashed {C["rule"]};margin-bottom:{S[4]};">' + "".join(rows) + "</div>"
+
+
+def as_of(text):
+    """Visible as-of line beside year-specific facts and dates."""
+    label = "As of: " if SITE_LANG == "en" else "資料日期："
+    return p(f'{icon("calendar")}&nbsp;<strong>{label}</strong>{text}', muted=True)
+
+
+def fact_line(text):
+    """The answer in one line, before any explanation."""
+    return (f'<p style="margin:0 0 {S[2]};max-width:40em;color:{C["thread"]};font-size:18.5px;line-height:1.6;font-weight:900;">'
+            f'{text}</p>')
+
+
+def source_quote(text, source):
+    """Original regulation or brochure wording, set below the plain explanation and smaller than it."""
+    return (f'<div style="margin:{S[2]} 0 {S[2]};padding:{S[2]} {S[3]};max-width:40em;background:{C["tape"]};'
+            f'border:1px solid {C["rule"]};border-radius:3px;{TYPE["small"]}color:{C["ink_soft"]};">'
+            f'<span style="display:block;margin-bottom:4px;font-weight:700;color:{C["thread"]};">{source}</span>{text}</div>')
+
+
+def faq_set(groups, prefix="q"):
+    """A long FAQ as groups of at most five questions: a grouped jump list, then each group's questions,
+    every answer closing with a link back to the list. groups = [(group_title, [(q, a_html), ...]), ...]."""
+    back_label = "Back to the questions" if SITE_LANG == "en" else "回到問題列表"
+    index, blocks, n = [], [], 0
+    for title, items in groups:
+        assert len(items) <= 5, f"FAQ group {title} has {len(items)} questions; split it"
+        lis, rows = [], []
+        for q, a in items:
+            n += 1
+            lis.append(f'<li><a href="#{prefix}{n}" style="display:block;padding:10px 0;min-height:44px;color:{C["thread"]};'
+                       f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{q}</a></li>')
+            rows.append(
+                f'<div id="{prefix}{n}" style="padding:{S[4]} 0 {S[3]};border-top:1.5px dashed {C["rule"]};">'
+                f'<h4 style="margin:0 0 {S[2]};color:{C["thread"]};font-size:21px;line-height:1.45;font-weight:900;">{q}</h4>'
+                f'<div style="max-width:40em;">{a}</div>'
+                f'<p style="margin:{S[2]} 0 0;">{text_link(back_label, f"#{prefix}-list", icon_name="angle-up")}</p></div>')
+        index.append(f'<h4 style="margin:{S[3]} 0 0;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
+                     f'<ol start="{n - len(items) + 1}" style="margin:0;padding-left:1.4em;max-width:40em;color:{C["thread"]};">{"".join(lis)}</ol>')
+        blocks.append(f'<h4 style="margin:{S[6]} 0 0;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
+                      f'<div style="border-bottom:1.5px dashed {C["rule"]};">{"".join(rows)}</div>')
+    return (f'<div id="{prefix}-list" style="margin:0 0 {S[4]};">{"".join(index)}</div>' + "".join(blocks)
+            + f'<div style="margin-bottom:{S[4]};"></div>')
 
 
 def faq_index(items, prefix="q"):

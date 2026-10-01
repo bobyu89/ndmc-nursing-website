@@ -25,7 +25,7 @@ def render():
             p("PhD in Nursing, University of California, San Francisco, USA<br>Specialty: Mental health nursing",
               muted=True),
             p("Fellow of the American Academy of Nursing (FAAN), 2026", muted=True),
-            actions(text_link("Full profile", PROFILE + "4416")),
+            actions(text_link("Dean's full profile and publications", PROFILE + "4416")),
         ]),
         cols=(4, 8), align="start",
     )

@@ -32,7 +32,7 @@ def render():
                 ("Language", draft("Language of instruction: [to be confirmed]")),
             ]),
             p(draft("Translated from the Institute's study regulations.") + "　"
-              + text_link("Source (Chinese)", U_RULES), muted=True),
+              + text_link("Chinese page: Graduate Student Area", U_RULES), muted=True),
         ]),
         illo_slot("Graduate seminar around a table (CocoMaterial, recolored)", "4/3", unit="inst"),
         cols=(7, 5), align="start",

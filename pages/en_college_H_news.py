@@ -40,6 +40,6 @@ def render():
         units,
         name_tape("More"),
         p(draft("Photos of recent activities are posted on the College's Facebook page, in Chinese.")),
-        actions(text_link("College of Nursing on Facebook (Chinese)", FACEBOOK), zh("B", "中文最新消息")),
+        actions(text_link("College of Nursing on Facebook (Chinese)", FACEBOOK), zh("B")),
         owner=META["owner"],
     )

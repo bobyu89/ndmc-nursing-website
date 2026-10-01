@@ -19,7 +19,7 @@ def render():
             draft("A record of academic events held by the Graduate Institute of Nursing. For upcoming events, "
                   "see News."),
         ),
-        actions(text_link("News", L("en_inst:F")), zh("inst:F-3")),
+        actions(text_link("Institute News", L("en_inst:F")), zh("inst:F-3")),
     ])
 
     y2025 = timeline([

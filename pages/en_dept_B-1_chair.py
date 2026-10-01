@@ -49,6 +49,6 @@ def render():
         note("請三長提供系主任的話英文版（300–450 字，對象為國外護理教育者與合作院校，不寫招生內容）。"
              "若只有中文版，請提供中文原文，由國際事務協助翻譯；收到後整段替換上方五段結構草稿。"),
         actions(text_link("Overview and Learning Outcomes", L("en_dept:B-2")),
-                text_link("中文：系主任的話", L("dept:C-1"))),
+                text_link("中文版：系主任的話", L("dept:C-1"))),
         owner=META["owner"],
     )

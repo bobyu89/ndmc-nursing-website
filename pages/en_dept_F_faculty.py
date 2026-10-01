@@ -16,7 +16,7 @@ def render():
             draft("Department courses are taught by the full-time faculty of the College of Nursing, together with "
                   "adjunct clinical instructors who guide students in practicum."),
         ),
-        actions(button("College Faculty Directory", L("en:D-1")), text_link("中文：師資陣容", L("E-1"))),
+        actions(button("College Faculty Directory", L("en:D-1")), text_link("中文版：師資陣容", L("E-1"))),
     ])
 
     areas = feature_list([

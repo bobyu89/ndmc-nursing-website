@@ -58,13 +58,13 @@ def render():
     ])
 
     methods = bullets([
-        f"Randomized controlled trials — {name('liaw')}, {name('chiang')}, {name('huang')}",
-        f"Ecological momentary assessment and intensive longitudinal data — {name('tlin')}, {name('ho')}",
-        f"Machine learning and big data analytics — {name('tzeng')}, {name('wang')}, {name('feng')}",
-        f"Qualitative and mixed-methods research — {name('feng')}, {name('liu')}",
-        f"Instrument development and trajectory analysis — {name('ho')}",
-        f"Systematic review and meta-analysis — {name('sung')}",
-        f"Virtual reality and simulation in nursing education — {name('pan')}, {name('chenpc')}",
+        f"Randomized controlled trials: {name('liaw')}, {name('chiang')}, {name('huang')}",
+        f"Ecological momentary assessment and intensive longitudinal data: {name('tlin')}, {name('ho')}",
+        f"Machine learning and big data analytics: {name('tzeng')}, {name('wang')}, {name('feng')}",
+        f"Qualitative and mixed-methods research: {name('feng')}, {name('liu')}",
+        f"Instrument development and trajectory analysis: {name('ho')}",
+        f"Systematic review and meta-analysis: {name('sung')}",
+        f"Virtual reality and simulation in nursing education: {name('pan')}, {name('chenpc')}",
     ])
 
     resources = "".join([
@@ -96,6 +96,6 @@ def render():
         resources,
         note("請教發、圖儀提供：圖書館與資料庫、統計軟體授權、研究經費與行政支援、跨單位合作（例如與三總護理部、其他學院）"
              "的實際內容；上方為草稿，未確認前不列具體資料庫或軟體名稱。"),
-        actions(text_link("Visiting Researchers", L("en_inst:E-2")), zh("inst:F", "中文：研究成果")),
+        actions(text_link("Visiting Researchers", L("en_inst:E-2")), zh("inst:F", "中文版：研究成果")),
         owner=META["owner"],
     )

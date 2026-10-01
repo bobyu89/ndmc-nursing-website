@@ -78,6 +78,9 @@ def main(final=False):
             components.DRAFT_MARKS = True
             drafts = m.render().count("待確認")
             components.DRAFT_MARKS = False
+        for bare in re.findall(r'>(前往|了解更多|更多|點此|按此|Learn more|Explore|More|Click here|Research page|個人研究頁)&nbsp;<', html):
+            print(f"LINK-LABEL '{bare}' in {site}:{meta['id']}: name the destination")
+            problems += 1
         for pat in FORBIDDEN:
             if re.search(pat, html, re.I):
                 print(f"FORBIDDEN {pat} in {meta['id']}")

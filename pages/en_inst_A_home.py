@@ -4,7 +4,7 @@ from components import (page, name_tape, statement, p, button, text_link, action
 from links import L
 from tokens import C
 from pages._en_inst_data import (TRAUMA_PROJECTS, project_items, name, position, email_link, INST_PHONE, ADDRESS,
-                                 zh, IMG_DIRECTOR)
+                                 IMG_DIRECTOR)
 
 META = {"id": "A", "slug": "home", "title": "Graduate Institute of Nursing", "owner": "院窗口", "site": "en_inst"}
 
@@ -25,7 +25,7 @@ def render():
                       "nurses who ask clinical questions, study them, and bring the evidence back to patient care."),
             ),
             actions(button("Research Collaboration", L("en_inst:E")),
-                    text_link("About the Institute", L("en_inst:B")), zh("inst:A")),
+                    text_link("About the Institute", L("en_inst:B"))),
         ]),
         '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
             "Graduate Institute of Nursing", "護理研究所", unit="inst",
@@ -35,11 +35,13 @@ def render():
         cols=(7, 5),
     )
 
+    # Audience router: each ribbon is a reader; the sub-line says what is behind it. The Chinese site link
+    # lives here only (no separate 中文 links in the opening or at the foot of the page).
     quick = ribbon_bar([
-        ("Research", L("en_inst:D")),
-        ("Faculty Expertise", L("en_inst:D-1")),
-        ("Collaborate", L("en_inst:E")),
-        ("News", L("en_inst:F")),
+        ("Visiting scholars", L("en_inst:E-2"), "Short visits"),
+        ("Collaborators", L("en_inst:E-1"), "Areas to work on"),
+        ("Nurse researchers", L("en_inst:D-1"), "Faculty by area"),
+        ("中文", L("inst:A"), "護理研究所中文網站"),
     ])
 
     director = split(
@@ -74,8 +76,7 @@ def render():
             ("Academic activities",
              draft("Lectures, conferences and training held by the Institute."), None, "inst", "A"),
         ]),
-        actions(text_link("Research Areas and Faculty", L("en_inst:D-1")),
-                text_link("Publications", L("en_inst:D-2")),
+        actions(text_link("Publications", L("en_inst:D-2")),
                 text_link("Academic Activities", L("en_inst:D-3"))),
     ])
 
@@ -84,7 +85,6 @@ def render():
              "學術活動與國際學術交流，不放招生、課務、口試、獎學金公告。"),
         route_list([
             ("News", draft("Research highlights, publications, graduate achievements and seminars"), L("en_inst:F")),
-            ("Academic Activities", draft("Records of lectures, conferences and training"), L("en_inst:D-3")),
         ], unit="inst"),
     ])
 
@@ -120,6 +120,5 @@ def render():
         contact,
         name_tape("College and Department"),
         family,
-        actions(text_link("護理研究所中文網站", L("inst:A"))),
         owner=META["owner"],
     )

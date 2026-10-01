@@ -22,7 +22,7 @@ def render():
     origin = tape_surface(
         p("The Institute was established in 1979 to meet the needs of nursing education and research, "
           "and became a pioneer of master's-level nursing education in Taiwan."),
-        p(draft("Translated from the Institute's history page.") + "　" + text_link("Source (Chinese)", U_HISTORY),
+        p(draft("Translated from the Institute's history page.") + "　" + text_link("Chinese page: Institute History", U_HISTORY),
           muted=True),
     )
 

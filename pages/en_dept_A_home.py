@@ -22,8 +22,7 @@ def render():
                       "and practice in hospital, community and military settings."),
             ),
             actions(button("Visit the Department", L("en_dept:G")),
-                    text_link("About the Department", L("en_dept:B")),
-                    text_link("中文", L("dept:A"))),
+                    text_link("About the Department", L("en_dept:B"))),
         ]),
         '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
             "Department of Nursing", "護理學系", unit="dept",
@@ -33,11 +32,13 @@ def render():
         cols=(7, 5),
     )
 
+    # Audience router: each ribbon is a reader; the sub-line says what is behind it. The Chinese site link
+    # lives here only (no separate 中文 links in the opening or at the foot of the page).
     quick = ribbon_bar([
-        ("Undergraduate Program", L("en_dept:C")),
-        ("Simulation", L("en_dept:C-3")),
-        ("Exchange", L("en_dept:E")),
-        ("Faculty", L("en_dept:F")),
+        ("Partner schools", L("en_dept:C"), "Four-year program"),
+        ("Nurse educators", L("en_dept:F"), "Who teaches here"),
+        ("Exchange students", L("en_dept:E"), "Exchange stories"),
+        ("中文", L("dept:A"), "護理學系中文網站"),
     ])
 
     program = feature_lead(
@@ -49,7 +50,7 @@ def render():
                     "from basic nursing skills to care in military and disaster settings.")),
         ],
         illo_slot("Student and clinical teacher", "1/1", unit="dept"),
-        unit="dept", href=L("en_dept:C"), link_label="The undergraduate program",
+        unit="dept", href=L("en_dept:C-2"), link_label="Clinical and Military Nursing Practicum",
     )
     settings = feature_list([
         ("Hospital practicum",
@@ -81,7 +82,6 @@ def render():
         route_list([
             ("News", draft("Teaching innovation, practicum highlights, student achievements and exchange outcomes"),
              L("en_dept:H")),
-            ("International Exchange", draft("Selected inbound and outbound exchange outcomes"), L("en_dept:E")),
         ], unit="dept"),
     ])
 
@@ -102,6 +102,5 @@ def render():
         news,
         name_tape("College and Institute"),
         family,
-        actions(text_link("護理學系中文網站", L("dept:A"))),
         owner=META["owner"],
     )

@@ -1,4 +1,5 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, roster, facts, draft, note)
+from components import (page, name_tape, statement, p, h4, text_link, actions, roster, roster_index, back_to_top, facts,
+                        draft, note)
 from links import L
 from tokens import C, SITE, TYPE
 
@@ -255,20 +256,32 @@ def render():
              "收齊後替換本頁內容與照片。目前名單、職級、學位與專長逐字取自現行網站。"),
     ])
 
-    fulltime = []
-    for g in GROUPS:
-        people = [x for x in FULLTIME if x[0] == g]
-        fulltime.append(h4(g))
-        fulltime.append(roster(_rows(people)))
+    # 依職級分組的姓名索引：每組 roster 的列 id 由 p1 起連號（start 偏移），合聘教師接在專任之後。
+    fulltime, index, start = [], [], 1
+    for g in GROUPS + ["合聘教師"]:
+        people = _rows(JOINT if g == "合聘教師" else [x for x in FULLTIME if x[0] == g])
+        index.append(h4(g))
+        index.append(roster_index(people, anchor="p", start=start))
+        if g != "合聘教師":
+            fulltime.append(h4(g))
+            fulltime.append(roster(people, anchor="p", start=start))
+            fulltime.append(back_to_top())
+        else:
+            joint = roster(people, anchor="p", start=start)
+        start += len(people)
 
     adjunct = []
     for r in ADJ_RANKS:
         rows = [(n, c) for rank, n, c in ADJUNCT if rank == r]
         adjunct.append(h4(r))
         adjunct.append(facts(rows))
+        adjunct.append(back_to_top())
 
     return page(
         opening,
+        name_tape("依職級找老師"),
+        p("點姓名直接跳到該位老師；兼任教師名冊依兼聘等級列在頁面後段。", muted=True),
+        *index,
         _anchor("fulltime"),
         name_tape("專任教師"),
         note("照片取自各教師現行個人頁；楊嘉禎、陳姿吟、陳懿維個人頁沒有照片，請補。"
@@ -278,7 +291,8 @@ def render():
         *fulltime,
         _anchor("joint"),
         name_tape("合聘教師"),
-        roster(_rows(JOINT)),
+        joint,
+        back_to_top(),
         _anchor("adjunct"),
         name_tape("兼任教師"),
         p("114學年兼任老師名冊"),

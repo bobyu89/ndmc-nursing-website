@@ -19,7 +19,7 @@ def render():
             draft("We welcome nursing educators, scholars and partner institutions who want to see our undergraduate "
                   "teaching, simulation and military nursing education at first hand."),
         ),
-        actions(button("Email the College of Nursing", f"mailto:{EMAIL}"), text_link("中文：聯絡我們", L("K"))),
+        actions(button("Email the College of Nursing", f"mailto:{EMAIL}"), text_link("中文版：聯絡我們", L("K"))),
     ])
 
     themes = feature_list([

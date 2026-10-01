@@ -1,3 +1,4 @@
+from tokens import C
 from components import (page, name_tape, statement, p, split, photo, text_link, actions, timeline, tape_surface,
                         draft, note)
 from links import L
@@ -10,6 +11,18 @@ MEMORIAL_VIDEO = "https://www.youtube.com/watch?v=X6k9rzHZADc"
 # 照片：周將軍肖像取自「周將軍紀念影片」頁（unit/100010/1474）；典禮照片取自「周將軍遷厝暨追思典禮」頁（unit/100010/1519）。
 GENERAL_PHOTO = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E8%BB%8D%E8%AD%B7%E5%A4%A7%E9%A0%AD%E7%85%A71.jpg"
 CEREMONY_PHOTO = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E6%8A%95%E5%BD%B1%E7%89%873.JPG"
+
+
+def _roc(roc):
+    """Year patch on the Chinese page: 民國 above the year, two lines that fit the 84px patch."""
+    return (f'<span style="display:block;text-align:center;line-height:1.2;">'
+            f'<span style="display:block;font-size:14px;font-weight:700;letter-spacing:.1em;">民國</span>{roc}年</span>')
+
+
+def _t(title, roc):
+    """Event title with the AD year beside it in label size."""
+    return (f'{title}<span style="margin-left:10px;font-size:14px;font-weight:700;color:{C["ink_soft"]};">'
+            f'{roc + 1911}</span>')
 
 
 def render():
@@ -36,27 +49,27 @@ def render():
     ])
 
     # 年代與事件取自現行「歷史沿革」頁（unit/100010/6804），說明文字原文照錄；
-    # 年份圓章為民國年加 1911 換算的西元年。2018 一則取自 unit/100010/1519（影片標題「1070310」）；
+    # 中文頁一律用民國紀年：年份圓章為民國年，下方小字為加 1911 換算的西元年。2018 一則取自 unit/100010/1519（影片標題「1070310」）；
     # 揭牌典禮日期取自學院首頁輪播標題「1140916_護理學院揭牌典禮」。
     events = timeline([
-        ("1943", "上海江灣「高級護理職業班」",
+        (_roc(32), _t("上海江灣「高級護理職業班」", 32),
          "國防醫學大學護理學院護理學系源於上海江灣之「高級護理職業班」，由 周美玉將軍於民國32年創立，"
          "招收初中畢業之學生，修業四年半，為我國最早開辦之護理人員職業教育訓練班。", "college"),
-        ("1947", "設立護理學系",
+        (_roc(36), _t("設立護理學系", 36),
          "民國36年周將軍更進而設立護理學系，成為我國首創之護理高等學府。", "dept"),
-        ("1949", "遷台",
+        (_roc(38), _t("遷台", 38),
          "民國38年護理學系隨國防醫學院遷台至台北水源地。"),
-        ("1979", "設立護理研究所",
+        (_roc(68), _t("設立護理研究所", 68),
          "民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。", "inst"),
-        ("1990", "在職進修班",
+        (_roc(79), _t("在職進修班", 79),
          "民國79年本學系接受教育部委辦，增設護理人員學士學位在職進修班"
          "（註記：在職進修班自83年起已停止對外招生，畢業生共180人）。", "dept"),
-        ("1999", "遷至內湖",
+        (_roc(88), _t("遷至內湖", 88),
          "民國88年校址遷移至內湖的國防醫學中心，以優良的師資與嶄新的硬體設備，訓練優秀的護理專業人才，"
          "繼續發揮百年樹人的志業。"),
-        ("2018", "周美玉將軍遷厝暨追思典禮",
+        (_roc(107), _t("周美玉將軍遷厝暨追思典禮", 107),
          "民國107年3月10日，周將軍遷厝五指山國軍示範公墓國軍忠靈殿。"),
-        ("2025", "成立護理學院",
+        (_roc(114), _t("成立護理學院", 114),
          "民國114年成立護理學院，成為推動臺灣高等護理教育的先鋒。"
          "民國114年9月16日舉行護理學院揭牌典禮。", "college"),
     ])

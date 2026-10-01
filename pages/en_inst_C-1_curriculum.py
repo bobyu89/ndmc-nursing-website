@@ -58,7 +58,7 @@ def render():
             "teaching.",
         ]),
         p(draft("Translated from the Institute's study regulations.") + "　"
-          + text_link("Source (Chinese)", U_RULES), muted=True),
+          + text_link("Chinese page: Graduate Student Area", U_RULES), muted=True),
         p("The Institute's research ethics page provides Tri-Service General Hospital's procedure for obtaining "
           "the unit consent form required by its institutional review board, and for applying to collect data in "
           "the hospital's Department of Nursing.", muted=True),

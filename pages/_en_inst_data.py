@@ -20,6 +20,7 @@ Underscore-prefixed, so build.py does not render it as a page. Every value is co
 from urllib.parse import quote
 
 from components import text_link, draft
+from pages._en_college_shared import zh as _zh
 from links import L
 from tokens import SITE
 
@@ -143,7 +144,8 @@ MILITARY_HEALTH_PROJECTS = [
 
 
 def project_items(projects):
-    return [f"{title} — {name(key)}" for key, title in projects]
+    """Project bullets lead with the investigator: "Name: Title" (no em dashes)."""
+    return [f"{name(key)}: {title}" for key, title in projects]
 
 
 def name(key):
@@ -167,9 +169,9 @@ def person_row(key):
     return (n, f"{position(key)}. {spec}", L("en:D-1"))
 
 
-def zh(pid, label="中文"):
-    """Link to the Chinese counterpart page."""
-    return text_link(label, L(pid))
+def zh(pid, label=None):
+    """Language switch to the Chinese counterpart page; default label 中文版：{Chinese page title}."""
+    return _zh(pid, label)
 
 
 def email_link():
