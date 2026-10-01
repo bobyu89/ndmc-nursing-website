@@ -1,8 +1,9 @@
 import re
 
-from components import (page, name_tape, statement, p, h4, text_link, actions, bullets, tape_surface, draft, note)
+from components import (page, name_tape, statement, p, h4, text_link, actions, bullets, tape_surface, back_to_top,
+                        draft, note)
 from links import L
-from tokens import SITE
+from tokens import SITE, C, S
 from pages._en_inst_data import name, zh, FACULTY_EN
 
 META = {"id": "D-2", "slug": "publications", "title": "Publications and Graduate Research", "owner": "教發",
@@ -99,6 +100,20 @@ def _citations(rows):
                     for _sort, who, url, cite in rows])
 
 
+def _jump(items, lead=None):
+    """Compact jump index in the style of components.roster_index: [(label, href), ...]."""
+    links = "".join(
+        f'<a href="{href}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{label}</a>'
+        for label, href in items)
+    head = f'<span style="margin-right:{S[2]};color:{C["ink_soft"]};">{lead}</span>' if lead else ""
+    return f'<div style="margin:0 0 {S[2]};max-width:44em;line-height:1.4;">{head}{links}</div>'
+
+
+def _anchor(anchor_id, *blocks):
+    return f'<div id="{anchor_id}">' + "".join(blocks) + "</div>"
+
+
 def render():
     opening = "".join([
         statement(
@@ -106,6 +121,9 @@ def render():
             draft("A selection of recent journal articles by Institute faculty, listed by year, and work led by our "
                   "graduate students. Complete publication lists are on each faculty member's profile."),
         ),
+        _jump([("Selected publications 2026", "#y2026"), ("Selected publications 2025", "#y2025"),
+               ("Papers led by graduate students", "#graduate"), ("Theses", "#theses"),
+               ("Posters and awards", "#posters"), ("Contact an author", "#contact")]),
         actions(text_link("Faculty Directory", L("en:D-1")), zh("inst:F-2")),
     ])
 
@@ -113,10 +131,10 @@ def render():
         p("Papers from Professor Hui-Hsun Chiang's group whose first author was a master's student:"),
         bullets([_wrap_urls(c) for c in STUDENT_LED]),
         p("As noted on Professor Chiang's faculty profile.", muted=True),
-        h4(draft("Theses")),
-        p(draft("Selected recent master's theses will be listed here, with the student, supervisor and year.")),
-        h4(draft("Posters and awards")),
-        p(draft("Conference posters and awards by graduate students will be listed here.")),
+        _anchor("theses", h4(draft("Theses")),
+                p(draft("Selected recent master's theses will be listed here, with the student, supervisor and year."))),
+        _anchor("posters", h4(draft("Posters and awards")),
+                p(draft("Conference posters and awards by graduate students will be listed here."))),
     ])
 
     return page(
@@ -124,19 +142,18 @@ def render():
         note("以下論文逐字取自各教師官方個人頁（中文 DocDet 或英文 DocDetEn，2026-09-29 擷取），只選已有卷期或 DOI 的期刊論文，"
              "未收「已接受／in press」者；選哪幾篇為草稿，請教發與作者確認後定稿（建議每年 5–8 篇）。影響係數等註記不列。"
              "完整著作以學院英文 Faculty Directory 為準。"),
-        name_tape("Selected Publications 2026"),
-        _citations(Y2026),
-        name_tape("Selected Publications 2025"),
-        _citations(Y2025),
-        name_tape("Graduate Research"),
-        graduate,
+        _anchor("y2026", name_tape("Selected Publications 2026"), _citations(Y2026)),
+        back_to_top(),
+        _anchor("y2025", name_tape("Selected Publications 2025"), _citations(Y2025)),
+        back_to_top(),
+        _anchor("graduate", name_tape("Graduate Research"), graduate),
         note("研究生第一作者論文依江慧珣老師英文個人頁的「碩士生…（第一作者）論文成果發表」註記；請教發確認為本所研究生。"
              "其他老師若有研究生為第一作者的論文，請一併提供。另請提供：近年碩士論文代表作（年份、研究生、指導教授、英文題名）、"
              "研究生海報與得獎紀錄（須附可查證來源）。未提供前 Theses 與 Posters 兩段不列任何項目。"),
-        tape_surface(
+        _anchor("contact", tape_surface(
             p(draft("Looking for a specific paper or collaborator? Write to us and we will connect you with the "
                     "author.")),
             actions(text_link("Collaboration Contact", L("en_inst:E-3"))),
-        ),
+        )),
         owner=META["owner"],
     )

@@ -1,9 +1,9 @@
 import html
 
 from components import (page, name_tape, statement, p, h4, text_link, actions, bullets, facts, route_list,
-                        draft, note)
+                        back_to_top, draft, note)
 from links import L
-from tokens import SITE
+from tokens import SITE, C, S
 
 META = {"id": "F-2", "slug": "publications", "title": "研究發表", "owner": "教發", "site": "inst"}
 
@@ -81,12 +81,27 @@ NDLTD = ("https://ndltd.ncl.edu.tw/cgi-bin/gs32/gsweb.cgi/login?o=dnclcdr&amp;ex
          "%E5%AD%B8&amp;searchmode=basic")
 
 
+def _jump(items, lead=None):
+    """Compact jump index in the style of components.roster_index: [(label, href), ...]."""
+    links = "".join(
+        f'<a href="{href}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{label}</a>'
+        for label, href in items)
+    head = f'<span style="margin-right:{S[2]};color:{C["ink_soft"]};">{lead}</span>' if lead else ""
+    return f'<div style="margin:0 0 {S[2]};max-width:44em;line-height:1.4;">{head}{links}</div>'
+
+
+def _anchor(anchor_id, *blocks):
+    return f'<div id="{anchor_id}">' + "".join(blocks) + "</div>"
+
+
 def _year_block(entries):
     out = []
-    for name, doc_id, items in entries:
-        out.append(h4(name))
-        out.append(bullets([html.escape(t, quote=False) for t in items]))
-        out.append(p(f'來源：<a href="{DOC}{doc_id}">{name} 老師個人頁</a>', muted=True))
+    for n, (name, doc_id, items) in enumerate(entries, 1):
+        out.append(_anchor(f"t2026-{n}",
+                           h4(name),
+                           bullets([html.escape(t, quote=False) for t in items]),
+                           p(f'來源：<a href="{DOC}{doc_id}">{name} 老師個人頁</a>', muted=True)))
     return "".join(out)
 
 
@@ -97,8 +112,10 @@ def render():
             draft("這裡依年份列出本所老師的期刊論文，每篇都標明出自哪位老師的個人頁。"
                   "想了解某位老師的完整著作，請到學院師資陣容。"),
         ),
-        actions(text_link("2026 年發表", "#y2026"), text_link("研究生成果", "#students"),
-                text_link("師資陣容", L("E-1"))),
+        _jump([("教師代表論文", "#representative"), ("2026 年論文", "#y2026"), ("2025 年論文", "#y2025"),
+               ("研究生成果", "#students"), ("完整著作", "#complete")]),
+        _jump([(name, f"#t2026-{n}") for n, (name, _i, _t) in enumerate(PUB_2026, 1)], lead="2026 年依教師："),
+        actions(text_link("師資陣容", L("E-1"))),
     ])
 
     representative = "".join([
@@ -147,18 +164,15 @@ def render():
 
     return page(
         opening,
-        name_tape("教師代表論文"),
-        representative,
-        '<div id="y2026"></div>',
-        name_tape("最新研究發表：2026 年"),
-        y2026,
-        name_tape("2025 年"),
-        y2025,
-        '<div id="students"></div>',
-        name_tape("研究生成果"),
-        students,
-        name_tape("完整著作"),
-        p(draft("每位老師的完整學經歷與著作，由學院師資陣容與老師個人頁維護。")),
-        actions(text_link("師資陣容", L("E-1")), text_link("研究領域", L("inst:F-1"))),
+        _anchor("representative", name_tape("教師代表論文"), representative),
+        _anchor("y2026", name_tape("最新研究發表：2026 年"), y2026),
+        back_to_top(),
+        _anchor("y2025", name_tape("2025 年"), y2025),
+        back_to_top(),
+        _anchor("students", name_tape("研究生成果"), students),
+        back_to_top(),
+        _anchor("complete", name_tape("完整著作"),
+                p(draft("每位老師的完整學經歷與著作，由學院師資陣容與老師個人頁維護。")),
+                actions(text_link("師資陣容", L("E-1")), text_link("研究領域", L("inst:F-1")))),
         owner=META["owner"],
     )

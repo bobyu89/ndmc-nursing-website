@@ -1,6 +1,7 @@
 from components import (as_of, page, name_tape, statement, p, text_link, actions, timeline, facts, split, photo_slot,
-                        fact_line, source_quote, icon, draft, note)
+                        fact_line, source_quote, icon, back_to_top, draft, note)
 from links import L
+from tokens import C, S
 
 META = {"id": "D-2", "slug": "career", "title": "職涯發展", "owner": "學生事務", "site": "dept"}
 
@@ -23,12 +24,31 @@ def _cite(label="出自《115 學年度軍事學校正期班甄選入學招生�
     return p(draft(label) + "　" + text_link(link, href), muted=True)
 
 
+def _jump(items, lead=None):
+    """Compact jump index in the style of components.roster_index: [(label, href), ...]."""
+    links = "".join(
+        f'<a href="{href}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{label}</a>'
+        for label, href in items)
+    head = f'<span style="margin-right:{S[2]};color:{C["ink_soft"]};">{lead}</span>' if lead else ""
+    return f'<div style="margin:0 0 {S[2]};max-width:44em;line-height:1.4;">{head}{links}</div>'
+
+
+def _anchor(anchor_id, *blocks):
+    return f'<div id="{anchor_id}">' + "".join(blocks) + "</div>"
+
+
 def render():
-    opening = statement(
-        draft("從入伍到任官，先把這條路看清楚。"),
-        draft("讀軍護和讀一般護理系最大的不同，是畢業之後的路：公費讀書、任官、服役、分發。"
-              "這一頁依時間順序說明，規定一律以當年度招生簡章與國防部公告為準。"),
-    )
+    opening = "".join([
+        statement(
+            draft("從入伍到任官，先把這條路看清楚。"),
+            draft("讀軍護和讀一般護理系最大的不同，是畢業之後的路：公費讀書、任官、服役、分發。"
+                  "這一頁依時間順序說明，規定一律以當年度招生簡章與國防部公告為準。"),
+        ),
+        _jump([("四年之後的路", "#path"), ("入伍訓練", "#training"), ("公費制度與待遇", "#funding"),
+               ("服役義務", "#service"), ("授階", "#rank"), ("分發", "#assignment"),
+               ("職涯發展", "#growth"), ("給家長", "#parents")]),
+    ])
 
     path = timeline([
         ("入學", "新生入伍訓練",
@@ -111,24 +131,21 @@ def render():
         opening,
         note("公費、服役、授階、分發、待遇等內容可公開到什麼程度尚未決定。全頁上線前，須由學生事務與院窗口逐段確認可公開範圍。"
              "標示「簡章原文」者逐字摘自《115 學年度軍事學校正期班甄選入學招生簡章》（" + U_BROCHURE + "）；其餘文字為草稿。"),
-        name_tape("四年之後的路"),
-        path,
-        name_tape("入伍訓練"),
-        training,
-        name_tape("公費制度與待遇"),
-        funding,
-        name_tape("服役義務"),
-        service,
-        name_tape("授階"),
-        rank,
-        name_tape("分發"),
-        assignment,
-        name_tape("職涯發展"),
-        growth,
+        _anchor("path", name_tape("四年之後的路"), path),
+        back_to_top(),
+        _anchor("training", name_tape("入伍訓練"), training),
+        _anchor("funding", name_tape("公費制度與待遇"), funding),
+        back_to_top(),
+        _anchor("service", name_tape("服役義務"), service),
+        back_to_top(),
+        _anchor("rank", name_tape("授階"), rank),
+        _anchor("assignment", name_tape("分發"), assignment),
+        back_to_top(),
+        _anchor("growth", name_tape("職涯發展"), growth),
         note("請學生事務提供：① 可公開的畢業生職涯路徑範例（例如臨床、專科護理師、教學、管理），不寫個人姓名除非本人同意；"
              "② 一兩位學長姐的經驗分享（需本人授權）；③ 一張可公開的臨床照片。沒有出處的就業率或升遷數字請勿填入。"),
-        name_tape("給家長"),
-        p(draft("家長最常問的九件事，護理學院整理在「家長常見問題」，每一題都附上簡章原文。")),
-        actions(text_link("家長常見問題", L("F-1")), text_link("招生資訊", L("dept:D-1"))),
+        _anchor("parents", name_tape("給家長"),
+                p(draft("家長最常問的九件事，護理學院整理在「家長常見問題」，每一題都附上簡章原文。")),
+                actions(text_link("家長常見問題", L("F-1")), text_link("招生資訊", L("dept:D-1")))),
         owner=META["owner"],
     )

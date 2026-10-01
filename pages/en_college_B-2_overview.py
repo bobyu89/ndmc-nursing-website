@@ -1,6 +1,7 @@
 from components import (page, name_tape, statement, p, split, photo, text_link, actions, timeline,
-                        tape_surface, bullets, draft, note)
+                        tape_surface, bullets, back_to_top, draft, note)
 from links import L
+from tokens import C, S
 from pages._en_college_shared import zh, IMG_EMBLEM
 
 GENERAL_PHOTO = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E8%BB%8D%E8%AD%B7%E5%A4%A7%E9%A0%AD%E7%85%A71.jpg"
@@ -15,6 +16,20 @@ META = {"id": "B-2", "slug": "overview", "title": "Overview and History", "owner
 # 2025 College and carries no date, so it stays draft. Years on patches are ROC year + 1911.
 
 
+def _jump(items, lead=None):
+    """Compact jump index in the style of components.roster_index: [(label, href), ...]."""
+    links = "".join(
+        f'<a href="{href}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{label}</a>'
+        for label, href in items)
+    head = f'<span style="margin-right:{S[2]};color:{C["ink_soft"]};">{lead}</span>' if lead else ""
+    return f'<div style="margin:0 0 {S[2]};max-width:44em;line-height:1.4;">{head}{links}</div>'
+
+
+def _anchor(anchor_id, *blocks):
+    return f'<div id="{anchor_id}">' + "".join(blocks) + "</div>"
+
+
 def render():
     opening = "".join([
         statement(
@@ -22,6 +37,9 @@ def render():
             draft("The College of Nursing brings together the Department of Nursing and the Graduate Institute of Nursing. "
                   "Its students study nursing, receive military training and serve as nursing officers after graduation."),
         ),
+        _jump([("The College today", "#today"), ("Military nursing", "#military"),
+               ("Educational philosophy", "#philosophy"), ("General Mei-Yu Chow", "#general"),
+               ("Timeline 1943–2025", "#timeline"), ("The College emblem", "#emblem")]),
         actions(zh("C-2", "中文版：學院簡介"), zh("C-3", "中文版：歷史沿革")),
     ])
 
@@ -107,22 +125,18 @@ def render():
 
     return page(
         opening,
-        name_tape("The College Today"),
-        today,
-        name_tape("Military Nursing"),
-        military,
-        name_tape("Educational Philosophy"),
-        philosophy,
-        name_tape("General Mei-Yu Chow"),
-        general,
+        _anchor("today", name_tape("The College Today"), today),
+        _anchor("military", name_tape("Military Nursing"), military),
+        _anchor("philosophy", name_tape("Educational Philosophy"), philosophy),
+        back_to_top(),
+        _anchor("general", name_tape("General Mei-Yu Chow"), general),
         note("周將軍簡介第一段已依中文頁查證內容譯出；第二段含中華民國護理學會、臺北榮民總醫院的英文名稱，請確認正式名稱後再拿掉待確認。"
              "照片與中文頁相同（軍護大頭照1.jpg），授權同中文頁。"),
-        name_tape("Timeline"),
-        events,
+        _anchor("timeline", name_tape("Timeline"), events),
         note("時間軸逐句譯自中文「歷史沿革」已查證段落。2018 一筆的「五指山國軍示範公墓國軍忠靈殿」為暫譯，請確認英文名稱。"
              "「水源地」「國防醫學中心」採音譯與舊英文頁用法（National Defense Medical Center），請確認。"),
-        name_tape("The College Emblem"),
-        emblem,
+        back_to_top(),
+        _anchor("emblem", name_tape("The College Emblem"), emblem),
         note("中文院徽說明中的鬱金香花色段落，英文版省略。"),
         owner=META["owner"],
     )

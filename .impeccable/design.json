@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-29T10:08:46+00:00",
+  "generatedAt": "2026-10-01T06:00:00Z",
   "title": "Design System: 國防醫學大學 護理學院・護理學系・護理研究所（中英文六站）",
   "extensions": {
     "colorMeta": {
@@ -241,7 +241,7 @@
       },
       "name-tape": {
         "displayName": "Name Tape",
-        "purpose": "Every section heading; .1em on CJK sites, .01em on English sites."
+        "purpose": "Every section heading, 26.5px; .1em on CJK sites, .01em on English sites."
       },
       "mark-glyph": {
         "displayName": "Mark Glyph",
@@ -253,11 +253,15 @@
       },
       "patch-title": {
         "displayName": "Patch Title",
-        "purpose": "Type embroidered on shields and tabs; keep-all; .06em CJK / .01em Latin."
+        "purpose": "Type embroidered on shields and tabs on Chinese sites; keep-all + overflow-wrap:anywhere; .06em."
+      },
+      "patch-title-latin": {
+        "displayName": "Patch Title (Latin)",
+        "purpose": "Patch titles on English sites; keep-all + overflow-wrap:break-word, 12px patch side padding, so Latin unit names stay whole."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "h4 sub-headings and row titles in feature lists, timelines and ledgers."
+        "purpose": "h4 sub-headings, FAQ group titles and row titles in feature lists, timelines and ledgers; 21px keeps the 1.25 step below the name tape."
       },
       "patch-arrow": {
         "displayName": "Patch Arrow",
@@ -266,6 +270,10 @@
       "roster-name": {
         "displayName": "Roster Name",
         "purpose": "Person's name in a roster row."
+      },
+      "fact-line": {
+        "displayName": "Fact Line",
+        "purpose": "The one-line answer that opens every FAQ answer, before the plain explanation and the source quote."
       },
       "lede": {
         "displayName": "Lede",
@@ -297,7 +305,7 @@
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Descriptions, ranks, stamp, slot captions, draft chips, org-tree children."
+        "purpose": "Descriptions, ranks, ribbon sub-lines, source quotes, as-of lines, AD year beside a 民國 title, timeline legend, stamp, slot and photo captions, draft chips, org-tree children."
       },
       "rocker-latin": {
         "displayName": "Rocker (Latin)",
@@ -379,7 +387,7 @@
       "fonts": "System CJK stack only; no @font-face (platform limit).",
       "icons": "FontAwesome 4.7 only.",
       "responsive": "Bootstrap 5.0.2 classes only; intrinsic flex (flex:1 1 Npx) instead of auto .col-md.",
-      "contrastCheck": "python tokens.py",
+      "contrastCheck": "python tokens.py; text on twill is also checked against twill_dark (#E5E0D7: thread blended at 4.5% over twill, the weave's darkest line).",
       "finalBuild": "python build.py --final removes 待確認 chips and 編輯備註 notes and stamps today's date into every status stamp.",
       "sites": [
         "college",
@@ -388,7 +396,10 @@
         "en_college",
         "en_dept",
         "en_inst"
-      ]
+      ],
+      "linkLabelLint": "build.py fails a button or text link whose whole label is 前往/了解更多/更多/點此/按此/Learn more/Explore/More/Click here/Research page/個人研究頁.",
+      "lengthBudget": "tools/length_check.py: at most 8 phone screens (390x844) per page; directories may exceed it only with an index (roster_index / FAQ jump list) and back_to_top().",
+      "faqGroupLimit": "faq_set asserts at most 5 questions per group."
     },
     "language": {
       "switch": "components.SITE_LANG, set by build.py from META['site'] (en_* sites are 'en').",
@@ -412,17 +423,25 @@
           "stamp": "最後更新 {date}　｜　維護單位：{unit}",
           "illustration": "插圖",
           "photo": "照片",
-          "learnMore": "了解更多",
-          "explore": "前往",
-          "researchPage": "個人研究頁"
+          "moreOn": "更多{title}",
+          "researchPage": "{name}的研究頁",
+          "backToTop": "回到頁首",
+          "backToQuestions": "回到問題列表",
+          "asOf": "資料日期：",
+          "timelineLegend": "年份臂章的顏色代表單位：",
+          "other": "其他"
         },
         "en": {
           "stamp": "Last updated {date} · Maintained by {unit}",
           "illustration": "Illustration",
           "photo": "Photo",
-          "learnMore": "Learn more",
-          "explore": "Explore",
-          "researchPage": "Research page"
+          "moreOn": "More on {title}",
+          "researchPage": "{name}’s research page",
+          "backToTop": "Back to top",
+          "backToQuestions": "Back to the questions",
+          "asOf": "As of: ",
+          "timelineLegend": "Patch colour shows the unit: ",
+          "other": "Other"
         }
       },
       "publicUnit": {
@@ -448,6 +467,7 @@
       "appliesTo": [
         "name-tape selvedge",
         "org-tree head tab",
+        "ribbon stripes (site cloth, its pale, tape, thread only)",
         "status-stamp unit name"
       ]
     }
@@ -473,17 +493,17 @@
       "name": "Text Link",
       "kind": "button",
       "refersTo": "text-link",
-      "description": "Inline underlined thread link; fixed labels follow the site language.",
-      "html": "<a class=\"ds-text-link\" href=\"#\">了解更多 <svg class=\"ds-ic\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M4 2l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></a>",
+      "description": "Inline underlined thread link; the label always names its destination (build.py rejects bare 前往/了解更多/Learn more).",
+      "html": "<a class=\"ds-text-link\" href=\"#\">更多入學資訊 <svg class=\"ds-ic\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M4 2l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></a>",
       "css": ".ds-text-link{display:inline;padding:12px 0;line-height:1.9;color:#33493F;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;} .ds-text-link:hover{text-decoration-thickness:2.5px;} .ds-text-link:focus-visible{outline:2px solid #33493F;outline-offset:3px;} .ds-ic{flex:none;vertical-align:-2px;}"
     },
     {
       "name": "Name Tape",
       "kind": "custom",
       "refersTo": "name-tape",
-      "description": "Every section heading, sewn on with the site's unit selvedge (department pink shown).",
+      "description": "Every section heading, sewn on with a 9x30px selvedge strip of the site's unit cloth and a 3px thread edge (department pink shown).",
       "html": "<div class=\"ds-twill\"><h3 class=\"ds-name-tape\"><span class=\"ds-selvedge\"></span>實習特色</h3></div>",
-      "css": ".ds-twill{background-color:#EDE7DE;background-image:repeating-linear-gradient(135deg,rgba(51,73,63,.045) 0 1px,transparent 1px 5px);padding:24px;} .ds-name-tape{display:inline-flex;align-items:center;gap:12px;margin:0;padding:11px 18px 10px 12px;background:#F7F4EF;color:#33493F;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-size:25.5px;line-height:1.2;font-weight:900;letter-spacing:.1em;border:1px solid #CFC6B9;border-radius:2px;outline:1px dashed rgba(51,73,63,.35);outline-offset:-5px;} .ds-selvedge{flex:none;width:14px;height:26px;background:#D9B8B3;border:1.5px solid #33493F;border-radius:1px;}"
+      "css": ".ds-twill{background-color:#EDE7DE;background-image:repeating-linear-gradient(135deg,rgba(51,73,63,.045) 0 1px,transparent 1px 5px);padding:24px;} .ds-name-tape{display:inline-flex;align-items:center;gap:12px;margin:0;padding:12px 20px 12px 14px;background:#F7F4EF;color:#33493F;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-size:26.5px;line-height:1.2;font-weight:900;letter-spacing:.1em;border:1px solid #CFC6B9;border-radius:2px;outline:1px dashed rgba(51,73,63,.35);outline-offset:-5px;} .ds-selvedge{flex:none;width:9px;height:30px;background:#D9B8B3;border-left:3px solid #33493F;}"
     },
     {
       "name": "Shield Patch with Rocker and Backing",
@@ -497,9 +517,9 @@
       "name": "Ribbon Rack",
       "kind": "nav",
       "refersTo": "ribbon",
-      "description": "Quick entrances as striped ribbons butted edge to edge; four wrap 2+2, five wrap 3+2.",
-      "html": "<div class=\"ds-rack\"><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r1\"></span><span class=\"ds-rlabel\">招生專區</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r2\"></span><span class=\"ds-rlabel\">護理實習</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r3\"></span><span class=\"ds-rlabel\">學生專區</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r4\"></span><span class=\"ds-rlabel\">師資陣容</span></a></div>",
-      "css": ".ds-rack{display:flex;flex-wrap:wrap;margin:0 0 0 2px;padding:24px 0 8px;border-top:1.5px dashed #CFC6B9;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;} .ds-ribbon{flex:1 1 140px;display:block;margin:0 0 16px -2px;color:#33493F;text-decoration:none;} .ds-bar{display:block;height:40px;border:2px solid #33493F;} .ds-r1{background:linear-gradient(90deg,#A4B6AB 0% 34%,#F7F4EF 34% 39%,#33493F 39% 45%,#F7F4EF 45% 50%,#A4B6AB 50% 100%);} .ds-r2{background:linear-gradient(90deg,#D9B8B3 0% 20%,#33493F 20% 24%,#D9B8B3 24% 76%,#33493F 76% 80%,#D9B8B3 80% 100%);} .ds-r3{background:linear-gradient(90deg,#B9C6CC 0% 42%,#F7F4EF 42% 58%,#B9C6CC 58% 100%);} .ds-r4{background:linear-gradient(90deg,#33493F 0% 10%,#A4B6AB 10% 90%,#33493F 90% 100%);} .ds-rlabel{display:block;margin-top:10px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:.06em;} .ds-ribbon:hover .ds-rlabel{text-decoration:underline;text-underline-offset:4px;} .ds-ribbon:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
+      "description": "The audience router on every home: ribbons butted edge to edge, stripes cut only from the site's own cloth and neutrals (college shown), each with a 14px sub-line; four wrap 2+2, five wrap 3+2.",
+      "html": "<div class=\"ds-rack\"><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r1\"></span><span class=\"ds-rlabel\">我想報考</span><span class=\"ds-rsub\">學制與報名</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r2\"></span><span class=\"ds-rlabel\">我是家長</span><span class=\"ds-rsub\">公費與服役</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r3\"></span><span class=\"ds-rlabel\">在校生</span><span class=\"ds-rsub\">表單與獎學金</span></a><a class=\"ds-ribbon\" href=\"#\"><span class=\"ds-bar ds-r4\"></span><span class=\"ds-rlabel\">教職員</span><span class=\"ds-rsub\">送審與場地借用</span></a></div>",
+      "css": ".ds-rack{display:flex;flex-wrap:wrap;margin:0 0 0 2px;padding:24px 0 8px;border-top:1.5px dashed #CFC6B9;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;} .ds-ribbon{flex:1 1 140px;display:block;margin:0 0 16px -2px;color:#33493F;text-decoration:none;} .ds-bar{display:block;height:40px;border:2px solid #33493F;} .ds-r1{background:linear-gradient(90deg,#A4B6AB 0% 34%,#F7F4EF 34% 39%,#33493F 39% 45%,#F7F4EF 45% 50%,#A4B6AB 50% 100%);} .ds-r2{background:linear-gradient(90deg,#D5DED8 0% 20%,#33493F 20% 24%,#A4B6AB 24% 76%,#33493F 76% 80%,#D5DED8 80% 100%);} .ds-r3{background:linear-gradient(90deg,#A4B6AB 0% 42%,#F7F4EF 42% 58%,#A4B6AB 58% 100%);} .ds-r4{background:linear-gradient(90deg,#33493F 0% 10%,#A4B6AB 10% 90%,#33493F 90% 100%);} .ds-rlabel{display:block;margin-top:10px;padding:0 6px;text-align:center;font-weight:800;font-size:15.5px;letter-spacing:.06em;} .ds-rsub{display:block;margin-top:2px;padding:0 4px;text-align:center;font-size:14px;line-height:1.7;font-weight:400;color:#5E5852;letter-spacing:0;} .ds-ribbon:hover .ds-rlabel{text-decoration:underline;text-underline-offset:4px;} .ds-ribbon:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
     },
     {
       "name": "Feature List",
@@ -529,28 +549,37 @@
       "name": "Status Stamp",
       "kind": "chip",
       "refersTo": "status-stamp",
-      "description": "Closes every page with last-updated date and the public maintaining unit.",
-      "html": "<span class=\"ds-stamp\"><svg class=\"ds-ic\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" aria-hidden=\"true\"><rect x=\"1\" y=\"2\" width=\"12\" height=\"11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/><path d=\"M1 5h12M4 9l2 2 4-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/></svg>&nbsp;Last updated 2026-09-29 · Maintained by College of Nursing</span>",
-      "css": ".ds-stamp{display:inline-block;padding:6px 12px;border:1.5px dashed #CFC6B9;border-radius:4px;background:#F7F4EF;color:#5E5852;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-size:14px;line-height:1.7;} .ds-ic{flex:none;vertical-align:-2px;}"
+      "description": "Closes every page with last-updated date, the public maintaining unit, and a back-to-top link to #page-top.",
+      "html": "<span class=\"ds-stamp\"><svg class=\"ds-ic\" width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" aria-hidden=\"true\"><rect x=\"1\" y=\"2\" width=\"12\" height=\"11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/><path d=\"M1 5h12M4 9l2 2 4-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/></svg>&nbsp;Last updated 2026-09-29 · Maintained by College of Nursing</span> <a class=\"ds-top\" href=\"#\">Back to top</a>",
+      "css": ".ds-stamp{display:inline-block;padding:6px 12px;border:1.5px dashed #CFC6B9;border-radius:4px;background:#F7F4EF;color:#5E5852;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;font-size:14px;line-height:1.7;} .ds-ic{flex:none;vertical-align:-2px;} .ds-top{margin-left:16px;color:#33493F;font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;} .ds-top:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
+    },
+    {
+      "name": "FAQ Answer",
+      "kind": "custom",
+      "refersTo": "fact-line",
+      "description": "Answer-first FAQ entry: fact line, plain explanation, subordinate source quote, link back to the grouped list.",
+      "html": "<div class=\"ds-faq\"><h4 class=\"ds-q\">公費生畢業後要服役多久？</h4><p class=\"ds-fact\">軍費生：自任官之日起服常備軍官現役最少 10 年。</p><p class=\"ds-ex\">年限從任官那天起算。有疑問，先打招生專線問清楚再決定。</p><div class=\"ds-src\"><span class=\"ds-srcl\">招生簡章原文</span>「……服常備軍官現役最少十年。」</div><p class=\"ds-back\"><a href=\"#\">回到問題列表</a></p></div>",
+      "css": ".ds-faq{font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",\"Heiti TC\",sans-serif;padding:32px 0 24px;border-top:1.5px dashed #CFC6B9;max-width:40em;color:#35322F;} .ds-q{margin:0 0 16px;color:#33493F;font-size:21px;line-height:1.45;font-weight:900;} .ds-fact{margin:0 0 16px;color:#33493F;font-size:18.5px;line-height:1.6;font-weight:900;} .ds-ex{margin:0 0 16px;font-size:16.5px;line-height:1.85;} .ds-src{margin:16px 0;padding:16px 24px;background:#F7F4EF;border:1px solid #CFC6B9;border-radius:3px;font-size:14px;line-height:1.7;color:#5E5852;} .ds-srcl{display:block;margin-bottom:4px;font-weight:700;color:#33493F;} .ds-back a{color:#33493F;font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;} .ds-back a:focus-visible{outline:2px solid #33493F;outline-offset:3px;}"
     }
   ],
   "narrative": {
     "northStar": "The Uniform Roll",
-    "overview": "The only military nursing college in Taiwan speaks through its uniform's identity system, now across six sites: the college, the department and the institute, each in Chinese and English. The page is a length of oatmeal twill with a fine 45° weave. Section headings are off-white name tapes sewn onto it, each carrying a short selvedge of the site's own unit cloth. Units are embroidered patches with a thick merrowed edge in thread colour and a dashed stitch line inset. The quick entrances are a ribbon rack. Everything reads as cloth and thread, flat and orderly, the way a uniform reads.\n\nThe system is quiet by construction. Colour is Morandi (warm ground, cool cloth) and one deep-rose thread is reserved for the single primary action in view. Depth comes only from cloth layered on cloth: a backing cut to the patch's own outline, a rocker tab stitched above a shield, year patches strung on one thread. Nothing floats. Density is reading density: one column of about 40em inside the university's ~800px content column, with stitched ledgers (dashed rows) in place of card grids. Two build-time switches carry the world across sites without forking it: the site's unit sets the default cloth, the site's language sets tracking and every fixed label.\n\nIt is built entirely inside a hostile CMS. There is no `<style>`, `<svg>`, `section/article/details/summary` or script; the server strips them, and its save filter rewrites `<i>` to `<em>` and drops `aria-*` and `role`. Every rule lives as inline style generated from `tokens.py` and `components.py`, responsiveness comes only from Bootstrap 5.0.2 classes, icons only from FontAwesome 4.7, and type only from the system CJK stack (no `@font-face`). Confirmed rejections: the category default of photo hero + three equal cards + news list, and the College of Pharmacy page's emoji card grid.",
+    "overview": "The only military nursing college in Taiwan speaks through its uniform's identity system, now across six sites: the college, the department and the institute, each in Chinese and English. The page is a length of oatmeal twill with a fine 45° weave. Section headings are off-white name tapes sewn onto it, each carrying a short selvedge strip of the site's own unit cloth. Units are embroidered patches with a thick merrowed edge in thread colour and a dashed stitch line inset. The audience entrances are a ribbon rack. Everything reads as cloth and thread, flat and orderly, the way a uniform reads.\n\nThe system is quiet by construction. Colour is Morandi (warm ground, cool cloth) and one deep-rose thread is reserved for the single primary action in view. Depth comes only from cloth layered on cloth: a backing cut to the patch's own outline, a rocker tab stitched above a shield, year patches strung on one thread. Nothing floats. Density is reading density: one column of about 40em inside the university's ~800px content column, with stitched ledgers (dashed rows) in place of card grids. Phone length is budgeted: a page should fit in eight phone screens, and space is never spent on placeholders for material that does not exist yet. Two build-time switches carry the world across sites without forking it: the site's unit sets the default cloth, the site's language sets tracking and every fixed label.\n\nIt is built entirely inside a hostile CMS. There is no `<style>`, `<svg>`, `section/article/details/summary` or script; the server strips them, and its save filter rewrites `<i>` to `<em>` and drops `aria-*` and `role`. Every rule lives as inline style generated from `tokens.py` and `components.py`, responsiveness comes only from Bootstrap 5.0.2 classes, icons only from FontAwesome 4.7, and type only from the system CJK stack (no `@font-face`). Because the CMS drops every accessible name, visible text carries all meaning: links name their destination and placeholders caption themselves. Confirmed rejections: the category default of photo hero + three equal cards + news list, and the College of Pharmacy page's emoji card grid.",
     "keyCharacteristics": [
-      "Twill ground, name-tape headings, patch units, ribbon-rack entrances.",
-      "Unit identity derived from one token seed: college sage, department pink, institute blue; each site defaults to its own cloth.",
+      "Twill ground, name-tape headings, patch units, a ribbon rack that routes by audience.",
+      "Unit identity derived from one token seed: college sage, department pink, institute blue; each site defaults to its own cloth, ribbons included.",
       "One rose accent per view, reserved for the primary action.",
       "Flat cloth; depth by layering on the 8px grid, never by shadow.",
       "Stitched dashed rules as the universal divider.",
       "Language-aware: CJK tracking opens to .04–.1em, Latin closes to .01em; every fixed label switches with the site.",
-      "Every page ends with a public status stamp: last updated and the maintaining unit.",
+      "Every link label names its destination; the build rejects bare 前往 / 了解更多 / Learn more.",
+      "Every page ends with a public status stamp: last updated, the maintaining unit, and a link back to the top.",
       "Inline style only; Bootstrap 5.0.2 and FontAwesome 4.7 are the only libraries."
     ],
     "rules": [
       {
         "name": "The Single Seed Rule",
-        "body": "Unit colour is never picked per page. It comes from `UNIT` in `tokens.py`; the build sets `SITE_UNIT` from each page's `META[\"site\"]`, and name-tape selvedges and the org-tree head take that site's cloth by default (college sage, department pink, institute blue). A patch, mark or year patch that names another unit wears that unit's cloth.",
+        "body": "Unit colour is never picked per page. It comes from `UNIT` in `tokens.py`; the build sets `SITE_UNIT` from each page's `META[\"site\"]`, and name-tape selvedges, the org-tree head and every ribbon stripe take that site's cloth by default (college sage, department pink, institute blue). Ribbon stripes are cut only from the site's own cloth, its pale, tape and thread; no other unit's colour appears on a ribbon. A patch, mark or year patch that names another unit wears that unit's cloth.",
         "section": "colors"
       },
       {
@@ -560,17 +589,17 @@
       },
       {
         "name": "The Checked Pair Rule",
-        "body": "A new foreground/background pair is added to `TEXT_PAIRS` and must pass `python tokens.py` (4.5:1) before it ships. Thread on sage is the tightest passing pair (4.55); do not lighten either.",
+        "body": "A new foreground/background pair is added to `TEXT_PAIRS` and must pass `python tokens.py` (4.5:1) before it ships. Text on twill is also checked against the weave's darkest line (`twill_dark`, thread blended at 4.5% over twill, computed in `tokens.py`), so the texture can never sink a pair. Thread on sage (4.55) and rose on the weave line (4.82) are the tightest passing pairs; do not lighten the cloths or darken the weave.",
         "section": "colors"
       },
       {
         "name": "The Sewn Heading Rule",
-        "body": "A section heading is a name tape; there is no separate eyebrow or kicker above it. The only text stitched above a patch is a rocker tab carrying the parent institution's name, as on a real shoulder patch.",
+        "body": "A section heading is a name tape; there is no separate eyebrow or kicker above it. The only text stitched above a patch is a rocker tab carrying the parent institution's name, as on a real shoulder patch. A patch that sits beside a titled feature lead carries no title of its own; the heading is said once.",
         "section": "typography"
       },
       {
         "name": "The Script-Aware Tracking Rule",
-        "body": "Tracking follows `SITE_LANG`: CJK sites keep the open values above (.04em route titles and years, .06em buttons, ribbons and patch titles, .1em name tapes); English sites set every one of them to .01em. The rocker decides by its own text: ASCII drops to 13px/.04em.",
+        "body": "Tracking follows `SITE_LANG`: CJK sites keep the open values above (.04em route titles and years, .06em buttons, ribbons and patch titles, .1em name tapes); English sites set every one of them to .01em. The rocker decides by its own text: ASCII drops to 13px/.04em. Patch titles also switch their wrapping: CJK `anywhere`, Latin `break-word` with 12px side padding.",
         "section": "typography"
       },
       {
@@ -584,37 +613,63 @@
         "section": "typography"
       },
       {
+        "name": "The Eight Screens Rule",
+        "body": "A page fits in eight phone screens (390×844), measured by `tools/length_check.py` against the preview. A directory (faculty roster, long FAQ) may run longer, but only if it opens with an index (`roster_index`, the FAQ jump list) and offers `back_to_top()` between its long blocks.",
+        "section": "layout"
+      },
+      {
+        "name": "The Nothing Yet, Nothing Shown Rule",
+        "body": "On phones a placeholder costs a screen and says nothing. Illustration and photo slots hide below md until real material exists; a patch or feature-lead patch whose only content is an unmade illustration hides with it. The one exception is a roster row, whose 3:4 slot keeps the row's shape (`photo_slot(..., phone=True)`).",
+        "section": "layout"
+      },
+      {
         "name": "The Sewn, Not Floating Rule",
         "body": "When something needs to sit forward, give it another layer of cloth behind it. Never a shadow.",
         "section": "elevation"
       },
       {
         "name": "The One Thread Rule",
-        "body": "History is year patches strung on a single 3px thread, oldest first, each in the cloth of the unit the event belongs to (tape when it belongs to none). Entries do not physically overlap each other; entries of real length cannot.",
+        "body": "History is year patches strung on a single 3px thread, oldest first, each in the cloth of the unit the event belongs to (tape when it belongs to none). Entries do not physically overlap each other; entries of real length cannot. When more than one cloth appears, a legend precedes the thread naming each colour in college, department, institute, other order.",
         "section": "elevation"
+      },
+      {
+        "name": "The Named Destination Rule",
+        "body": "A link says where it goes, because the CMS strips every `aria-label`. `python build.py` fails any button or text link labelled only 前往, 了解更多, 更多, 點此, 按此, Learn more, Explore, More, Click here, Research page or 個人研究頁. Defaults name the target: feature links read 更多{title} / More on {title}; roster links read {name}的研究頁 / {name}’s research page; return links read 回到頁首 / Back to top and 回到問題列表 / Back to the questions.",
+        "section": "components"
       }
     ],
     "dos": [
-      "**Do** generate every colour, space and type value from `tokens.py` and `components.py`; add a new text pair to `TEXT_PAIRS` and run `python tokens.py`.",
-      "**Do** open each section with a name tape; let its selvedge take the site's cloth unless the section belongs to another unit.",
-      "**Do** give each unit its own cloth: college sage, department pink, institute blue.",
-      "**Do** keep one rose primary action per view; everything else is thread.",
-      "**Do** separate rows with 1.5px dashed stitch lines in the rule colour.",
-      "**Do** route every letter-spacing through the language switch so English sites track at .01em.",
-      "**Do** wrap content-driven rows with intrinsic flex (`flex: 1 1 Npx`) and split columns with explicit `col-md-N`.",
-      "**Do** end every page with the status stamp naming the date and the public maintaining unit.",
-      "**Do** run `python build.py`; it applies the CMS save filter, themes bare links, and fails any page containing `<style>`, `<svg>`, `<section>`, `<article>`, `<details>`, `<summary>` or `<script>`."
+      "Do generate every colour, space and type value from `tokens.py` and `components.py`; add a new text pair to `TEXT_PAIRS` and run `python tokens.py`, which checks it on twill and on the weave's dark line.",
+      "Do open each section with a name tape; let its selvedge take the site's cloth unless the section belongs to another unit.",
+      "Do give each unit its own cloth: college sage, department pink, institute blue; cut ribbons only from the site's own cloth and the neutrals.",
+      "Do open every home with the ribbon rack routing by audience, each ribbon with a sub-line.",
+      "Do keep one rose primary action per view; everything else is thread.",
+      "Do separate rows with 1.5px dashed stitch lines in the rule colour.",
+      "Do route every letter-spacing through the language switch so English sites track at .01em.",
+      "Do wrap content-driven rows with intrinsic flex (`flex: 1 1 Npx`) and split columns with explicit `col-md-N`.",
+      "Do label every link with its destination.",
+      "Do lead every FAQ answer with its fact line, keep groups to five, and end each answer with the link back to the list.",
+      "Do put an as-of line beside year-specific facts.",
+      "Do keep pages within eight phone screens; give a longer directory an index and back-to-top links.",
+      "Do use real published photos through `photo()` where they exist, with alt text that says what they show.",
+      "Do end every page with the status stamp naming the date, the public maintaining unit, and the link back to the top.",
+      "Do run `python build.py`; it applies the CMS save filter, themes bare links, and fails any page containing `<style>`, `<svg>`, `<section>`, `<article>`, `<details>`, `<summary>` or `<script>`, or a bare link label."
     ],
     "donts": [
-      "**Don't** use drop shadows, glows, or decorative gradients; depth is layered cloth.",
-      "**Don't** lay routes out as equal card grids or use emoji as icons; use stitched ledgers and FontAwesome 4.7.",
-      "**Don't** put an eyebrow or kicker above a heading; the name tape is the heading.",
-      "**Don't** load web fonts or rely on `<style>`, `<svg>`, collapsibles or scripts; the CMS strips them.",
-      "**Don't** put an internal contact on the public stamp; owners stay in `META`.",
-      "**Don't** rely on `aria-*` or `role` for meaning; the CMS drops them, so the visible text must carry it.",
-      "**Don't** use auto `.col-md`; the site's Bootstrap ordering breaks it.",
-      "**Don't** overlap timeline entries; string them on one thread.",
-      "**Don't** ship with draft marks; publish from `python build.py --final`."
+      "Don't use drop shadows, glows, or decorative gradients; depth is layered cloth.",
+      "Don't lay routes out as equal card grids or use emoji as icons; use stitched ledgers and FontAwesome 4.7.",
+      "Don't put an eyebrow or kicker above a heading; the name tape is the heading.",
+      "Don't repeat a feature lead's title on its patch.",
+      "Don't put another unit's cloth into a site's ribbon stripes.",
+      "Don't show illustration or photo placeholders on phones, except the roster's portrait slot.",
+      "Don't label a link 前往, 了解更多, 更多, Learn more, Explore, More or Research page alone.",
+      "Don't end a risky FAQ answer on the penalty; end on the next step.",
+      "Don't load web fonts or rely on `<style>`, `<svg>`, collapsibles or scripts; the CMS strips them.",
+      "Don't put an internal contact on the public stamp; owners stay in `META`.",
+      "Don't rely on `aria-*` or `role` for meaning; the CMS drops them, so the visible text must carry it.",
+      "Don't use auto `.col-md`; the site's Bootstrap ordering breaks it.",
+      "Don't overlap timeline entries; string them on one thread.",
+      "Don't ship with draft marks; publish from `python build.py --final`."
     ]
   }
 }

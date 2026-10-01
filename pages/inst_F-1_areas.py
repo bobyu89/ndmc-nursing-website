@@ -1,8 +1,9 @@
 import importlib
 
 from components import (page, name_tape, statement, p, h4, text_link, actions, illo_slot, bullets,
-                        feature_lead, feature_list, route_list, draft, note)
+                        feature_lead, feature_list, route_list, back_to_top, draft, note)
 from links import L
+from tokens import C, S
 
 META = {"id": "F-1", "slug": "areas", "title": "研究領域", "owner": "教發", "site": "inst"}
 
@@ -44,6 +45,26 @@ def _route_rows(people):
     return [(f"{name}　{rank}", spec, href) for _g, name, rank, _role, _deg, spec, href in people]
 
 
+def _jump(items, lead=None):
+    """Compact jump index in the style of components.roster_index: [(label, href), ...]."""
+    links = "".join(
+        f'<a href="{href}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{label}</a>'
+        for label, href in items)
+    head = f'<span style="margin-right:{S[2]};color:{C["ink_soft"]};">{lead}</span>' if lead else ""
+    return f'<div style="margin:0 0 {S[2]};max-width:44em;line-height:1.4;">{head}{links}</div>'
+
+
+def _anchor(anchor_id, *blocks):
+    return f'<div id="{anchor_id}">' + "".join(blocks) + "</div>"
+
+
+def _ids(html, opener, prefix):
+    """Give each feature_list row an id (prefix-1..N) so the jump index can reach it."""
+    parts = html.split(opener)
+    return parts[0] + "".join(f'<div id="{prefix}-{n}"' + opener[4:] + rest for n, rest in enumerate(parts[1:], 1))
+
+
 def render():
     opening = "".join([
         statement(
@@ -51,16 +72,17 @@ def render():
             draft("這一頁依研究方向整理本所的指導教師，附上每位老師的專長與研究室。"
                   "看完再和老師約時間談，會更快找到題目。"),
         ),
-        actions(text_link("研究方向", "#directions"), text_link("特色研究", "#feature"),
-                text_link("指導教師", "#supervisors")),
+        _jump([(title, f"#dir-{n}") for n, (title, _m, _d, _p) in enumerate(DIRECTIONS, 1)], lead="研究方向："),
+        _jump([("特色研究：戰傷與災難護理", "#feature"), ("指導教授的資格", "#rules"),
+               ("專任教師", "#fulltime"), ("合聘教師", "#joint"), ("相關頁面", "#related")]),
     ])
 
     directions = "".join([
         p(draft("下面七個方向依老師們的專長整理。同一位老師可能出現在不同方向。")),
-        feature_list([
+        _ids(feature_list([
             (draft(title), draft(desc) + "<br>相關教師：" + "、".join(names), None, "inst", mark)
             for title, mark, desc, names in DIRECTIONS
-        ]),
+        ]), '<div class="d-flex"', "dir"),
         note("分組是依學院師資頁「專長學科」歸納的草稿，只把老師放在專長文字有對應詞的方向下"
              "（王蔚芸老師列入軍陣方向，是依個人頁所列的戰鬥傷患照護擬真訓練計畫）。"
              "教發請確認方向名稱、分組與每位老師的歸屬；是否要合併或拆分，由所長與教發決定。"),
@@ -98,13 +120,12 @@ def render():
 
     supervisors = "".join([
         p(draft("先看老師的專長，再點進研究室或個人頁，看老師最近在做什麼。")),
-        h4("指導教授的資格"),
-        rules,
-        p("摘自《碩士研究生手冊》「指導教授指導研究生實施要點」。", muted=True),
-        h4("專任教師（助理教授以上）"),
-        route_list(_route_rows(_people(SUPERVISOR_GROUPS)), unit="inst"),
-        h4("合聘教師"),
-        route_list(_route_rows(_faculty.JOINT), unit="inst"),
+        _anchor("rules", h4("指導教授的資格"), rules,
+                p("摘自《碩士研究生手冊》「指導教授指導研究生實施要點」。", muted=True)),
+        _anchor("fulltime", h4("專任教師（助理教授以上）"),
+                route_list(_route_rows(_people(SUPERVISOR_GROUPS)), unit="inst")),
+        back_to_top(),
+        _anchor("joint", h4("合聘教師"), route_list(_route_rows(_faculty.JOINT), unit="inst")),
         note("所辦與教發請提供：本學年每位老師可收的研究生名額與招生主題（一句話），以及符合上列資格、"
              "本學年可擔任主指導的老師名單。收到後在每位老師下方加上「本學年招生主題」。"
              "名單依職級排列；講師與助教不列。臨床教師是否列入，請所長決定。"),
@@ -113,17 +134,13 @@ def render():
 
     return page(
         opening,
-        '<div id="directions"></div>',
-        name_tape("研究方向"),
-        directions,
-        '<div id="feature"></div>',
-        name_tape("特色研究"),
-        feature,
-        '<div id="supervisors"></div>',
-        name_tape("指導教師與招生方向"),
-        supervisors,
-        name_tape("相關頁面"),
-        actions(text_link("研究發表", L("inst:F-2")), text_link("學術活動", L("inst:F-3")),
-                text_link("研究倫理", L("inst:G-2"))),
+        _anchor("directions", name_tape("研究方向"), directions),
+        back_to_top(),
+        _anchor("feature", name_tape("特色研究"), feature),
+        _anchor("supervisors", name_tape("指導教師與招生方向"), supervisors),
+        back_to_top(),
+        _anchor("related", name_tape("相關頁面"),
+                actions(text_link("研究發表", L("inst:F-2")), text_link("學術活動", L("inst:F-3")),
+                        text_link("研究倫理", L("inst:G-2")))),
         owner=META["owner"],
     )

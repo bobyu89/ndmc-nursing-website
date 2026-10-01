@@ -1,6 +1,7 @@
 from components import (as_of, page, name_tape, statement, p, button, text_link, actions, illo_slot, split,
-                        route_list, facts, draft, note, icon)
+                        route_list, facts, back_to_top, draft, note, icon)
 from links import L
+from tokens import C, S
 
 META = {"id": "F", "slug": "admissions", "title": "招生專區", "owner": "院窗口"}
 
@@ -19,6 +20,20 @@ def _source(text, href, label):
 
 
 
+def _jump(items, lead=None):
+    """Compact jump index in the style of components.roster_index: [(label, href), ...]."""
+    links = "".join(
+        f'<a href="{href}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
+        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{label}</a>'
+        for label, href in items)
+    head = f'<span style="margin-right:{S[2]};color:{C["ink_soft"]};">{lead}</span>' if lead else ""
+    return f'<div style="margin:0 0 {S[2]};max-width:44em;line-height:1.4;">{head}{links}</div>'
+
+
+def _anchor(anchor_id, *blocks):
+    return f'<div id="{anchor_id}">' + "".join(blocks) + "</div>"
+
+
 def render():
     opening = "".join([
         statement(
@@ -27,6 +42,8 @@ def render():
                   "三種學制、適合誰、去哪裡報名，這一頁都看得到。"),
         ),
         actions(button("看學士班招生簡章", U_BACH)),
+        _jump([("三種學制怎麼選", "#choose"), ("學士班", "#bachelor"), ("碩士班", "#master"), ("博士班", "#doctoral"),
+               ("暑期營隊", "#camp"), ("招生諮詢電話", "#contact")]),
     ])
 
     # One router for the one decision: which programme fits (the three programmes, plus parents and the camp).
@@ -47,7 +64,6 @@ def render():
     ])
 
     bachelor = "".join([
-        f'<div id="bachelor"></div>',
         p(draft("學士班由護理學系負責。入學前要先通過國防部的甄選、體檢與測驗，入學後先完成入伍訓練，"
                 "再開始四年的護理課程與臨床實習。")),
         as_of("115 學年度軍事學校正期班甄選入學招生簡章"),
@@ -68,7 +84,6 @@ def render():
     ])
 
     master = "".join([
-        f'<div id="master"></div>',
         p("民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。"),
         _source("摘自護理研究所〈歷史沿革〉。", U_INST_HISTORY, "護理研究所歷史沿革"),
         as_of("116 學年度博、碩士班招生簡章"),
@@ -87,7 +102,6 @@ def render():
     ])
 
     doctoral = "".join([
-        f'<div id="doctoral"></div>',
         p(draft("博士班的招生說明正在整理。是否招生、如何報考，請以學校招生專區公告為準，也歡迎直接來電詢問。")),
         note("內容清單的分析把博士班寫成「未來博士班」，但學校招生專區〈【碩、博班】〉頁與《116 學年度博、碩士班一般考試入學招生簡章》"
              "已列出「護理學院護理研究所」博士班（不分組；報名資格原文：「具護理相關之碩士學位或同等學力者。」）。"
@@ -97,7 +111,6 @@ def render():
 
     camp = split(
         "".join([
-            f'<div id="camp"></div>',
             p(draft("還在猶豫嗎？學院在暑假舉辦「國防迷彩天使災難救護營」，高中職生可以先來待一天。")),
             p("結合災難應變、緊急救護、戰術撤離與軍護特色體驗，帶領高中職生與護理學生認識災難情境下的護理專業角色與實務價值。"),
             _source("營隊說明摘自營隊頁面。", U_CAMP, "營隊介紹與報名"),
@@ -122,18 +135,14 @@ def render():
     return page(
         opening,
         note("本頁的 CMS 節點目前是學校招生專區（unit/100143/1861），不是學院自己的頁面；上線時需為學院新建「招生專區」節點。"),
-        name_tape("三種學制，怎麼選"),
-        choose,
-        name_tape("學士班", unit="dept"),
-        bachelor,
-        name_tape("碩士班", unit="inst"),
-        master,
-        name_tape("博士班", unit="inst"),
-        doctoral,
-        name_tape("暑期營隊"),
-        camp,
-        name_tape("招生諮詢"),
-        contact,
+        _anchor("choose", name_tape("三種學制，怎麼選"), choose),
+        _anchor("bachelor", name_tape("學士班", unit="dept"), bachelor),
+        back_to_top(),
+        _anchor("master", name_tape("碩士班", unit="inst"), master),
+        back_to_top(),
+        _anchor("doctoral", name_tape("博士班", unit="inst"), doctoral),
+        _anchor("camp", name_tape("暑期營隊"), camp),
+        _anchor("contact", name_tape("招生諮詢"), contact),
         actions(text_link("最新招生訊息", L("B-3"))),
         owner=META["owner"],
     )
