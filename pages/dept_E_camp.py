@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, text_link, actions, split, photo_slot, feature_list,
+from components import (page, name_tape, statement, p, text_link, actions, split, photo_slot, photo, feature_list,
                         facts, timeline, draft, note)
 from links import L
 
@@ -11,6 +11,9 @@ U_BRIEF = "https://drive.google.com/uc?export=download&id=1B7Uu67r7Jf91GyeYxiqFJ
 U_SIZE = "https://drive.google.com/uc?export=download&id=1h0_YP3MZd6R5QcZR_MBFO24wuTHuu2f5"           # 營隊服尺寸參考表
 U_CONSENT_HS = "https://drive.google.com/uc?export=download&id=1IUaqnqqPIZbUetizkLXGzPB1tRzokG6t"     # （高中職生）家長同意書
 U_CONSENT_NS = "https://drive.google.com/uc?export=download&id=1dkn7j_73uR126QlLNpY1nqcgAZNrcs9r"     # （護理學生）家長同意書
+# 照片：護理學院首頁輪播（https://wwwndmc.ndmutsgh.edu.tw/unit/100010/16）標題「天使營」「114天使營」，2026-10-01 核對 200 image/jpeg。
+IMG_CAMP = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/DSC_8149.jpg"
+IMG_CAMP_114 = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/DSC_7372.jpg"
 
 
 def render():
@@ -29,7 +32,7 @@ def render():
               "護理學生場則結合情境教學、實作訓練及三軍總醫院特色單位體驗，強化災難評估、初步救護與團隊合作能力，"
               "培育具備實務應變能力之護理人才，提升社會整體健康與防災韌性。"),
         ]),
-        photo_slot("營隊學員練習傷患搬運（橫式 4:3）", "4/3"),
+        photo(IMG_CAMP, "穿迷彩服的營隊學員與工作人員在室內大廳合影", "4/3", caption="天使營合照（護理學院首頁輪播照片）"),
         cols=(7, 5), align="start",
     )
 
@@ -79,8 +82,8 @@ def render():
             ("2026", "國防迷彩天使災難救護營",
              "高中職場次 115/8/18（二）<br>護理學生場次 115/8/19（三）", "college"),
         ]),
-        split(photo_slot("115 年高中職生場活動照片（橫式 4:3）", "4/3"),
-              photo_slot("115 年護理學生場活動照片（橫式 4:3）", "4/3"), cols=(6, 6)),
+        split(photo(IMG_CAMP_114, "穿迷彩服的營隊學員與師長在禮堂大合照", "4/3", caption="114 年天使營（護理學院首頁輪播照片）"),
+              photo_slot("115 年活動照片（橫式 4:3）", "4/3"), cols=(6, 6)),
     ])
 
     return page(
@@ -99,7 +102,7 @@ def render():
         organisers,
         name_tape("歷年成果"),
         history,
-        note("現行網站只有 2026 年（115 年）這一屆的資料。請學生事務提供：歷年辦理年份（西元與民國）、各屆場次與實際參加人數、"
+        note("現行網站只有 2026 年（115 年）這一屆的文字資料；學院首頁輪播另有「114天使營」「天使營」照片（已放上），可證 114 年也曾辦理，但沒有場次與人數。請學生事務提供：歷年辦理年份（西元與民國）、各屆場次與實際參加人數、"
              "每屆 2–3 張可公開的活動照片（學員可辨識者需有同意書），以及活動成果或回饋摘要。"
              "收到後依年份加入上方時間軸，最早的一屆放最上面；沒有紀錄的年份不要補。"),
         actions(text_link("護理學系招生資訊", L("dept:D-1")), text_link("家長常見問題", L("F-1"))),

@@ -11,7 +11,13 @@ Underscore-prefixed, so build.py does not render it as a page. Every value is co
   history            — 歷史沿革 unit/100181/6527 (same text as pages/C-3_history.py) and the old English page
                        uniten/100010/3353 ("In 1979, we established the first graduate nursing program in Taiwan.")
   master's structure — 研究所「學生專區」 unit/100181/6533
+  images             — hotlinked from the public site, same files as the Chinese institute pages (verified 200,
+                       image/*, 2026-10-01): director portrait from the Chinese profile DocDet/191/100010/1738/1662;
+                       event photos from the Institute home-page carousel (unit/100181/6511); simulation center from
+                       the College 教學設備 page (unit/100010/1463)
 """
+
+from urllib.parse import quote
 
 from components import text_link, draft
 from links import L
@@ -34,6 +40,13 @@ U_RULES = SITE + "/unit/100181/6533"
 U_ETHICS = SITE + "/unit/100181/6794"
 U_INST_HOME = SITE + "/unit/100181/6511"
 FACEBOOK = "https://www.facebook.com/profile.php?id=100063652101597"
+
+IMG_DIRECTOR = SITE + quote("/files/web/192/doctor/100010/1738/潘113師資.jpg")
+_SLIDER = SITE + "/files/web/192/menu/100181/slider/"
+IMG_FOUR_NATION = _SLIDER + "480575237_1193085299489862_5549031880442815728_n.jpg"  # 114_0319-23四國會議
+IMG_TRAUMA = _SLIDER + "67455379-4742-4728-8242-D72E16011238.jpg"  # 1140618-19Trauma_training戰傷災難護理培訓
+IMG_AI_LECTURE = _SLIDER + quote("LINE_ALBUM_20250115演講-AI在護理臨床及研究之應用_250204_1.jpg")
+IMG_SIM_CENTER = SITE + quote("/files/web/192/contents/100010/虛擬中心.png")
 
 # key: (English name as on the official English list, reordered given-name first; rank; extra role or "";
 #       official English specialty; DocDetEn id; lab website or None)

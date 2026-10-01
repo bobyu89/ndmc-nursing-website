@@ -1,7 +1,7 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, split, illo_slot, photo_slot,
+from components import (page, name_tape, statement, p, h4, text_link, actions, split, illo_slot, photo,
                         feature_lead, bullets, route_list, draft, note)
 from links import L
-from pages._en_college_shared import zh
+from pages._en_college_shared import zh, IMG_TALK
 
 META = {"id": "D-2", "slug": "research", "title": "Research Highlights", "owner": "教發", "site": "en_college"}
 
@@ -94,7 +94,8 @@ def render():
             actions(text_link("Faculty profiles and publications", L("en:D-1")),
                     text_link("Institute publications", L("en_inst:D-2"))),
         ]),
-        photo_slot("Research presentation or conference", "4/3"),
+        photo(IMG_TALK, "Speaker, faculty and students after a talk on AI in nursing practice and research", "4/3",
+              caption=draft("15 January 2025: talk on AI in clinical nursing and nursing research")),
         cols=(7, 5),
     )
 

@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, text_link, actions, split, photo_slot, illo_slot, facts,
+from components import (page, name_tape, statement, p, text_link, actions, split, photo, illo_slot, facts,
                         feature_lead, route_list, draft, note)
 from links import L
 
@@ -6,6 +6,8 @@ META = {"id": "C", "slug": "program", "title": "Undergraduate Program", "owner":
 
 # Verified facts: 115 學年度軍事學校正期班甄選入學招生簡章 (via pages/F_admissions.py, pages/dept_D_admissions.py);
 # aim from 學士班課程地圖 unit/100010/3642; simulation center use from 教學設備 unit/100010/1463 (pages/E-3_facilities.py).
+# Photo: 虛擬中心.png on the same 教學設備 page (checked 200 image/png on 2026-10-01).
+IMG_SIM = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E8%99%9B%E6%93%AC%E4%B8%AD%E5%BF%83.png"
 
 
 def render():
@@ -45,7 +47,7 @@ def render():
             p(draft("Clinical practicum then takes students into the teaching hospital, the community and "
                     "military nursing settings.")),
         ]),
-        photo_slot("Students in the simulation center (4:3)", "4/3"),
+        photo(IMG_SIM, "A pediatric simulation room in the simulation center", "4/3"),
         cols=(7, 5), align="start",
     )
 

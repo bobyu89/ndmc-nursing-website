@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo_slot, illo_slot,
+from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo, photo_slot, illo_slot,
                         route_list, draft, note)
 from links import L
 
@@ -6,13 +6,17 @@ META = {"id": "E-3", "slug": "facilities", "title": "教學設備", "owner": "�
 
 # 設備說明逐字取自現行「教學設備」頁 https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1463（2026-09-29 擷取）。
 # 該頁後半的研討室預約與借用規定屬 H-2 場地借用，本頁只導流過去。
+# 三張照片也取自該頁。
+IMG_VR = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E8%99%9B%E6%93%AC%E4%B8%AD%E5%BF%83.png"
+IMG_WARD1 = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E7%A4%BA%E7%AF%84%E5%AF%A6%E7%BF%92%E7%97%85%E6%88%BF1.png"
+IMG_WARD2 = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E7%A4%BA%E7%AF%84%E5%AF%A6%E7%BF%92%E7%97%85%E6%88%BF2.png"
 
 
 def render():
     opening = "".join([
         statement(
             draft("先在模擬病房練熟，再走進臨床。"),
-            draft("從階梯教室、示範病房到虛擬中心，學生在接近真實的環境裡反覆練習身體評估、護理技術與急重症照護。"),
+            "從階梯教室、示範病房到虛擬中心，學生在接近真實的環境裡反覆練習身體評估、護理技術與急重症照護。",
         ),
         actions(text_link("場地借用", L("H-2")), text_link("學術資源", L("E"))),
     ])
@@ -26,7 +30,7 @@ def render():
                   "學生可於護理站同步學習，提高此設備之效能。"),
                 p("本虛擬中心提供高級內外科、高級產兒科、急重症護理課程使用外，亦做為學士班OSCE教學使用。"),
             ]),
-            photo_slot("虛擬中心與中控室", "4/3"),
+            photo(IMG_VR, "虛擬中心的虛擬病房：病床、床旁櫃與監視螢幕", "4/3"),
             cols=(7, 5), align="start",
         ),
         split(
@@ -38,7 +42,7 @@ def render():
             cols=(7, 5), reverse=True, align="start",
         ),
         note("圖儀、哲君請提供：VR／MR 設備名稱與用途、使用的課程、放置地點，以及實際使用照片；"
-             "現行網站沒有這部分的文字，上方為暫擬。虛擬中心照片可沿用現行教學設備頁的「虛擬中心」圖。"),
+             "現行網站沒有這部分的文字，上方為暫擬。"),
     ])
 
     classroom = split(
@@ -50,12 +54,16 @@ def render():
     )
 
     ward = "".join([
-        p("備有一般病床15張（每張病床配有床旁桌與床上桌各1張）、於107年於病房內建置一張長照示範病床。"
+        p(draft("備有一般病床15張（每張病床配有床旁桌與床上桌各1張）")
+          + "、於107年於病房內建置一張長照示範病床。"
           "自民國96年設置中央氣體教學設備，提供每張床氣流（空氣）與抽吸功能，使該實習病房更趨近臨床配置。"),
         p("本示範病房主要提供大學部身體檢查與評估、基本護理技術操作實習、醫研營等課程使用。"),
-        split(photo_slot("示範實習病房：病床區", "4/3"), photo_slot("示範實習病房：長照示範病床", "4/3"),
+        split(photo(IMG_WARD1, "示範實習病房：成排病床，床邊有粉色隔簾與床上桌", "4/3"),
+              photo(IMG_WARD2, "示範實習病房另一側：病床、點滴架與壁掛電視", "4/3"),
               cols=(7, 5), align="start"),
-        note("現行教學設備頁已有兩張示範實習病房照片，可沿用；若有長照示範病床的照片請一併提供。"),
+        note("病床數兩處說法不同：中文「教學設備」頁（unit/100010/1463）寫一般病床15張；"
+             "舊英文頁「Facilities & Resources」（uniten/100010/867）寫 12 general beds, 2 examination beds。請圖儀確認現況。"
+             "兩張照片取自中文教學設備頁；若有長照示範病床的照片請提供。"),
     ])
 
     learning = "".join([

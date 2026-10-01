@@ -1,12 +1,14 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo_slot, facts, bullets,
+from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo, facts, bullets,
                         draft, note)
 from links import L
-from pages._en_inst_data import name, U_ETHICS, zh
+from pages._en_inst_data import name, U_ETHICS, zh, IMG_SIM_CENTER
 
 META = {"id": "D-4", "slug": "environment", "title": "Research Environment", "owner": "教發、圖儀", "site": "en_inst"}
 
 # Facilities translated from the College's current 教學設備 page unit/100010/1463 (pages/E-3_facilities.py);
 # observation room and graduate classrooms from the old college English page uniten/100010/867 (undated → draft).
+# Simulation-center photo: 虛擬中心.png on the same 教學設備 page. Ward bed count conflicts between the two pages
+# (教學設備: 15 general beds; uniten/100010/867: 12 beds + 2 examination beds) → draft.
 # Hospital posts from the official English faculty profiles; IRB procedure from 研究倫理專區 unit/100181/6794.
 # Method list: each method is named in the listed faculty member's profile specialty, project titles or papers.
 
@@ -30,13 +32,13 @@ def render():
             p("The center is used for advanced medical-surgical, advanced obstetric and pediatric, and critical care "
               "courses, and for undergraduate OSCE teaching."),
         ]),
-        photo_slot("Simulation center and control room", "4/3"),
+        photo(IMG_SIM_CENTER, "Simulation center at the College of Nursing", "4/3"),
         cols=(7, 5), align="start",
     )
 
     spaces = facts([
-        ("Ward", "15 general beds with piped air and suction (installed in 2007), and a long-term care "
-                               "demonstration bed added in 2018."),
+        ("Ward", draft("15 general beds") + " with piped air and suction (installed in 2007), and a long-term care "
+                 "demonstration bed added in 2018."),
         ("Lecture hall", "134 seats, holding up to 150 people, for courses and workshops."),
         ("Self-study", "A smart interactive nursing self-learning classroom, opened in 2025."),
         ("Observation", draft("A behavioral development observation suite (one control room, two observation "
@@ -80,7 +82,9 @@ def render():
         spaces,
         note("前三列與模擬中心譯自學院現行〈教學設備〉頁；觀察室與研究生教室取自舊英文頁（uniten/100010/867，年代不明），"
              "請圖儀確認是否仍在使用。另請提供可供研究使用的設備清單（例如生理訊號、穿戴式裝置、VR/MR 設備）與借用方式，"
-             "以及照片。"),
+             "以及照片（模擬中心照片沿用學院〈教學設備〉頁的虛擬中心照片）。"
+             "示範病房床數兩個來源不同：學院〈教學設備〉頁（unit/100010/1463）寫一般病床15張，舊英文頁（uniten/100010/867）"
+             "寫12張病床加2張檢查床；請圖儀確認現況後再拿掉待確認。"),
         name_tape("Clinical Research Setting"),
         hospital,
         name_tape("Methodological Strengths"),

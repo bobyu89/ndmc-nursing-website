@@ -1,7 +1,7 @@
-from components import (page, name_tape, statement, p, text_link, actions, bullets, facts, split, photo_slot,
+from components import (page, name_tape, statement, p, text_link, actions, bullets, facts, split, photo,
                         draft, note)
 from links import L
-from pages._en_college_shared import zh, email_link
+from pages._en_college_shared import zh, email_link, IMG_NW_GUESTS
 
 META = {"id": "G-1", "slug": "academic-visits", "title": "Academic Visits", "owner": "國際事務", "site": "en_college"}
 
@@ -32,7 +32,7 @@ def render():
               "Smart Interactive Nursing Self-Learning Classroom."),
             actions(text_link("Facilities", L("en:D-3"))),
         ]),
-        photo_slot("Visiting delegation in the Simulation Center (to be supplied)", "4/3"),
+        photo(IMG_NW_GUESTS, "Visiting scholars from Northwest University (西北大學) with their hosts", "4/3"),
         cols=(7, 5), align="start",
     )
 

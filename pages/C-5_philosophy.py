@@ -1,9 +1,10 @@
-from components import page, name_tape, statement, p, feature_list, illo_slot, tape_surface, actions, text_link, note
+from components import page, name_tape, statement, p, feature_list, photo, tape_surface, actions, text_link, note
 from links import L
 
 META = {"id": "C-5", "slug": "philosophy", "title": "教育理念", "owner": "院窗口"}
 
 # 全頁文字取自現行「教育理念」頁（unit/100010/1475），原文照錄，只重新排版。
+IDEA_CHART = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E7%90%86%E5%BF%B5%E5%9C%961.jpg"
 
 
 def render():
@@ -49,10 +50,11 @@ def render():
         concepts,
         name_tape("理念圖"),
         '<div class="mx-auto" style="max-width:560px;">'
-        + illo_slot("教育理念圖：以健康與疾病為中心，外圈為生命週期與護理過程（沿用現有圖檔）", "16/9")
+        + photo(IDEA_CHART, "教育理念圖（英文）：中心是代表健康與疾病的太極圖與一個人形；內圈是從胚胎、新生兒、嬰兒、兒童、"
+                "青少年、成人到老人的生命週期；外圈是評估、問題、措施、評值的護理過程與家庭；右上標示軍隊、社區、社會等情境。",
+                "16/9", fit="contain")
         + "</div>",
-        note("理念圖沿用現行網站圖檔 /files/web/192/contents/100010/理念圖1.jpg（圖中文字為英文）。"
-             "如需改畫成中文版並配合網站配色，請院窗口確認圖中各圈的中文用詞。"),
+        note("理念圖沿用現行網站圖檔（圖中文字為英文）。如需改畫成中文版並配合網站配色，請院窗口確認圖中各圈的中文用詞。"),
         actions(text_link("院長的話", L("C-1")), text_link("學院簡介", L("C-2"))),
         owner=META["owner"],
     )

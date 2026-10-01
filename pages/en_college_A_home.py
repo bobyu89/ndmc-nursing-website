@@ -1,8 +1,8 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo_slot,
+from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo,
                         ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, facts, draft, note)
 from links import L
 from tokens import C
-from pages._en_college_shared import zh, mark, email_link, ADDRESS
+from pages._en_college_shared import zh, mark, email_link, ADDRESS, DEAN_PHOTO
 
 META = {"id": "A", "slug": "home", "title": "College of Nursing", "owner": "院窗口", "site": "en_college"}
 
@@ -56,7 +56,7 @@ def render():
     ])
 
     dean = split(
-        photo_slot("Dean Wen-Chii Tzeng (portrait 3:4)", "3/4"),
+        photo(DEAN_PHOTO, "Dean Wen-Chii Tzeng", "3/4"),
         "".join([
             p(draft("“A two-sentence excerpt from the Dean's message on the College's direction.”")),
             p("Wen-Chii Tzeng, Distinguished Professor and Dean", muted=True),

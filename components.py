@@ -156,7 +156,7 @@ def illo_slot(label, ratio="4/3", unit="college"):
         f'<div role="img" aria-label="插圖預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
         f'align-items:center;justify-content:center;gap:6px;background:{pale};color:{C["ink_soft"]};{TYPE["small"]}text-align:center;'
         f'border:1.5px dashed rgba(51,73,63,.35);border-radius:4px;padding:{S[2]};">'
-        f'{icon("pencil")}<span>{"Illustration" if SITE_LANG == "en" else "插圖"}：{label}</span></div>'
+        f'{icon("pencil")}<span>{"Illustration: " if SITE_LANG == "en" else "插圖："}{label}</span></div>'
     )
 
 
@@ -165,8 +165,19 @@ def photo_slot(label, ratio="4/3"):
         f'<div role="img" aria-label="照片預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
         f'align-items:center;justify-content:center;gap:6px;background:{C["tape"]};color:{C["ink_soft"]};{TYPE["small"]}text-align:center;'
         f'border:1.5px dashed {C["rule"]};border-radius:3px;padding:{S[2]};">'
-        f'{icon("camera")}<span>{"Photo" if SITE_LANG == "en" else "照片"}：{label}</span></div>'
+        f'{icon("camera")}<span>{"Photo: " if SITE_LANG == "en" else "照片："}{label}</span></div>'
     )
+
+
+def photo(src, alt, ratio="4/3", fit="cover", caption=None):
+    """A real image already published on the public site, in the same frame a photo_slot reserves.
+    `src` is a full https URL on the university site; `alt` says what the picture shows; `fit="contain"` for logos and charts."""
+    pad = f"padding:{S[2]};background:{C['tape']};" if fit == "contain" else ""
+    img = (f'<img src="{src}" alt="{alt}" style="display:block;width:100%;aspect-ratio:{ratio};object-fit:{fit};{pad}'
+           f'border:1.5px solid {C["rule"]};border-radius:3px;">')
+    if not caption:
+        return img
+    return (f'<div style="margin:0;">{img}<p style="margin:{S[1]} 0 0;{TYPE["small"]}color:{C["ink_soft"]};">{caption}</p></div>')
 
 
 # ---------- identity pieces ----------
@@ -195,7 +206,7 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
     inner = ""
     if illo:
         inner += f'<div style="margin:0 auto {S[2]};width:78%;">{illo}</div>'
-    inner += (f'<span style="display:block;color:{C["thread"]};font-size:clamp(16px,4.6vw,21px);font-weight:900;letter-spacing:{_tr(".06em")};word-break:keep-all;'
+    inner += (f'<span style="display:block;color:{C["thread"]};font-size:clamp(16px,4.6vw,21px);font-weight:900;letter-spacing:{_tr(".06em")};word-break:keep-all;overflow-wrap:anywhere;'
               f'line-height:1.35;">{title}</span>')
     if sub:
         inner += f'<span style="display:block;margin-top:6px;color:{C["thread"]};{TYPE["small"]}font-weight:600;">{sub}</span>'
@@ -336,12 +347,13 @@ def timeline(events):
             + "".join(rows) + "</div>")
 
 def roster(people):
-    """Unit roster rows: [(name, rank, unit, fields, href), ...]. Photo 3:4 left."""
+    """Unit roster rows: [(name, rank, unit, fields, href[, img]), ...]. Photo 3:4 left; `img` is a public portrait URL."""
     rows = []
-    for name, rank, unit, fields, href in people:
+    for name, rank, unit, fields, href, *img in people:
+        pic = photo(img[0], name, "3/4") if img and img[0] else photo_slot(name, "3/4")
         rows.append(
             f'<div class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
-            f'<div class="col-4 col-md-2">{photo_slot(name, "3/4")}</div>'
+            f'<div class="col-4 col-md-2">{pic}</div>'
             f'<div class="col-8 col-md-10"><span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;">{name}'
             f'<span style="margin-left:10px;{TYPE["small"]}font-weight:700;color:{C["ink_soft"]};">{rank}｜{unit}</span></span>'
             f'<span style="display:block;margin-top:4px;">{fields}</span>'
@@ -419,4 +431,4 @@ def note(text):
     if not DRAFT_MARKS:
         return ""
     return (f'<p style="margin:{S[3]} 0 {S[3]};padding:{S[1]} {S[2]};max-width:40em;{TYPE["small"]}color:{C["rose"]};'
-            f'background:{C["rose_pale"]};border-radius:3px;">{icon("info-circle")}&nbsp;編輯備註：{text}</p>')
+            f'background:{C["rose_pale"]};border-radius:3px;overflow-wrap:anywhere;">{icon("info-circle")}&nbsp;編輯備註：{text}</p>')

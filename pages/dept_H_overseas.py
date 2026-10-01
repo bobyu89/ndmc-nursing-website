@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, text_link, actions, photo_slot, split, facts, route_list,
+from components import (page, name_tape, statement, p, text_link, actions, photo, split, facts, route_list,
                         tape_surface, draft, note)
 from links import L
 
@@ -9,6 +9,9 @@ META = {"id": "H", "slug": "overseas", "title": "海外交流專區", "owner": "
 # - 學生專區附件「國防醫學大學護理學院學生海外研見習規定」（1141013 訂定） https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6681
 # - 系學會「國際事務組」職掌，逐字取自系學會頁圖片 https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6796
 # 申請資格、時程與表單已在學院「學生交流」頁（G-2），本頁不重複，只導流。
+
+# 照片：同一張輪播照片（1565×1046，2026-10-01 核對 200 image/jpeg）。
+IMG_UW = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/S__39010787.jpg"
 
 SLOT = "〔待提供〕"
 
@@ -24,22 +27,23 @@ def render():
 
     record = split(
         "".join([
-            p(draft("學系學生曾赴美國華盛頓大學交流。")),
+            p("學系學生曾赴美國華盛頓大學交流。"),
             facts([
-                ("交流學校", draft("美國華盛頓大學")),
+                ("交流學校", "美國華盛頓大學"),
                 ("參加學生", SLOT),
                 ("時間與天數", SLOT),
                 ("學了什麼", SLOT),
             ]),
         ]),
-        photo_slot("學生赴美國華盛頓大學交流（學系首頁輪播已有此照片）", "4/3"),
+        photo(IMG_UW, "學生赴美國華盛頓大學交流期間，在當地一處長照機構（Assisted Living）前合影", "4/3",
+              caption="學生赴美國華盛頓大學交流（學系首頁輪播照片）"),
         cols=(7, 5), align="start",
     )
 
     more = "".join([
         p(draft("每一次出國交流，都依同樣格式記錄：交流學校、時間、參加同學與學習內容，由新到舊排列。")),
         note("「N75學生至美國華盛頓大學交流」取自學系首頁輪播照片標題，是目前唯一找得到的出國紀錄。"
-             "請院窗口向國際事務確認：交流年份、天數、參加人數、交流內容，以及照片可否公開；"
+             "照片沿用該張輪播照片。請院窗口向國際事務確認：交流年份、天數、參加人數、交流內容；"
              "頁面上請把屆別代號（N75）改寫成「某年入學的學生」這類外部讀者看得懂的說法。"
              "其他年度的出國紀錄請一併提供，每筆照上方格式補一組；資料確認前不放任何年份。"),
     ])

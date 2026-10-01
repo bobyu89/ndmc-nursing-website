@@ -42,7 +42,7 @@ FULLTIME = [
      "https://sites.google.com/view/hsiang-yun-lan-lab-ndmc/lab"),
     ("副教授", "林挺廸", "副教授", "", "美國伊利諾大學芝加哥分校護理哲學博士",
      "社區衛生護理、職業衛生護理、輪班工作者健康行為、工作壓力源、即時生態評估研究", DOC + "1666"),
-    ("副教授", "馮欣蓓", "副教授", "", "國防醫學院醫學科學研究所護理組博士",
+    ("副教授", "馮欣蓓", draft("副教授"), "", "國防醫學院醫學科學研究所護理組博士",
      "精神科護理、質量性研究、大數據分析", DOC + "4036"),
     ("助理教授", "楊嘉禎", "助理教授", "", "長庚大學臨床醫學研究所博士",
      "內外科護理學、重症護理學、胸腔護理學、健康促進、吸菸行為", DOC + "1664"),
@@ -86,6 +86,38 @@ JOINT = [
      "內外科護理、胸腔護理、癌症護理、慢性疾病護理、重症護理、健康促進、衛生教育、介入性研究",
      SITE + "/DocDet/191/100010/721/1232"),
 ]
+
+# 教師照片取自各教師現行 DocDet 個人頁的大頭照（2026-10-01 逐一確認 200 image/*）；楊嘉禎、陳姿吟、陳懿維個人頁沒有照片。
+PHOTO = {
+    "陳玉如": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E9%99%B3%E7%8E%89%E5%A6%82.png",
+    "廖珍娟": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E5%BB%96%E7%8F%8D%E5%A8%9F2.jpg",
+    "曾雯琦": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%9B%BE%E9%9B%AF%E7%90%A6.jpg",
+    "梁鈞瑜": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%A2%81%E9%88%9E%E7%91%9C2.jpg",
+    "潘雪幸": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%BD%98113%E5%B8%AB%E8%B3%87.jpg",
+    "藍湘勻": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E8%97%8D%E8%80%81%E5%B8%AB112.png",
+    "林挺廸": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%9E%97%E6%8C%BA%E5%BB%B8.jpg",
+    "林辰禧": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%9E%97%E8%BE%B0%E7%A6%A7.jpg",
+    "卞鳳珍": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E9%B3%B3%E7%8F%8D%E5%AD%B8%E5%A7%8A.JPG",
+    "楊佩陵": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%A5%8A%E4%BD%A9%E9%99%B5%E8%BB%8D.jpg",
+    "林佳慧": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%9E%97%E4%BD%B3%E6%85%A71130221.jpg",
+    "莊蕙婉": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E8%8E%8A%E8%95%99%E5%A9%89112.jpg",
+    "宋皆儀": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E5%AE%8B%E7%9A%86%E5%84%80112.10.jpg",
+    "林巧軒": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%9E%97%E5%B7%A7%E8%BB%92112.10.5.jpg",
+    "王蔚芸": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E7%8E%8B%E8%94%9A%E8%8A%B8_%E5%A4%A7%E9%A0%AD%E7%85%A7%E7%B6%B2%E9%A0%81%E6%AA%94.jpg",
+    "蔡育倫": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E8%94%A1%E8%82%B2%E5%80%AB113.6.jpg",
+    "馮欣蓓": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E9%A6%AE%E6%AC%A3%E8%93%93.jpg",
+    "宋建美": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E5%AE%8B%E5%BB%BA%E7%BE%8E.jpg",
+    "江慧珣": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/Chiang%2C%20Hui-Hsun%20Photo.jpeg",
+    "饒珮平": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/IMG_5151.JPG",
+    "賀彥中": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E8%B3%80%E5%BD%A5%E4%B8%AD.jpg",
+    "伍哲君": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E4%BC%8D%E5%93%B2%E5%90%9B.jpg",
+    "黃敬雯": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E9%BB%83%E6%95%AC%E9%9B%AF.jpg",
+    "陳芃橋": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E9%99%B3%E8%8A%83%E6%A9%8B.jpg",
+    "黃琬婷": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E9%BB%83%E7%90%AC%E5%A9%B7.png",
+    "劉育秀": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E5%8A%89%E8%82%B2%E7%A7%80.jpg",
+    "林靜伶": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%9E%97%E9%9D%9C%E4%BC%B6jpg.jpg",
+    "王桂芸": "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/721/%E7%8E%8B%E6%A1%82%E8%8A%B8.jpg",
+}
 
 GROUPS = ["院長", "系所主管", "教授", "副教授", "助理教授", "講師", "助教"]
 
@@ -206,7 +238,7 @@ def _fields(degree, speciality):
 
 
 def _rows(people):
-    return [(name, rank, role or "護理學院", _fields(degree, spec), href)
+    return [(name, rank, role or "護理學院", _fields(degree, spec), href, PHOTO.get(name))
             for _g, name, rank, role, degree, spec, href in people]
 
 
@@ -239,8 +271,9 @@ def render():
         opening,
         _anchor("fulltime"),
         name_tape("專任教師"),
-        note("照片：現行各教師個人頁已有大頭照，可沿用；陳姿吟、陳懿維尚無照片。"
-             "請確認馮欣蓓老師職級（名單列副教授，個人頁寫助理教授）。"
+        note("照片取自各教師現行個人頁；楊嘉禎、陳姿吟、陳懿維個人頁沒有照片，請補。"
+             "馮欣蓓老師職級：名單與個人頁標題寫副教授，個人頁內文寫「國防醫學大學護理學院助理教授」，"
+             "學院最新消息 2026/08/25「恭賀本學院馮欣蓓 教師 升等 副教授」；請確認後拿掉待確認並更新個人頁內文。"
              "「助教」分組照現行網站，其中伍哲君、黃敬雯個人頁職稱為助理研究員，林靜伶為行政專員。"),
         *fulltime,
         _anchor("joint"),
@@ -249,7 +282,7 @@ def render():
         _anchor("adjunct"),
         name_tape("兼任教師"),
         p("114學年兼任老師名冊"),
-        p(draft("依兼聘等級排列，右欄為講授科目。"), muted=True),
+        p("依兼聘等級排列，右欄為講授科目。", muted=True),
         *adjunct,
         note("兼任名冊依學年更新；新學年名冊出來時整批替換。楊嘉禎老師同時列於專任與兼任名冊，照現行網站保留。"),
         name_tape("相關頁面"),

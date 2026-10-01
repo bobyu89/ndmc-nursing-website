@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, photo_slot, split,
+from components import (page, name_tape, statement, p, button, text_link, actions, photo, split,
                         tape_surface, route_list, facts, draft, note)
 from links import L
 
@@ -6,6 +6,9 @@ META = {"id": "G-2", "slug": "exchange", "title": "學生交流", "owner": "國�
 
 SLOT = "〔待提供〕"
 FORMS = L("G-2-表單下載")
+
+# 照片取自護理學系首頁輪播（unit/100180/6510），輪播標題「N75學生至美國華盛頓大學交流」。
+IMG_UW = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/S__39010787.jpg"
 
 
 def render():
@@ -19,12 +22,13 @@ def render():
 
     outbound = split(
         "".join([
-            p(draft("本院學生曾赴美國華盛頓大學交流。")),
+            p("本院學生曾赴美國華盛頓大學交流。"),
             p(draft("每一次出國交流，都會記錄交流學校、時間、參加同學與學習內容。")),
             note("「N75學生至美國華盛頓大學交流」取自護理學系網站輪播照片標題。請國際事務確認交流時間、天數、參加人數與內容，"
                  "並提供其他年度的出國交流紀錄。頁面上的屆別代號（N75）請改寫成「某年入學的學生」這類外部讀者看得懂的說法。"),
         ]),
-        photo_slot("學生赴美國華盛頓大學交流（待提供並確認可公開）", "4/3"),
+        photo(IMG_UW, "學生赴美國華盛頓大學交流期間，與師長在照護機構門前合影", "4/3",
+              caption="學生赴美國華盛頓大學交流"),
         cols=(7, 5), align="start",
     )
 

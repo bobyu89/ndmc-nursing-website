@@ -1,10 +1,13 @@
-from components import page, name_tape, statement, p, split, photo_slot, actions, text_link, tape_surface, draft, note
+from components import page, name_tape, statement, p, split, photo, actions, text_link, tape_surface, draft, note
 from links import L
 
 META = {"id": "B-1", "slug": "chair", "title": "Chair's Message", "owner": "三長", "site": "en_dept"}
 
 # Chair's name, rank, role, degree and specialties: 專任教師名冊 Doclist/191/100010/1738 (via pages/dept_C-1_chair.py).
 LAB = "https://sites.google.com/view/linchiahuei/"
+# Portrait: same file as the Chinese page (DocDet/191/100010/1738/2969), checked 200 image/jpeg on 2026-10-01.
+IMG_CHAIR = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/"
+             "%E6%9E%97%E4%BD%B3%E6%85%A71130221.jpg")
 
 
 def render():
@@ -14,7 +17,7 @@ def render():
     )
 
     portrait = split(
-        photo_slot("Portrait of the Chair (portrait 3:4)", "3/4"),
+        photo(IMG_CHAIR, "Portrait of the Chair of the Department of Nursing", "3/4"),
         "".join([
             p(draft("Professor Chia-Huei Lin") + "<br>Chair, Department of Nursing"),
             p(draft("PhD in Nursing, Graduate Institute of Medical Sciences, National Defense Medical Center"),
@@ -39,7 +42,7 @@ def render():
         name_tape("The Chair"),
         portrait,
         note("請三長確認：① 系主任英文姓名拼法（暫依研究室網址 linchiahuei 寫作 Chia-Huei Lin）與英文職稱；"
-             "② 學位英文寫法（中文原文：國防醫學院醫學科學研究所護理組博士）；③ 提供直式照片（3:4）。"
+             "② 學位英文寫法（中文原文：國防醫學院醫學科學研究所護理組博士）。照片已沿用中文名冊個人頁的照片。"
              "專長一行譯自專任教師名冊。"),
         name_tape("Message"),
         message,

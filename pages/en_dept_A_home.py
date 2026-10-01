@@ -9,6 +9,7 @@ META = {"id": "A", "slug": "home", "title": "Department of Nursing", "owner": "�
 #   1947 founding, "country's first institution of higher nursing education" — 歷史沿革 unit/100010/6804
 #   teaching hospital, 4-year program, bachelor's degree, 8-week basic training — 115 正期班簡章 (pages/F_admissions.py)
 #   educational aim — 學士班課程地圖 unit/100010/3642 (pages/dept_C-2-2_goals.py)
+#   community practicum content and sites — pages/dept_F-2-2_community.py (學生手冊〈臨床實習〉與表五)
 
 
 def render():
@@ -55,7 +56,8 @@ def render():
          "Clinical courses take place at Tri-Service General Hospital, the university's teaching hospital.",
          None, "dept", "H"),
         ("Community practicum",
-         draft("Students practice health education and home-based care in community settings."), None, "dept", "C"),
+         "Community assessment and planning, home visits and case management, and group health education, "
+         "mainly at Taipei City district health centers and Tri-Service General Hospital.", None, "dept", "C"),
         ("Military nursing",
          "Military nursing is one of the thirteen core competencies every graduate is expected to develop.",
          None, "dept", "M"),

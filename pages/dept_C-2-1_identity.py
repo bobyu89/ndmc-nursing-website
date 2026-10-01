@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, timeline, tape_surface, feature_lead, feature_list, illo_slot,
-                        photo_slot, split, text_link, actions, draft, note)
+                        photo, split, text_link, actions, draft, note)
 from links import L
 
 META = {"id": "C-2-1", "slug": "identity", "title": "學系特色與定位", "owner": "院窗口", "site": "dept"}
@@ -9,6 +9,9 @@ META = {"id": "C-2-1", "slug": "identity", "title": "學系特色與定位", "ow
 #   學士班課程地圖      https://wwwndmc.ndmutsgh.edu.tw/unit/100010/3642（教育宗旨、學生核心能力）
 #   學士班課程架構      https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1492
 #   115 學年度正期班簡章 https://wwwndmc.ndmutsgh.edu.tw/unit/100143/2009（實習醫院、入伍訓練）
+#   學系首頁輪播照片「護理學院全體教師」 https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6510（2026-10-01 核對 200 image/jpeg）
+IMG_FACULTY = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/"
+               "%E8%AD%B7%E7%90%86%E5%AD%B8%E9%99%A2%E5%85%A8%E9%AB%94%E6%95%99%E5%B8%AB.jpg")
 
 
 def render():
@@ -75,7 +78,7 @@ def render():
             p(draft("學系的現況，用幾個數字說明：在校學生、專任教師、歷屆畢業生、護理師考照通過率。")),
             p(draft("數字依年報填入，年報上沒有的就不放。"), muted=True),
         ]),
-        photo_slot("學系全體師生合照（橫式 4:3）", "4/3"),
+        photo(IMG_FACULTY, "護理學院全體教師在學院招牌前合影", "4/3", caption="護理學院全體教師"),
         cols=(7, 5),
     )
 
@@ -96,6 +99,6 @@ def render():
         name_tape("學系現況"),
         numbers,
         note("請院窗口依年報提供：在校學生人數（依年級）、專任教師人數、歷屆畢業生總數、近三年護理師國考通過率、"
-             "學系重要榮譽（年份與名稱），以及一張可公開的學系師生合照。請勿以推估數字代替。"),
+             "學系重要榮譽（年份與名稱）。右側暫用學系首頁輪播的「護理學院全體教師」合照；若有學系師生合照可替換。請勿以推估數字代替。"),
         owner=META["owner"],
     )

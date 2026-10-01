@@ -1,4 +1,6 @@
-from components import page, name_tape, statement, p, h4, text_link, actions, photo_slot, draft, note
+import importlib
+
+from components import page, name_tape, statement, p, h4, text_link, actions, photo, photo_slot, draft, note
 from links import L
 from tokens import C, TYPE, S
 from pages._en_college_shared import zh, PROFILE, FACULTY_EN
@@ -13,6 +15,8 @@ META = {"id": "D-1", "slug": "faculty", "title": "Faculty Directory", "owner": "
 #     (updated 2026-07-28). Name order is normalized to given name + family name; spelling is kept as published.
 #   Degrees — the same English profiles where given, otherwise translated from pages/E-1_faculty.py.
 # Full-time faculty only (教授 to 講師). Teaching and research assistants (助教 group) are left to the Chinese page.
+# Portraits — the same published photos as the Chinese roster (pages/E-1_faculty.py PHOTO, from each DocDet profile).
+PHOTO = importlib.import_module("pages.E-1_faculty").PHOTO
 
 NDMC_PHD = "PhD in Nursing, Graduate Institute of Medical Sciences, National Defense Medical Center"
 
@@ -128,18 +132,20 @@ def _fields(degree, specialty, pid):
 
 
 def _rows(people):
-    return [(_name(en, zh_name), rank, role or "College of Nursing", _fields(degree, spec, pid))
+    return [(_name(en, zh_name), rank, role or "College of Nursing", _fields(degree, spec, pid), zh_name)
             for _g, en, zh_name, rank, role, degree, spec, pid in people]
 
 
 def _roster(people):
     """Roster rows as in components.roster(), but phone-safe: the photo stacks above the text below md (capped at
-    96px wide), and the name never breaks inside a word or a CJK name. [(name, rank, unit, fields), ...]"""
+    96px wide), and the name never breaks inside a word or a CJK name. [(name, rank, unit, fields, zh_name), ...]"""
     rows = []
-    for name, rank, unit, fields in people:
+    for name, rank, unit, fields, zh_name in people:
+        portrait = (photo(PHOTO[zh_name], f"Portrait of {name}", "3/4") if zh_name in PHOTO
+                    else photo_slot(name, "3/4"))
         rows.append(
             f'<div class="row g-3 align-items-start" style="padding:{S[2]} 0;border-top:1.5px dashed {C["rule"]};margin:0;">'
-            f'<div class="col-12 col-md-2"><div style="max-width:128px;">{photo_slot(name, "3/4")}</div></div>'
+            f'<div class="col-12 col-md-2"><div style="max-width:128px;">{portrait}</div></div>'
             f'<div class="col-12 col-md-10">'
             f'<span style="display:block;color:{C["thread"]};font-weight:900;font-size:19px;word-break:keep-all;'
             f'overflow-wrap:normal;">{name}</span>'
@@ -181,8 +187,8 @@ def render():
         name_tape("Full-time Faculty"),
         note("莊蕙婉老師不在學校英文師資頁上，名單暫列「[English name pending] (莊蕙婉)」（正式版也會顯示），"
              "請院窗口提供老師本人確認的正式英文姓名拼法（羅馬拼音）與英文個人頁，收到後替換。"
-             "馮欣蓓老師職級：中文名單列副教授，中英文個人頁皆寫助理教授，請確認（暫依名單列副教授並標待確認）。"
-             "照片可沿用各教師個人頁大頭照。"),
+             "馮欣蓓老師職級：中文名單列副教授，中英文個人頁內文寫助理教授，學院最新消息 2026/08/25 公告升等副教授；"
+             "請確認後拿掉待確認（暫依名單列副教授）。照片與中文師資頁相同，取自各教師個人頁；楊嘉禎老師個人頁沒有照片。"),
         *fulltime,
         name_tape("Joint and Adjunct Faculty"),
         others,

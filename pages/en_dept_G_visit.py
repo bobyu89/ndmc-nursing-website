@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, split, photo_slot, facts,
+from components import (page, name_tape, statement, p, button, text_link, actions, split, photo, facts,
                         feature_list, bullets, draft, note)
 from links import L
 
@@ -8,6 +8,8 @@ META = {"id": "G", "slug": "visit", "title": "Visit the Department", "owner": "�
 # Facility facts: 教學設備 unit/100010/1463 (pages/E-3_facilities.py).
 EMAIL = "ndmu_con@mail.ndmutsgh.edu.tw"
 MAP = "https://maps.app.goo.gl/MpA4rsvwnFxdnaM37"
+# Photo: college carousel 106八王子2.jpg ("八王子3", uniten/100010/843), checked 200 image/jpeg on 2026-10-01.
+IMG_VISIT = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/106%E5%85%AB%E7%8E%8B%E5%AD%902.jpg"
 
 
 def render():
@@ -46,7 +48,7 @@ def render():
                 draft("A contact person and email address"),
             ]),
         ]),
-        photo_slot("Visitors in the simulation center control room (4:3)", "4/3"),
+        photo(IMG_VISIT, "Visiting guests watch nursing students practice at a simulation bed", "4/3"),
         cols=(7, 5), align="start",
     )
 

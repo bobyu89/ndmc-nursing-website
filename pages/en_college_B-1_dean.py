@@ -1,11 +1,12 @@
-from components import page, name_tape, statement, p, split, photo_slot, actions, text_link, tape_surface, draft, note
+from components import page, name_tape, statement, p, split, photo, actions, text_link, tape_surface, draft, note
 from links import L
-from pages._en_college_shared import zh, PROFILE
+from pages._en_college_shared import zh, PROFILE, DEAN_PHOTO
 
 META = {"id": "B-1", "slug": "dean", "title": "Dean's Message", "owner": "三長", "site": "en_college"}
 
 # Dean's name: pages/C-1_dean.py (曾雯琦院長, verbatim from unit/100010/1461).
 # English name, title and education: official English profile /DocDetEn/191/100010/3351/4416.
+# FAAN 2026: College news, 2026/07/14 (news/191/100010/1628), which gives the English title verbatim.
 
 
 def render():
@@ -18,11 +19,12 @@ def render():
     ])
 
     portrait = split(
-        photo_slot("Dean Wen-Chii Tzeng (portrait 3:4)", "3/4"),
+        photo(DEAN_PHOTO, "Dean Wen-Chii Tzeng", "3/4"),
         "".join([
             p("<strong>Wen-Chii Tzeng</strong><br>Distinguished Professor and Dean, College of Nursing"),
             p("PhD in Nursing, University of California, San Francisco, USA<br>Specialty: Mental health nursing",
               muted=True),
+            p("Fellow of the American Academy of Nursing (FAAN), 2026", muted=True),
             actions(text_link("Full profile", PROFILE + "4416")),
         ]),
         cols=(4, 8), align="start",

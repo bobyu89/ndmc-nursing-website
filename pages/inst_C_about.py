@@ -1,4 +1,6 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, split, photo_slot, route_list,
+from urllib.parse import quote
+
+from components import (page, name_tape, statement, p, button, text_link, actions, split, photo, route_list,
                         tape_surface, draft, note)
 from links import L
 from tokens import SITE
@@ -7,6 +9,7 @@ META = {"id": "C", "slug": "about", "title": "認識本所", "owner": "院窗口
 
 U_INST_HISTORY = SITE + "/unit/100181/6527"      # 研究所「歷史沿革」
 U_DIRECTOR = SITE + "/DocDet/191/100010/1738/1662"  # 專任教師個人頁：潘雪幸
+IMG_DIRECTOR = SITE + quote("/files/web/192/doctor/100010/1738/潘113師資.jpg")  # 同頁所長照片
 
 
 def render():
@@ -23,9 +26,9 @@ def render():
         actions(text_link("研究所簡介與發展沿革", L("inst:C-2"))),
     )
 
-    # 職稱原文照錄自專任教師個人頁（DocDet 1662）。
+    # 職稱與照片取自專任教師個人頁（DocDet 1662；該頁現職欄為「國防醫學大學護理學院教授暨護理研究所所長」）。
     director = split(
-        photo_slot("所長照片（直式 3:4）", "3/4"),
+        photo(IMG_DIRECTOR, "護理研究所所長潘雪幸教授", "3/4"),
         "".join([
             p("潘雪幸"),
             p("國防醫學大學護理學院教授暨護理研究所所長", muted=True),
@@ -46,7 +49,6 @@ def render():
         origin,
         name_tape("所長"),
         director,
-        note("所長姓名與職稱取自學院專任教師頁（" + U_DIRECTOR + "）。請院窗口確認仍為現任，並提供直式照片。"),
         name_tape("認識本所各頁"),
         routes,
         note("師資只由學院「師資陣容」一處維護，本所不另建教師名單；若要只列研究所指導教師，請在學院頁加篩選或錨點。"),

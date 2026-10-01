@@ -1,7 +1,7 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo_slot, illo_slot,
+from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo, photo_slot, illo_slot,
                         route_list, draft, note)
 from links import L
-from pages._en_college_shared import zh
+from pages._en_college_shared import zh, IMG_SIM, IMG_WARD1, IMG_WARD2
 
 META = {"id": "D-3", "slug": "facilities", "title": "Facilities", "owner": "圖儀、哲君", "site": "en_college"}
 
@@ -15,8 +15,8 @@ def render():
     opening = "".join([
         statement(
             draft("Practice in the simulation ward, then go to the bedside."),
-            draft("From a tiered lecture hall to a demonstration ward and a simulation center, students rehearse "
-                  "physical assessment, nursing skills and critical care in settings close to the real thing."),
+            "From a tiered lecture hall to a demonstration ward and a simulation center, students rehearse "
+            "physical assessment, nursing skills and critical care in settings close to the real thing.",
         ),
         actions(text_link("Academic Visits", L("en:G-1")), zh("E-3")),
     ])
@@ -32,7 +32,7 @@ def render():
                   "and learn alongside. Besides advanced medical-surgical, advanced obstetric and pediatric, and critical "
                   "care courses, the center is used for the undergraduate OSCE."),
             ]),
-            photo_slot("Simulation Center and control room", "4/3"),
+            photo(IMG_SIM, "A simulation ward in the Simulation Center: bed, bedside cabinet and monitor", "4/3"),
             cols=(7, 5), align="start",
         ),
         split(
@@ -54,12 +54,13 @@ def render():
     )
 
     ward = "".join([
-        p("The ward has 15 general beds, each with a bedside table and an over-bed table. A long-term care "
+        p(draft("The ward has 15 general beds, each with a bedside table and an over-bed table.") + " A long-term care "
           "demonstration bed was added in 2018. Since 2007 a central gas system has supplied air flow and suction to "
           "every bed, bringing the ward closer to a clinical setting."),
         p("It is used mainly for undergraduate physical examination and assessment, basic nursing skills practice, "
           "and medical research camps."),
-        split(photo_slot("Demonstration Ward: bed area", "4/3"), photo_slot("Demonstration Ward: long-term care bed", "4/3"),
+        split(photo(IMG_WARD1, "Demonstration Ward: a row of beds with pink bedside curtains and over-bed tables", "4/3"),
+              photo(IMG_WARD2, "Demonstration Ward, other side: beds, IV poles and a wall-mounted TV", "4/3"),
               cols=(7, 5), align="start"),
     ])
 
@@ -83,7 +84,9 @@ def render():
             cols=(7, 5), reverse=True, align="start",
         ),
         note("周美玉將軍紀念室只見於舊英文頁（uniten/100010/867），中文教學設備頁沒有；請哲君確認紀念室是否仍在、開放方式，"
-             "以及能否列為來訪參觀點。舊英文頁的示範病房床數（12 張＋2 張檢查床）與中文頁（15 張）不同，本頁採中文頁。"),
+             "以及能否列為來訪參觀點。示範病房床數兩處說法不同：中文教學設備頁（unit/100010/1463）寫一般病床15張，"
+             "舊英文頁（uniten/100010/867）寫 12 general beds, 2 examination beds；暫採中文頁並標待確認，請圖儀確認現況。"
+             "模擬中心與示範病房照片與中文教學設備頁相同。"),
     ])
 
     return page(

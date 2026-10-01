@@ -5,7 +5,7 @@ from links import L
 META = {"id": "K", "slug": "alumni", "title": "校友專區", "owner": "院窗口", "site": "dept"}
 
 # 聯絡資料與附件名稱逐字取自現行「校友專區」頁 https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6799（2026-09-29 擷取）。
-# 系校友會網址取自學院常用連結（pages/L_links.py），2026-09-29 檢查時回應 HTTP 500。
+# 系校友會網址取自學院常用連結（pages/L_links.py），2026-09-29、2026-10-01 檢查時皆回應 HTTP 500。
 # 「校友」分眾導覽 https://wwwndmc.ndmutsgh.edu.tw/gov/191/100132/146 取自全球資訊網上方選單。
 # 校友設立的獎學金名稱取自獎學金專區 https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6798
 
@@ -43,12 +43,12 @@ def render():
             ("校友（國防醫學大學）", draft("全校校友服務與校友會入口"), UNIVERSITY_ALUMNI),
             ("捐款專區", draft("捐款支持學院與學弟妹"), L("I")),
         ], unit="dept"),
-        note("系校友會網址 http://www.ndmcnd.url.tw/ 沿用現行網站所列，2026-09-29 檢查時網站回應錯誤（HTTP 500）。"
+        note("系校友會網址 http://www.ndmcnd.url.tw/ 沿用現行網站所列，2026-09-29 與 2026-10-01 兩次檢查，網站都回應錯誤（HTTP 500）。"
              "請院窗口向系校友會確認網站是否仍在使用；若已停用，請提供新的聯絡方式（網站、粉絲專頁或信箱）。"),
     ])
 
     giving = "".join([
-        p(draft("學長姐也用獎學金支持在學的學弟妹，例如：")),
+        p("學長姐也用獎學金支持在學的學弟妹，例如："),
         bullets([
             "護理學系系友聯誼會獎學金",
             "國防醫學大學護理學院第一屆趙理事長獎學金",

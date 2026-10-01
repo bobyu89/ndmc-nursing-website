@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, split, illo_slot, photo_slot,
+from components import (page, name_tape, statement, p, h4, text_link, actions, split, illo_slot, photo,
                         feature_lead, bullets, route_list, draft, note)
 from links import L
 
@@ -7,6 +7,10 @@ META = {"id": "E-2", "slug": "research", "title": "學術研究", "owner": "教�
 # 本頁只做摘要與導流；完整論文清單放在護理研究所「研究成果」頁（PRODUCT.md：一個事實一個來源）。
 # 「戰傷與災難護理」與「研究室」清單的計畫名稱、專長逐字取自各教師現行個人頁
 # https://wwwndmc.ndmutsgh.edu.tw/Doclist/191/100010/1738（2026-09-29 擷取），未判斷是否仍在執行。
+# 演講照片取自護理研究所首頁輪播（unit/100181/6511），說明照輪播標題「114_0115_演講-AI在護理臨床及研究之應用」。
+IMG_TALK = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100181/slider/LINE_ALBUM_20250115"
+            "%E6%BC%94%E8%AC%9B-AI%E5%9C%A8%E8%AD%B7%E7%90%86%E8%87%A8%E5%BA%8A%E5%8F%8A%E7%A0%94%E7%A9%B6"
+            "%E4%B9%8B%E6%87%89%E7%94%A8_250204_1.jpg")
 
 
 def render():
@@ -82,7 +86,8 @@ def render():
             note("教發請提供：全院研究成果摘要（例如近年計畫與論文的統計，須附資料來源與統計期間），"
                  "以及研究所「研究成果」頁的網址。研究所現行網站選單尚無此頁，需先建立後再把連結改過去。"),
         ]),
-        photo_slot("研究成果發表或研討會現場", "4/3"),
+        photo(IMG_TALK, "「AI在護理臨床及研究之應用」演講後，講者與師生在會議室合影", "4/3",
+              caption="民國114年1月15日　演講：AI在護理臨床及研究之應用"),
         cols=(7, 5),
     )
 

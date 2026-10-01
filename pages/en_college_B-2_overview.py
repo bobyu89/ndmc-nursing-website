@@ -1,7 +1,9 @@
-from components import (page, name_tape, statement, p, split, illo_slot, photo_slot, text_link, actions, timeline,
+from components import (page, name_tape, statement, p, split, photo, text_link, actions, timeline,
                         tape_surface, bullets, draft, note)
 from links import L
-from pages._en_college_shared import zh
+from pages._en_college_shared import zh, IMG_EMBLEM
+
+GENERAL_PHOTO = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E8%BB%8D%E8%AD%B7%E5%A4%A7%E9%A0%AD%E7%85%A71.jpg"
 
 META = {"id": "B-2", "slug": "overview", "title": "Overview and History", "owner": "哲君", "site": "en_college"}
 
@@ -51,9 +53,9 @@ def render():
     )
 
     general = split(
-        photo_slot("General Mei-Yu Chow (portrait 3:4)", "3/4"),
+        photo(GENERAL_PHOTO, "Black-and-white portrait of General Mei-Yu Chow in military uniform", "3/4"),
         "".join([
-            p(draft("General Mei-Yu Chow founded Taiwan's military nursing system and is remembered as its mother.")),
+            p("General Mei-Yu Chow founded Taiwan's military nursing system and is remembered as its mother."),
             p(draft("She founded the Senior Nursing Vocational Class in 1943 and the Department of Nursing in 1947, "
                     "the beginnings of the College. She was also the first Director of Nursing at Taipei Veterans General "
                     "Hospital and the first President of the Nurses Association of the Republic of China after it resumed in Taiwan.")),
@@ -80,13 +82,18 @@ def render():
         ("1999", "Move to Neihu",
          "The campus moved to the National Defense Medical Center in Neihu, where a strong faculty and new facilities "
          "carry on the work of educating nurses."),
+        ("2018", "Memorial service for General Chow",
+         draft("On 10 March 2018, General Chow's remains were moved to the Armed Forces Loyal Spirits Hall "
+               "at the Wuzhishan Military Cemetery.")),
         ("2025", "College of Nursing",
-         "The College of Nursing was established, becoming a pioneer in advancing higher nursing education in Taiwan.",
+         "The College of Nursing was established, becoming a pioneer in advancing higher nursing education in Taiwan. "
+         "Its plaque was unveiled on 16 September 2025.",
          "college"),
     ])
 
     emblem = split(
-        illo_slot("College of Nursing emblem (existing file)", "1/1"),
+        photo(IMG_EMBLEM, "College of Nursing emblem: a round badge with red, purple and white tulips above the year 1947, "
+                          "ringed by the College's Chinese and English names", "1/1", fit="contain"),
         "".join([
             p("The emblem expresses the College's teaching philosophy: respect for harmony and balance between people "
               "and their environment. "
@@ -108,14 +115,14 @@ def render():
         philosophy,
         name_tape("General Mei-Yu Chow"),
         general,
-        note("周將軍簡介依中文頁草稿翻譯，待哲君定稿中文後再定英文；中華民國護理學會、臺北榮民總醫院的英文正式名稱請一併確認。"
-             "照片授權同中文頁。"),
+        note("周將軍簡介第一段已依中文頁查證內容譯出；第二段含中華民國護理學會、臺北榮民總醫院的英文名稱，請確認正式名稱後再拿掉待確認。"
+             "照片與中文頁相同（軍護大頭照1.jpg），授權同中文頁。"),
         name_tape("Timeline"),
         events,
-        note("時間軸逐句譯自中文「歷史沿革」已查證段落；2018 年周將軍遷厝一筆在中文頁仍為待確認，暫不列入英文版。"
+        note("時間軸逐句譯自中文「歷史沿革」已查證段落。2018 一筆的「五指山國軍示範公墓國軍忠靈殿」為暫譯，請確認英文名稱。"
              "「水源地」「國防醫學中心」採音譯與舊英文頁用法（National Defense Medical Center），請確認。"),
         name_tape("The College Emblem"),
         emblem,
-        note("院徽圖檔已在現行網站：/files/web/192/contents/100010/護理學院LOGO.png。中文院徽說明中的鬱金香花色段落，英文版省略。"),
+        note("中文院徽說明中的鬱金香花色段落，英文版省略。"),
         owner=META["owner"],
     )

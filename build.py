@@ -74,6 +74,10 @@ def main(final=False):
         components.SITE_UNIT = site.replace("en_", "")
         components.SITE_LANG = "en" if site.startswith("en_") else "zh"
         html = cms_normalize(theme_bare_links(m.render()))
+        if final:
+            components.DRAFT_MARKS = True
+            drafts = m.render().count("待確認")
+            components.DRAFT_MARKS = False
         for pat in FORBIDDEN:
             if re.search(pat, html, re.I):
                 print(f"FORBIDDEN {pat} in {meta['id']}")
@@ -81,8 +85,9 @@ def main(final=False):
         name = f"{meta['id']}_{meta['slug']}" if site == "college" else f"{site}_{meta['id']}_{meta['slug']}"
         (DIST / f"{name}.html").write_text(html, encoding="utf-8")
         (PREVIEW / f"{name}.html").write_text(CHROME.format(title=meta["title"], body=html, lang="en" if site.startswith("en_") else "zh-Hant"), encoding="utf-8")
-        drafts = html.count("待確認")
-        groups[site].append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · 待確認 {drafts} · 負責：{meta.get("owner", "院窗口")}</small></li>')
+        if not final:
+            drafts = html.count("待確認")
+        groups[site].append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · {"尚待確認" if final else "待確認"} {drafts} · 負責：{meta.get("owner", "院窗口")}</small></li>')
         print(f"{site:7} {meta['id']:6} {meta['title']:12} {len(html):7} bytes  drafts={drafts}")
     labels = {"college": "護理學院", "dept": "護理學系", "inst": "護理研究所",
               "en_college": "College of Nursing (EN)", "en_dept": "Department of Nursing (EN)",
@@ -92,7 +97,10 @@ def main(final=False):
             index.append(f"<h2>{labels[site]}（{len(items)} 頁）</h2><ol>" + "".join(items) + "</ol>")
     (PREVIEW / "index.html").write_text(
         '<!doctype html><meta charset="utf-8"><title>護理學院頁面預覽</title>'
-        '<body style="font-family:Microsoft JhengHei,sans-serif;padding:24px;line-height:2;"><h1>護理學院・學系・研究所 中文站預覽</h1>'
+        '<body style="font-family:Microsoft JhengHei,sans-serif;padding:24px;line-height:2;"><h1>護理學院・學系・研究所 中英文六站預覽</h1>'
+        + ('<p style="background:#F3E4E1;padding:8px 14px;">乾淨預覽：已隱藏「待確認」標記與編輯備註。各頁後方的數字是尚待負責人確認的段落數。</p>' if final
+           else '<p style="background:#F7F4EF;padding:8px 14px;">草稿預覽：頁面上顯示「待確認」標記與編輯備註。</p>')
+        + ''
         + "".join(index) + "</body>", encoding="utf-8")
     return problems
 

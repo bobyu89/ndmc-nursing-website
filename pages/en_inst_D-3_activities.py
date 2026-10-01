@@ -1,7 +1,7 @@
-from components import (page, name_tape, statement, p, text_link, actions, timeline, split, photo_slot, facts,
+from components import (page, name_tape, statement, p, text_link, actions, timeline, split, photo, facts,
                         draft, note)
 from links import L
-from pages._en_inst_data import zh, U_INST_HOME
+from pages._en_inst_data import zh, U_INST_HOME, IMG_FOUR_NATION, IMG_TRAUMA, IMG_AI_LECTURE
 
 META = {"id": "D-3", "slug": "activities", "title": "Academic Activities", "owner": "教發", "site": "en_inst"}
 
@@ -31,9 +31,17 @@ def render():
          "18–19 June 2025. " + draft("Organizers, participants and content to be added."), "inst"),
     ])
 
-    photos = split(photo_slot("Four-Nation Conference, March 2025 (existing photo on the Institute site)", "4/3"),
-                   photo_slot("Trauma and disaster nursing training, June 2025 (existing photos on the Institute "
-                              "site)", "4/3"), cols=(6, 6))
+    # Same carousel photos as pages/inst_F-3_events.py; alt text follows the carousel captions.
+    photos = "".join([
+        split(photo(IMG_FOUR_NATION, "Institute event photo, March 2025 (四國會議)",
+                    "4/3", caption=draft("Four-Nation Conference, 19–23 March 2025")),
+              photo(IMG_TRAUMA, "Institute training photo, June 2025 (戰傷災難護理培訓)", "4/3",
+                    caption=draft("Trauma and disaster nursing training, 18–19 June 2025")),
+              cols=(6, 6)),
+        split(photo(IMG_AI_LECTURE, "Lecture on applications of AI in clinical nursing and research, January 2025",
+                    "4/3", caption="Lecture: Applications of AI in Clinical Nursing and Research, 15 January 2025"),
+              "", cols=(6, 6)),
+    ])
 
     template = "".join([
         p(draft("Each new event is added in the same format, newest last.")),
@@ -52,8 +60,8 @@ def render():
         y2025,
         note("三筆活動只有研究所首頁輪播照片的標題與日期可查（unit/100181/6511）。演講題目為照片標題的翻譯。"
              "「四國會議」與「Trauma training 戰傷災難護理培訓」性質未確認，英文名稱為草稿。請教發或主辦老師提供每場："
-             "活動正式英文名稱、主辦與合辦單位、講者或與會學校（四國會議是哪四國、在哪裡舉行）、參加對象、兩三句紀錄、"
-             "可公開照片。「114國軍持續教育」（檔名 1140812）是否屬學術活動請確認後再決定是否列入。"),
+             "活動正式英文名稱、主辦與合辦單位、講者或與會學校（四國會議是哪四國、在哪裡舉行）、參加對象、兩三句紀錄。"
+             "下方三張照片沿用研究所首頁輪播原圖。「114國軍持續教育」（檔名 1140812）是否屬學術活動請確認後再決定是否列入。"),
         photos,
         name_tape("Adding New Records"),
         template,

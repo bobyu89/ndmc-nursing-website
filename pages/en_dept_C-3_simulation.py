@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo_slot, illo_slot,
+from components import (page, name_tape, statement, p, h4, text_link, actions, split, photo_slot, photo, illo_slot,
                         draft, note)
 from links import L
 
@@ -7,6 +7,10 @@ META = {"id": "C-3", "slug": "simulation", "title": "Simulation and Learning Spa
 
 # Plain sentences translate the verified text of 教學設備 unit/100010/1463 (pages/E-3_facilities.py, 2026-09-29).
 # VR/MR and the self-learning classroom's use are drafted there too and stay drafted here.
+# Photos: the two images published on 教學設備 unit/100010/1463 (checked 200 image/png on 2026-10-01).
+IMG_SIM = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E8%99%9B%E6%93%AC%E4%B8%AD%E5%BF%83.png"
+IMG_WARD = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/"
+            "%E7%A4%BA%E7%AF%84%E5%AF%A6%E7%BF%92%E7%97%85%E6%88%BF2.png")
 
 
 def render():
@@ -28,13 +32,13 @@ def render():
             p("The center is used for advanced medical-surgical nursing, advanced obstetric and pediatric nursing, "
               "and critical care nursing courses, and for OSCE teaching in the bachelor's program."),
         ]),
-        photo_slot("Simulation center and control room", "4/3"),
+        photo(IMG_SIM, "A pediatric simulation room in the simulation center, with a crib and bedside equipment", "4/3"),
         cols=(7, 5), align="start",
     )
 
     ward = "".join([
-        photo_slot("Demonstration ward, bed area (wide)", "16/9"),
-        p("The demonstration ward has 15 general beds, each with a bedside table and an overbed table. "
+        photo(IMG_WARD, "Demonstration ward: a row of hospital beds with privacy curtains", "16/9"),
+        p(draft("The demonstration ward has 15 general beds, each with a bedside table and an overbed table.") + " "
           "A long-term care demonstration bed was added in 2018."),
         p("Since 2007 a central gas system has supplied air flow and suction to every bed, bringing the ward "
           "closer to a clinical setting."),
@@ -79,7 +83,7 @@ def render():
         name_tape("Demonstration Ward"),
         ward,
         note("「長照示範病床 2018」「中央氣體 2007」由原文民國 107、96 年換算。原文「醫研營」暫譯 medical research camp，"
-             "請確認英文名稱。現行教學設備頁已有兩張示範實習病房照片與一張虛擬中心照片，可沿用。"),
+             "請確認英文名稱。照片沿用中文教學設備頁的虛擬中心與示範實習病房照片。床數兩處公開資料不一致：中文教學設備頁（unit/100010/1463）寫一般病床 15 張；舊英文設施頁（uniten/100010/867）寫「12 general beds, 2 examination beds」。本頁暫依中文頁並標待確認，請圖儀確認現況。"),
         name_tape("Amphitheater"),
         amphitheater,
         name_tape("New Learning Tools"),

@@ -1,10 +1,16 @@
-from components import (page, name_tape, statement, p, text_link, actions, photo_slot, split,
+from components import (page, name_tape, statement, p, text_link, actions, photo, split,
                         feature_list, facts, draft, note)
 from links import L
 
 META = {"id": "G-1", "slug": "partnerships", "title": "國際合作", "owner": "國際事務"}
 
 SLOT = "〔待國際事務提供〕"
+
+# 照片取自舊英文頁（uniten/100010/843）輪播，標題分別為「西北大學參訪」「西北大學來訪」。
+IMG_NW_VISIT = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/"
+                "LINE_ALBUM_1140203NorthwestUniversity_250204_58.jpg")
+IMG_NW_GUESTS = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/"
+                 "LINE_ALBUM_1140203NorthwestUniversity_250204_25.jpg")
 
 
 def render():
@@ -43,11 +49,14 @@ def render():
             ("學生赴美國華盛頓大學交流", draft("學生赴美國華盛頓大學交流學習，詳見學生交流。"), L("G-2"), "dept"),
             ("〔其他合作成果〕", draft("共同研究、合辦研討會、師資培訓等。"), None, "college"),
         ]),
-        note("「西北大學參訪」取自分析文件的輪播照片標題，「N75學生至美國華盛頓大學交流」取自護理學系網站輪播標題；"
+        note("「西北大學參訪」「西北大學來訪」取自舊英文頁（uniten/100010/843）輪播標題，照片檔名含 1140203NorthwestUniversity；"
+             "「N75學生至美國華盛頓大學交流」取自護理學系網站輪播標題。"
              "請國際事務確認是哪一所西北大學、交流時間、參與者與內容。"
              "另外，護理研究所網站輪播有「114_0319-23四國會議」「1140618-19Trauma_training戰傷災難護理培訓」，"
              "若屬國際合作，請提供說明後一併列入。"),
-        split(photo_slot("合作成果活動照片（待提供）", "4/3"), photo_slot("來訪學者與師生合照（待提供）", "4/3"), cols=(6, 6)),
+        split(photo(IMG_NW_VISIT, "西北大學參訪活動的戶外團體合照", "4/3", caption="西北大學參訪"),
+              photo(IMG_NW_GUESTS, "西北大學來訪：來訪學者與師長在新春佈置前合影", "4/3", caption="西北大學來訪"),
+              cols=(6, 6)),
     ])
 
     return page(

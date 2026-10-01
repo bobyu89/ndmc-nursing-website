@@ -1,13 +1,13 @@
-from components import (page, name_tape, statement, p, text_link, actions, photo_slot, split, feature_list, facts,
+from components import (page, name_tape, statement, p, text_link, actions, photo, split, feature_list, facts,
                         route_list, draft, note)
 from links import L
-from pages._en_college_shared import zh, mark
+from pages._en_college_shared import zh, mark, IMG_UW
 
 META = {"id": "F", "slug": "international", "title": "International Collaboration", "owner": "國際事務", "site": "en_college"}
 
 # No partner, date or figure on this page is verified yet. The only collaboration items on the Chinese site are two
 # unconfirmed carousel titles ("西北大學參訪", "N75學生至美國華盛頓大學交流"; see pages/G-1_partnerships.py),
-# so both stay draft. Outcomes only; visits and inquiries live under Visit and Collaborate (G).
+# so both stay draft. The photo is the published Department carousel photo of the University of Washington exchange. Outcomes only; visits and inquiries live under Visit and Collaborate (G).
 
 SLOT = "〔to be supplied〕"
 
@@ -23,12 +23,14 @@ def render():
     ])
 
     lead = split(
-        photo_slot("International exchange group photo (to be supplied and cleared for publication)", "4/3"),
+        photo(IMG_UW, "Nursing students and faculty at a care facility during the University of Washington exchange", "4/3",
+              caption="Student exchange with the University of Washington"),
         "".join([
-            p(draft("Recent exchanges include a visit to Northwestern University and a student exchange with the "
-                    "University of Washington in the United States.")),
-            note("兩則交流取自輪播照片標題（西北大學參訪、N75 學生至美國華盛頓大學交流），尚未查證。"
-                 "請國際事務確認：是哪一所「西北大學」、交流時間、參與者與內容；英文版不使用 N75 這類屆別代號。"),
+            p(draft("Recent exchanges include academic visits with Northwest University (西北大學) and a student "
+                    "exchange with the University of Washington in the United States.")),
+            note("兩則交流取自輪播照片標題：「西北大學參訪」「西北大學來訪」（舊英文頁 uniten/100010/843，照片檔名 "
+                 "1140203NorthwestUniversity）與「N75學生至美國華盛頓大學交流」（護理學系首頁）。"
+                 "請國際事務確認：是哪一所「西北大學」及其英文正式名稱、交流時間、參與者與內容；英文版不使用 N75 這類屆別代號。"),
         ]),
         cols=(5, 7), align="start",
     )

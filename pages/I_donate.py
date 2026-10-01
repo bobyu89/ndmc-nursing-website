@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, h4, bullets, button, text_link, actions, photo_slot, split,
+from components import (page, name_tape, statement, p, h4, bullets, button, text_link, actions, photo, split,
                         tape_surface, facts, draft, note)
 from links import L
 
@@ -7,6 +7,8 @@ META = {"id": "I", "slug": "donate", "title": "捐款專區", "owner": "院窗�
 # Real URLs from the current site: the nursing left menu 捐款專區 links to this university fundraising project page.
 DONATE = "https://fundraising.ndmutsgh.edu.tw/web/donate/donate.jsp?np_id=NP1760515729959"
 WAYS = "https://fundraising.ndmutsgh.edu.tw/web/way/way.jsp?dm_id=DM1715588358319"
+# 照片取自學院首頁輪播（unit/100010/16），輪播標題「天使營」。
+IMG_CAMP = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/DSC_8149.jpg"
 
 
 def render():
@@ -21,7 +23,7 @@ def render():
             p("捐贈金額可以全額抵稅。"),
             actions(button("前往線上捐款", DONATE)),
         ]),
-        photo_slot("學生國際交流或迷彩天使營現場", "4/5"),
+        photo(IMG_CAMP, "國防迷彩天使災難救護營學員穿著迷彩服，與師長在大廳合影", "4/5"),
         cols=(8, 4),
     )
 
@@ -75,7 +77,7 @@ def render():
     return page(
         opening,
         note("開場文字、三項目標、指定用途、募款目標皆逐字取自護理學院募款頁（國防醫學大學捐款網站「支持護理學院發展使用 F1151CN01」）；"
-             "照片請院窗口提供一張直式照片。"),
+             "照片暫用學院首頁輪播的天使營合照（橫式照片裁成直式），如有更合適的直式照片請院窗口提供。"),
         name_tape("您的捐款用在哪裡"),
         p("募款目標：每年NT$600萬"),
         p("過去，學校仰賴國防部的經費支持，讓我們得以穩健推動教學與研究。然而，面對國際局勢瞬息萬變，醫學科技日新月異，"

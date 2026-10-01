@@ -1,7 +1,7 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, split, photo_slot, illo_slot,
+from components import (page, name_tape, statement, p, button, text_link, actions, split, photo, illo_slot,
                         bullets, route_list, draft, note)
 from links import L
-from pages._en_college_shared import zh
+from pages._en_college_shared import zh, IMG_FACULTY, IMG_WARD1
 
 META = {"id": "D", "slug": "faculty-research", "title": "Faculty and Research", "owner": "院窗口", "site": "en_college"}
 
@@ -24,7 +24,7 @@ def render():
                     "linked to an official English profile with publications and contact details.")),
             actions(text_link("Faculty Directory", L("en:D-1"))),
         ]),
-        photo_slot("College of Nursing faculty group photo", "4/3"),
+        photo(IMG_FACULTY, "College of Nursing faculty group photo in front of the College name wall", "4/3"),
         cols=(7, 5),
     )
 
@@ -45,7 +45,7 @@ def render():
                      "Smart Interactive Nursing Self-Learning Classroom"]),
             actions(text_link("Facilities", L("en:D-3"))),
         ]),
-        photo_slot("Demonstration Ward", "4/3"),
+        photo(IMG_WARD1, "Demonstration Ward: a row of beds with bedside curtains and over-bed tables", "4/3"),
         cols=(7, 5),
     )
 
@@ -57,7 +57,7 @@ def render():
         research,
         name_tape("Facilities", unit="dept"),
         facilities,
-        note("三張圖片與中文「學術資源」頁共用：全院教師合照、研究情境插圖、示範實習病房照片。"),
+        note("教師合照與示範實習病房照片與中文「學術資源」頁共用（取自現行網站）；研究情境插圖待補。"),
         name_tape("Related Pages"),
         route_list([
             ("Visiting Scholars", draft("Non-degree research and teaching visits"), L("en:G-2")),

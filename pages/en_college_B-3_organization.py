@@ -6,14 +6,15 @@ META = {"id": "B-3", "slug": "organization", "title": "Organization", "owner": "
 
 # Structure and names: faithful translation of pages/C-4_organization.py (組織架構 unit/100010/4125).
 # Committee names are our translations; the College has no published English names for them yet.
+# Adoption dates: from the attachment file names on unit/100010/4125 (e.g. 1140908訂定 = 8 September 2025).
 
 
 def render():
     opening = "".join([
         statement(
             draft("One college, two academic units."),
-            draft("The College of Nursing oversees the Department of Nursing and the Graduate Institute of Nursing. "
-                  "College affairs are run by the College Council and six committees."),
+            "The College of Nursing oversees the Department of Nursing and the Graduate Institute of Nursing. "
+            "College affairs are run by the College Council and six committees.",
         ),
         actions(zh("C-4")),
     ])
@@ -36,12 +37,12 @@ def render():
     ])
 
     rules = bullets([
-        "Charter of the College of Nursing, National Defense Medical University",
-        "Regulations of the College Development Committee",
-        "Regulations of the College Faculty Development Committee",
-        "Regulations of the College Curriculum Development Committee",
-        "Regulations of the College Student Affairs Committee",
-        "Regulations of the College Library, Equipment and Welfare Committee",
+        "Charter of the College of Nursing, National Defense Medical University (adopted 8 September 2025)",
+        "Regulations of the College Development Committee (adopted 13 October 2025)",
+        "Regulations of the College Faculty Development Committee (adopted 8 December 2025)",
+        "Regulations of the College Curriculum Development Committee (adopted 13 October 2025)",
+        "Regulations of the College Student Affairs Committee (adopted 12 November 2025)",
+        "Regulations of the College Library, Equipment and Welfare Committee (adopted 8 December 2025)",
     ])
 
     return page(

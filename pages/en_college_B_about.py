@@ -12,9 +12,9 @@ def render():
     opening = "".join([
         statement(
             draft("From one nursing class to a college of nursing."),
-            draft("The College of Nursing at National Defense Medical University educates military nurses "
-                  "and oversees the Department of Nursing and the Graduate Institute of Nursing. "
-                  "Start here to learn where the College came from and how it is organized."),
+            "The College of Nursing at National Defense Medical University educates military nurses "
+            "and oversees the Department of Nursing and the Graduate Institute of Nursing. "
+            "Start here to learn where the College came from and how it is organized.",
         ),
         actions(zh("C")),
     ])

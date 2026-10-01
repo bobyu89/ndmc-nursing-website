@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, text_link, actions, split, photo_slot, feature_list,
+from components import (page, name_tape, statement, p, text_link, actions, split, photo_slot, photo, feature_list,
                         tape_surface, draft, note)
 from links import L
 
@@ -6,6 +6,10 @@ META = {"id": "C-4", "slug": "outcomes", "title": "Student Learning Outcomes", "
 
 # Verified: OSCE teaching in the simulation center — 教學設備 unit/100010/1463 (pages/E-3_facilities.py);
 # core abilities — 學士班課程地圖 unit/100010/3642. Everything about specific achievements is a slot.
+
+# Milestone photos: department home carousel "N76加冠" and "114小畢典" (unit/100180/6510), checked 200 image/jpeg on 2026-10-01.
+IMG_CAPPING = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/LINE_ALBUM_1140317N76%E5%8A%A0%E5%86%A0_250706_9.jpg"
+IMG_GRAD = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/114%E5%B0%8F%E7%95%A2%E5%85%B8.jpg"
 
 SLOT = "[to be supplied]"
 
@@ -50,8 +54,10 @@ def render():
     )
 
     gallery = split(
-        photo_slot("Capping ceremony", "4/3"),
-        photo_slot("Graduation ceremony", "4/3"),
+        photo(IMG_CAPPING, "Capping ceremony: students in white nursing uniforms and caps with faculty", "4/3",
+              caption="Capping ceremony"),
+        photo(IMG_GRAD, "Graduates in academic gowns with faculty in front of a campus building", "4/3",
+              caption="Department graduation celebration, 2025"),
         cols=(6, 6), align="start",
     )
 
@@ -69,7 +75,7 @@ def render():
              "屆別代號（例 N76）請改寫為入學年份。"),
         name_tape("Milestones"),
         gallery,
-        note("加冠典禮、畢業典禮照片可取自學系首頁輪播（N76 加冠、114 畢業典禮），請確認授權並附英文圖說。"),
+        note("加冠典禮、畢業照片沿用學系首頁輪播「N76加冠」「114小畢典」（114 年＝2025）；英文圖說為暫擬，請確認。"),
         actions(text_link("Campus Experience", L("en_dept:D")), text_link("中文：大專生研究計畫", L("dept:G"))),
         owner=META["owner"],
     )

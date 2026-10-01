@@ -1,10 +1,10 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo_slot,
+from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo,
                         ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, bullets, facts, draft,
                         note)
 from links import L
 from tokens import C
 from pages._en_inst_data import (TRAUMA_PROJECTS, project_items, name, position, email_link, INST_PHONE, ADDRESS,
-                                 zh)
+                                 zh, IMG_DIRECTOR)
 
 META = {"id": "A", "slug": "home", "title": "Graduate Institute of Nursing", "owner": "院窗口", "site": "en_inst"}
 
@@ -12,7 +12,7 @@ META = {"id": "A", "slug": "home", "title": "Graduate Institute of Nursing", "ow
 #   founded 1979, pioneer of master's nursing education in Taiwan — 歷史沿革 unit/100181/6527;
 #   ("the first graduate nursing program in Taiwan" on the old English page uniten/100010/3353 is not used until
 #   院窗口 confirms it; every site uses the hedged "pioneer" wording)
-#   director's name and position — DocDetEn/191/100010/3351/4443
+#   director's name and position — DocDetEn/191/100010/3351/4443; portrait — same photo as inst_A_home.py
 #   project titles — faculty DocDetEn profiles (see pages/_en_inst_data.py)
 
 
@@ -43,7 +43,7 @@ def render():
     ])
 
     director = split(
-        photo_slot("Director of the Institute (portrait 3:4)", "3/4"),
+        photo(IMG_DIRECTOR, "Professor Hsueh-Hsing Pan, Director of the Graduate Institute of Nursing", "3/4"),
         "".join([
             p("The Institute was established in 1979 to meet the needs of nursing education and research, "
               "and became a pioneer of master's-level nursing education in Taiwan."),
@@ -111,7 +111,6 @@ def render():
         quick,
         name_tape("Director and Institute"),
         director,
-        note("所長照片請院窗口提供（直式 3:4）；英文所長的話見 B-1。"),
         name_tape("Research"),
         research,
         more,

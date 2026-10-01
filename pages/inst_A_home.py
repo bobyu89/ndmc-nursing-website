@@ -1,9 +1,14 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo_slot,
+from urllib.parse import quote
+
+from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo,
                         ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note)
 from links import L
-from tokens import C
+from tokens import C, SITE
 
 META = {"id": "A", "slug": "home", "title": "護理研究所", "owner": "院窗口", "site": "inst"}
+
+# 所長照片取自學院專任教師頁（DocDet/191/100010/1738/1662，潘雪幸）。
+IMG_DIRECTOR = SITE + quote("/files/web/192/doctor/100010/1738/潘113師資.jpg")
 
 
 def render():
@@ -30,7 +35,7 @@ def render():
     ])
 
     director = split(
-        photo_slot("所長照片", "3/4"),
+        photo(IMG_DIRECTOR, "護理研究所所長潘雪幸教授", "3/4"),
         "".join([
             p("民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。"),
             p(draft("「所長的話摘錄，約兩句，說明研究與人才培育的方向。」")),

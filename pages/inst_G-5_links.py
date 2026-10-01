@@ -50,7 +50,7 @@ def render():
         ("Turnitin 論文原創比對", draft("論文建檔前做比對檢測"),
          "https://docs.google.com/forms/d/1ldJI5ak8T1I-Zu5_bi7jTE1kfCSs_bRUDPoMWZ7FBpQ/preview"),
         ("iThenticate 論文原創比對", draft("圖書館提供的另一套比對服務"), SITE + "/unit/100036/7081"),
-        ("臺灣學術倫理教育資源中心", draft("研究倫理教育必修課的上課與測驗平台"), "https://ethics.moe.edu.tw/"),
+        ("臺灣學術倫理教育資源中心", "研究倫理教育必修課的上課與測驗平台", "https://ethics.moe.edu.tw/"),
     ], unit="inst")
 
     return page(

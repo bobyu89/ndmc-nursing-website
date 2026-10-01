@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, photo_slot, split, timeline,
+from components import (page, name_tape, statement, p, h4, text_link, actions, photo_slot, photo, split, timeline,
                         bullets, draft, note)
 from links import L
 
@@ -13,6 +13,10 @@ META = {"id": "I-2", "slug": "activities", "title": "學生活動", "owner": "�
 GRADUATION = "https://wwwndmc.ndmutsgh.edu.tw/news/191/10000/2?type=34"
 ANNIVERSARY = "https://wwwndmc.ndmutsgh.edu.tw/news/191/10000/2?type=35"
 CLUBS = "https://wwwndmc.ndmutsgh.edu.tw/Doclist/191/100030/2947"
+# 照片：學系首頁輪播「N76_加冠典禮-傳光」「114小畢典」（皆 2026-10-01 核對 200 image/jpeg）。
+IMG_LIGHT = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/"
+             "LINE_ALBUM_1140317N76%E5%8A%A0%E5%86%A0_250706_68.jpg")
+IMG_GRAD = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/114%E5%B0%8F%E7%95%A2%E5%85%B8.jpg"
 
 
 def render():
@@ -38,9 +42,9 @@ def render():
         "".join([
             h4("加冠典禮"),
             p("為即將進入臨床實習的大二學生進行加冠典禮，祝福他們在未來的實習當中都可以順利。"),
-            p(draft("照片說明：加冠典禮上的傳光儀式。"), muted=True),
+            p("照片說明：加冠典禮上的傳光儀式。", muted=True),
         ]),
-        photo_slot("加冠典禮・傳光（學系首頁輪播已有「N76_加冠典禮-傳光」）", "4/3"),
+        photo(IMG_LIGHT, "加冠典禮傳光儀式：戴上護士帽的學生在舞台上排列站立", "4/3"),
         cols=(7, 5), reverse=True, align="start",
     )
 
@@ -49,15 +53,15 @@ def render():
             h4("小畢典與畢業典禮"),
             p("為即將畢業的大四與研究生學長姐們進行小畢典的活動，祝福他們未來鵬程萬里。"),
             p(draft("全校的學位證書頒授暨正冠典禮，照片與消息放在學校的典禮專區。")),
-            p(draft("照片說明：畢業生穿著學位服，在校園合影。"), muted=True),
+            p("照片說明：114 年小畢典，畢業生穿著學位服在校園合影。", muted=True),
             actions(text_link("學位證書頒授暨正冠典禮專區", GRADUATION)),
         ]),
-        photo_slot("小畢典合照（學系首頁輪播已有「114小畢典」「114畢業典禮」）", "4/3"),
+        photo(IMG_GRAD, "114 年小畢典：穿著學位服的畢業生與師長在校舍前合影", "4/3"),
         cols=(7, 5), align="start",
     )
 
-    ceremonies_note = note("三張照片可先沿用學系首頁輪播的「114小畢典」「114畢業典禮」「N76加冠」「N76_加冠典禮-傳光」；"
-                           "迎新目前沒有找到照片，請系學會提供。照片說明為暫擬，請依實際照片改寫，並確認照片中的學生同意公開。")
+    ceremonies_note = note("加冠與小畢典照片沿用學系首頁輪播的「N76_加冠典禮-傳光」「114小畢典」。"
+                           "迎新目前沒有找到照片，請系學會提供，並確認照片中的學生同意公開；迎新照片說明為暫擬，請依實際照片改寫。")
 
     year = timeline([
         ("1月", "大護盃", "與其他學校的護理系一同在球場上競技，展現我們優秀的體育才能。", "dept"),

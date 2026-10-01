@@ -53,7 +53,7 @@ def render():
         opening,
         name_tape("At a Glance"),
         split(bachelor, master, cols=(6, 6), align="start"),
-        note("碩士班學位論文一項譯自中文「學術單位」頁草稿（完成學位論文），請護理研究所確認。"
+        note("碩士班學位論文一項現行網站未明寫（中文「學術單位」頁已拿掉此句），請護理研究所確認。"
              "學分數以入學學年度為準；新學年度規定改變時，請學系與研究所同步更新中英文。"),
         name_tape("Doctoral Program", unit="inst"),
         p(draft("The Graduate Institute of Nursing also offers a doctoral program. Details will be added once confirmed.")),

@@ -1,9 +1,12 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo_slot,
+from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo,
                         ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note)
 from links import L
 from tokens import C
 
 META = {"id": "A", "slug": "home", "title": "護理學院", "owner": "院窗口"}
+
+# 院長照片與職稱取自現行專任教師頁 https://wwwndmc.ndmutsgh.edu.tw/DocDet/191/100010/1738/1659（alt「曾雯琦 院長」）。
+DEAN_PHOTO = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/doctor/100010/1738/%E6%9B%BE%E9%9B%AF%E7%90%A6.jpg"
 
 
 def render():
@@ -30,10 +33,10 @@ def render():
     ])
 
     dean = split(
-        photo_slot("院長照片", "3/4"),
+        photo(DEAN_PHOTO, "護理學院院長曾雯琦", "3/4"),
         "".join([
             p(draft("「院長的話摘錄，約兩句，說明學院的辦學方向。」"), muted=False),
-            p("院長姓名　職稱", muted=True),
+            p("曾雯琦院長　特聘教授", muted=True),
             actions(text_link("院長的話", L("C-1")), text_link("學院簡介", L("C-2"))),
         ]),
         cols=(3, 9), align="start",

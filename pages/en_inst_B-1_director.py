@@ -1,12 +1,12 @@
-from components import (page, name_tape, statement, p, split, photo_slot, actions, text_link, tape_surface,
+from components import (page, name_tape, statement, p, split, photo, actions, text_link, tape_surface,
                         draft, note)
 from links import L
-from pages._en_inst_data import FACULTY, name, position, profile, zh
+from pages._en_inst_data import FACULTY, name, position, profile, zh, IMG_DIRECTOR
 
 META = {"id": "B-1", "slug": "director", "title": "Director's Message", "owner": "院窗口", "site": "en_inst"}
 
 # Name, position, specialty and lab link verbatim from the official English profile
-# DocDetEn/191/100010/3351/4443 (Chinese: pages/inst_C-1_director.py).
+# DocDetEn/191/100010/3351/4443 (Chinese: pages/inst_C-1_director.py). Portrait: same photo as the Chinese page.
 
 
 def render():
@@ -22,7 +22,7 @@ def render():
     ])
 
     portrait = split(
-        photo_slot("Director of the Institute (portrait 3:4)", "3/4"),
+        photo(IMG_DIRECTOR, "Professor Hsueh-Hsing Pan, Director of the Graduate Institute of Nursing", "3/4"),
         "".join([
             p(name("pan")),
             p(position("pan"), muted=True),
@@ -48,8 +48,7 @@ def render():
         opening,
         name_tape("Director"),
         portrait,
-        note("請院窗口提供：① 確認潘雪幸教授仍為現任所長；② 所長直式照片（3:4）；"
-             "③ 英文版所長的話 250–400 字（可由中文版所長的話翻譯，須所長本人確認）。下方五段為結構草稿，收到原文後整段替換。"
+        note("請院窗口提供英文版所長的話 250–400 字（可由中文版所長的話翻譯，須所長本人確認）。下方五段為結構草稿，收到原文後整段替換。"
              "官方英文個人頁：DocDetEn/191/100010/3351/4443"),
         name_tape("Director's Message"),
         message,

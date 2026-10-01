@@ -1,8 +1,11 @@
-from components import (page, name_tape, statement, p, split, illo_slot, button, text_link, actions, route_list,
+from components import (page, name_tape, statement, p, split, photo, button, text_link, actions, route_list,
                         tape_surface, draft, note)
 from links import L
 
 META = {"id": "C-2", "slug": "overview", "title": "學院簡介", "owner": "哲君"}
+
+# 院徽圖檔：現行「歷史沿革」頁（unit/100010/6804）所用的 護理學院LOGO.png。
+EMBLEM = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/contents/100010/%E8%AD%B7%E7%90%86%E5%AD%B8%E9%99%A2LOGO.png"
 
 
 def render():
@@ -37,7 +40,8 @@ def render():
 
     # 院徽說明取自現行「歷史沿革」頁（unit/100010/6804），原文照錄。
     emblem = split(
-        illo_slot("護理學院院徽（沿用現有檔案）", "1/1"),
+        photo(EMBLEM, "護理學院院徽：圓形徽章，中央為紅、紫、白三朵鬱金香，下方標示 1947，"
+                      "外環寫國防醫學大學護理學院中英文校名", "1/1", fit="contain"),
         "".join([
             p("院徽代表護理學院的教學理念為尊重人與環境的協調平衡，以太極圖形來象徵身、心、靈及社會的健康，"
               "同時也達到教學的完滿圓融境界；三朵盛開的花則代表教師們發揮教學、服務及研究的三項任務，"
@@ -60,7 +64,6 @@ def render():
         units,
         name_tape("院徽"),
         emblem,
-        note("院徽圖檔已在現行網站：/files/web/192/contents/100010/護理學院LOGO.png，上線時換掉插圖預留框即可。"),
         actions(button("招生專區", L("F")), text_link("組織架構", L("C-4"))),
         owner=META["owner"],
     )

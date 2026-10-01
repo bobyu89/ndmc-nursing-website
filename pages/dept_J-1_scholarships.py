@@ -15,7 +15,7 @@ UNIVERSITY = "https://wwwndmc.ndmutsgh.edu.tw/news/191/100002/1750"
 def render():
     opening = "".join([
         statement(
-            draft("學系、校友與學會都設有獎學金。"),
+            "學系、校友與學會都設有獎學金。",
             draft("先看有哪些獎學金，再看資格與申請方式。每次開放申請，都會另外公告。"),
         ),
         actions(text_link("獎學金公告", L("dept:B-3")), text_link("全校獎學金（教務處）", UNIVERSITY)),

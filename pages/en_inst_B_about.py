@@ -1,7 +1,7 @@
-from components import (page, name_tape, statement, p, text_link, actions, split, photo_slot, route_list,
+from components import (page, name_tape, statement, p, text_link, actions, split, photo, route_list,
                         tape_surface, draft, note)
 from links import L
-from pages._en_inst_data import name, position, zh, U_HISTORY
+from pages._en_inst_data import name, position, zh, U_HISTORY, IMG_DIRECTOR
 
 META = {"id": "B", "slug": "about", "title": "About the Institute", "owner": "院窗口", "site": "en_inst"}
 
@@ -27,7 +27,7 @@ def render():
     )
 
     director = split(
-        photo_slot("Director of the Institute (portrait 3:4)", "3/4"),
+        photo(IMG_DIRECTOR, "Professor Hsueh-Hsing Pan, Director of the Graduate Institute of Nursing", "3/4"),
         "".join([
             p(name("pan")),
             p(position("pan"), muted=True),
@@ -51,7 +51,6 @@ def render():
         origin,
         name_tape("Director"),
         director,
-        note("所長照片請院窗口提供（直式 3:4），並確認潘雪幸教授仍為現任所長。"),
         name_tape("In This Section"),
         routes,
         note("師資只由學院英文站 Faculty Directory（en:D-1）一處維護，本所英文站不另建教師名單。"),
