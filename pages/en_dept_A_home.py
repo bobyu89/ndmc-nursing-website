@@ -24,7 +24,7 @@ def render():
             actions(button("Visit the Department", L("en_dept:G")),
                     text_link("About the Department", L("en_dept:B"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
+        '<div class="mx-auto d-none d-md-block" style="width:72%;max-width:320px;">' + patch(
             "Department of Nursing", "護理學系", unit="dept",
             illo=illo_slot("Student nurse at a bedside", "1/1",
                            unit="dept"),

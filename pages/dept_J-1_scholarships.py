@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, text_link, actions, bullets, facts, tape_surface,
-                        route_list, draft, note)
+                        route_list, draft, note, todo)
 from links import L
 
 META = {"id": "J-1", "slug": "scholarships", "title": "獎學金", "owner": "院窗口", "site": "dept"}
@@ -8,7 +8,6 @@ META = {"id": "J-1", "slug": "scholarships", "title": "獎學金", "owner": "院
 # （2026-09-29 擷取；原文以「一、二、……十一、」編號，這裡改為不編號的清單）。
 # 教務處獎學金專區 https://wwwndmc.ndmutsgh.edu.tw/news/191/100002/1750 為全校獎學金公告。
 
-SLOT = "〔待提供〕"
 UNIVERSITY = "https://wwwndmc.ndmutsgh.edu.tw/news/191/100002/1750"
 
 
@@ -53,15 +52,15 @@ def render():
     ])
 
     steps = "".join([
-        facts([
-            ("何時開放", SLOT),
+        facts([(k, v) for k, v in [
+            ("何時開放", todo("每年開放申請的時間（院窗口提供）")),
             ("在哪裡看公告", draft("學系獎學金公告，以及電子郵件通知")),
-            ("要準備什麼", SLOT),
-            ("交到哪裡", SLOT),
-            ("何時公布結果", SLOT),
-        ]),
+            ("要準備什麼", todo("要繳的文件（院窗口提供）")),
+            ("交到哪裡", todo("繳交地點或方式、承辦窗口與分機（院窗口提供）")),
+            ("何時公布結果", todo("結果公布方式（院窗口提供）")),
+        ] if v]),
         note("現行頁只寫到「相關申請資訊將另行以電子郵件通知」，沒有申請流程。請院窗口提供：每年開放申請的時間、"
-             "要繳的文件、繳交地點或方式、承辦窗口與分機、結果公布方式。未確認前每一格保持〔待提供〕。"
+             "要繳的文件、繳交地點或方式、承辦窗口與分機、結果公布方式。未確認前這幾格只在草稿顯示待提供，正式版不出現。"
              "另外：內容清單裡「獎學金公告」（dept:B-3）與本頁目前是同一個節點（100180/6798），"
              "公告模組新建後，請把 links.py 的 B-3 改成新節點。"),
     ])

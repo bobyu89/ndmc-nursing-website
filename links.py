@@ -49,7 +49,6 @@ INST_NODE = {
 EN_NODE, EN_DEPT_NODE, EN_INST_NODE = {}, {}, {}
 
 EXTERNAL = {
-    "J": "#English-site-pending",
     "facebook": "https://www.facebook.com/",
 }
 
@@ -57,6 +56,8 @@ EXTERNAL = {
 def L(pid):
     """Public URL for a Notion page ID. College IDs are bare ("C-1"); department and institute IDs
     carry a prefix ("dept:C-1", "inst:F-1"). Unbuilt nodes return a visible '#待建-ID' anchor."""
+    if pid == "J":
+        return L("en:A")
     if pid in EXTERNAL:
         return EXTERNAL[pid]
     site, _, key = pid.rpartition(":")

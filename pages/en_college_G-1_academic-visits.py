@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, text_link, actions, bullets, facts, split, photo,
-                        draft, note)
+                        draft, note, todo)
 from links import L
 from pages._en_college_shared import zh, email_link, IMG_NW_GUESTS
 
@@ -44,18 +44,18 @@ def render():
         draft("A contact person with email"),
     ])
 
-    contact = facts([
+    contact = facts([(k, v) for k, v in [  # todo() is empty in the final build, so unfilled rows drop out
         ("Email", email_link()),
-        ("Lead time", "〔How many weeks before the visit to write〕"),
-        ("Reply", "〔Expected reply time〕"),
-    ])
+        ("Lead time", todo("來訪前幾週需來信（國際事務提供）")),
+        ("Reply", todo("預計回覆時間（國際事務提供）")),
+    ] if v])
 
     return page(
         opening,
         name_tape("What a Visit Can Include"),
         activities,
         note("來訪活動清單為暫擬；請國際事務確認可安排的活動、參觀設施是否對外開放、是否需要校方或國防部核准（例如境外人士入營區的申請程序），"
-             "以及提前申請的週數與回覆時間。未確認前表格保持空格。"),
+             "以及提前申請的週數與回覆時間。未確認前這兩列只在草稿顯示待提供，正式版不出現。"),
         name_tape("What to Include in Your Inquiry"),
         inquiry,
         name_tape("Contact"),

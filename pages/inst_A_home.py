@@ -1,7 +1,7 @@
 from urllib.parse import quote
 
 from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo,
-                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note)
+                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note, todo)
 from links import L
 from tokens import C, SITE
 
@@ -20,7 +20,7 @@ def render():
             ),
             actions(button("招生資訊", L("inst:D-1")), text_link("認識本所", L("inst:C"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
+        '<div class="mx-auto d-none d-md-block" style="width:72%;max-width:320px;">' + patch(
             "護理研究所", "Graduate Institute of Nursing", unit="inst",
             illo=illo_slot("研究生與指導教師討論數據（CocoMaterial，重新上色）", "1/1"),
             tab="護理學院", backing=C["tape"]) + "</div>",
@@ -40,7 +40,7 @@ def render():
         photo(IMG_DIRECTOR, "護理研究所所長潘雪幸教授", "3/4"),
         "".join([
             p("民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。"),
-            p(draft("「所長的話摘錄，約兩句，說明研究與人才培育的方向。」")),
+            todo("所長的話摘錄兩句，談研究與人才培育的方向（院窗口提供）"),
             actions(text_link("所長的話", L("inst:C-1")), text_link("研究所簡介", L("inst:C-2"))),
         ]),
         cols=(3, 9), align="start",
@@ -76,7 +76,7 @@ def render():
         quick,
         name_tape("所長與研究所"),
         director,
-        name_tape("研究"),
+        name_tape("研究領域與指導教師"),
         research,
         more,
         name_tape("研究所公告"),

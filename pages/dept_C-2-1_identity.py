@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, timeline, tape_surface, feature_lead, feature_list, illo_slot,
-                        photo, split, text_link, actions, draft, note)
+                        photo, split, text_link, actions, draft, note, todo)
 from links import L
 
 META = {"id": "C-2-1", "slug": "identity", "title": "學系特色與定位", "owner": "院窗口", "site": "dept"}
@@ -75,8 +75,8 @@ def render():
 
     numbers = split(
         "".join([
-            p(draft("學系的現況，用幾個數字說明：在校學生、專任教師、歷屆畢業生、護理師考照通過率。")),
-            p(draft("數字依年報填入，年報上沒有的就不放。"), muted=True),
+            todo("學系現況數字：在校學生、專任教師、歷屆畢業生、護理師考照通過率，依《護理學院年報》並附統計日期；"
+                 "年報上沒有的就不放（院窗口提供）"),
         ]),
         photo(IMG_FACULTY, "護理學院全體教師在學院招牌前合影", "4/3", caption="護理學院全體教師"),
         cols=(7, 5),

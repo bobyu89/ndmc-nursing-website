@@ -61,7 +61,7 @@ def render():
           "以學習行政管理及教學者之角色，同時強化自身之行政及臨床經驗，達到本所培訓進階護理師之目標。"),
         h4("研究倫理教育"),
         p("研究所新生第一學年必修「9990160研究倫理教育Research Ethics Education」課程，此課為0學分，"
-          "需自本校「校務資訊整合系統」(http://sas.ndmctsgh.edu.tw/IASS/logout.aspx)，"
+          "需自本校「校務資訊整合系統」(http://sas.ndmctsgh.edu.tw/IASS/index.aspx)，"
           "線上選課系統中完成選課，未完成者不得參加學位考試。"),
         actions(text_link("研究倫理教育修課規定", U_ETHICS_COURSE)),
         h4("補修與抵免"),

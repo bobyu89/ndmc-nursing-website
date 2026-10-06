@@ -1,4 +1,4 @@
-from components import page, name_tape, statement, p, split, photo, actions, text_link, tape_surface, draft, note
+from components import page, name_tape, statement, p, split, photo, actions, text_link, tape_surface, draft, note, todo
 from links import L
 
 META = {"id": "B-1", "slug": "chair", "title": "Chair's Message", "owner": "三長", "site": "en_dept"}
@@ -29,13 +29,8 @@ def render():
         cols=(4, 8), align="start",
     )
 
-    message = tape_surface(
-        p(draft("[Welcome] One or two sentences greeting international colleagues and describing the department.")),
-        p(draft("[Educational approach] How clinical care, military training and practicum form one pathway.")),
-        p(draft("[Expectations] What kind of nurse we hope students become: for patients, for teams, for missions.")),
-        p(draft("[Partnership] An invitation to nursing educators and institutions to visit or collaborate.")),
-        p(draft("[Signature] Chair, Department of Nursing"), muted=True),
-    )
+    # 全文收到前只有 todo（正式版不輸出），本段連同標題一起隱藏。
+    message = todo("系主任的話英文版 300–450 字：問候國外同儕、教育方式（臨床、軍事訓練與實習）、對學生的期許、合作邀請，文末署名（三長提供）")
 
     return page(
         opening,
@@ -44,10 +39,9 @@ def render():
         note("請三長確認：① 系主任英文姓名拼法（暫依研究室網址 linchiahuei 寫作 Chia-Huei Lin）與英文職稱；"
              "② 學位英文寫法（中文原文：國防醫學院醫學科學研究所護理組博士）。照片已沿用中文名冊個人頁的照片。"
              "專長一行譯自專任教師名冊。"),
-        name_tape("Message"),
-        message,
+        *([name_tape("Message"), message] if message else []),
         note("請三長提供系主任的話英文版（300–450 字，對象為國外護理教育者與合作院校，不寫招生內容）。"
-             "若只有中文版，請提供中文原文，由國際事務協助翻譯；收到後整段替換上方五段結構草稿。"),
+             "若只有中文版，請提供中文原文，由國際事務協助翻譯；收到後以 tape_surface 分段放入，文末署名 Chair, Department of Nursing。"),
         actions(text_link("Overview and Learning Outcomes", L("en_dept:B-2")),
                 text_link("中文版：系主任的話", L("dept:C-1"))),
         owner=META["owner"],

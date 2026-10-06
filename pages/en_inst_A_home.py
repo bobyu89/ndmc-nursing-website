@@ -27,7 +27,7 @@ def render():
             actions(button("Research Collaboration", L("en_inst:E")),
                     text_link("About the Institute", L("en_inst:B"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
+        '<div class="mx-auto d-none d-md-block" style="width:72%;max-width:320px;">' + patch(
             "Graduate Institute of Nursing", "護理研究所", unit="inst",
             illo=illo_slot("Graduate nurse and supervisor reviewing data together (CocoMaterial, recolored)", "1/1",
                            unit="inst"),

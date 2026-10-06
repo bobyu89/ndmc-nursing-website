@@ -1,7 +1,7 @@
 import re
 
 from components import (page, name_tape, statement, p, h4, text_link, actions, bullets, tape_surface, back_to_top,
-                        draft, note)
+                        draft, note, todo)
 from links import L
 from tokens import SITE, C, S
 from pages._en_inst_data import name, zh, FACULTY_EN
@@ -115,6 +115,11 @@ def _anchor(anchor_id, *blocks):
 
 
 def render():
+    # Theses and posters are still to be supplied: todo() is empty in the final build, which drops both
+    # subsections and their jump links.
+    theses = todo("近年碩士論文代表作：年份、研究生、指導教授、英文題名（教發提供）")
+    posters = todo("研究生海報發表與得獎紀錄，附可查證來源（教發提供）")
+
     opening = "".join([
         statement(
             draft("What our faculty and students publish."),
@@ -122,8 +127,9 @@ def render():
                   "graduate students. Complete publication lists are on each faculty member's profile."),
         ),
         _jump([("Selected publications 2026", "#y2026"), ("Selected publications 2025", "#y2025"),
-               ("Papers led by graduate students", "#graduate"), ("Theses", "#theses"),
-               ("Posters and awards", "#posters"), ("Contact an author", "#contact")]),
+               ("Papers led by graduate students", "#graduate")]
+              + ([("Theses", "#theses")] if theses else []) + ([("Posters and awards", "#posters")] if posters else [])
+              + [("Contact an author", "#contact")]),
         actions(text_link("Faculty Directory", L("en:D-1")), zh("inst:F-2")),
     ])
 
@@ -131,10 +137,8 @@ def render():
         p("Papers from Professor Hui-Hsun Chiang's group whose first author was a master's student:"),
         bullets([_wrap_urls(c) for c in STUDENT_LED]),
         p("As noted on Professor Chiang's faculty profile.", muted=True),
-        _anchor("theses", h4(draft("Theses")),
-                p(draft("Selected recent master's theses will be listed here, with the student, supervisor and year."))),
-        _anchor("posters", h4(draft("Posters and awards")),
-                p(draft("Conference posters and awards by graduate students will be listed here."))),
+        _anchor("theses", h4(draft("Theses")), theses) if theses else "",
+        _anchor("posters", h4(draft("Posters and awards")), posters) if posters else "",
     ])
 
     return page(

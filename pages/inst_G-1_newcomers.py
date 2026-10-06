@@ -17,7 +17,7 @@ META = {"id": "G-1", "slug": "newcomers", "title": "新生資訊", "owner": "院
 # 引文中「本手冊」指研究生手冊。
 
 U_HANDBOOK = SITE + quote("/files/web/192/file_up/100181/13936/國防醫學大學護理研究所碩士研究生手冊_09182025_公告.pdf")
-U_SAS = "https://sas.ndmctsgh.edu.tw/IASS/Logout.aspx"
+U_SAS = "https://sas.ndmctsgh.edu.tw/IASS/index.aspx"
 U_CAL = SITE + "/news/191/100002/951/11594"
 
 

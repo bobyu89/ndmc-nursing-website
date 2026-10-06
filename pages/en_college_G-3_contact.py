@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, button, text_link, actions, bullets, facts, route_list,
-                        draft, note)
+                        draft, note, todo)
 from links import L
 from pages._en_college_shared import zh, email_link, MAILTO, TEL, MAP, ADDRESS, PHONE, FAX
 
@@ -42,7 +42,7 @@ def render():
     process = "".join([
         p(draft("The College office confirms receipt, forwards the inquiry to the relevant faculty member or unit, "
                 "and replies with next steps.")),
-        facts([("Expected reply", "〔Number of working days〕")]),
+        todo("預計回覆的工作天數（國際事務提供），收到後列為 Expected reply 一列"),
     ])
 
     return page(
@@ -57,7 +57,7 @@ def render():
         what,
         name_tape("What Happens Next"),
         process,
-        note("回覆流程與回覆天數請國際事務確認；未確認前保持空格。"),
+        note("回覆流程與回覆天數請國際事務確認；未確認前正式版不列。"),
         name_tape("Related Units"),
         route_list([
             ("Department of Nursing", draft("Visits focused on undergraduate teaching and simulation"), L("en_dept:G")),

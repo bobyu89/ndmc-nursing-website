@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, button, text_link, actions, facts, route_list, draft, note)
+from components import (page, name_tape, statement, p, button, text_link, actions, facts, route_list, draft, note, todo)
 from links import L
 
 META = {"id": "J-3", "slug": "calendar", "title": "重要日程", "owner": "院窗口", "site": "dept"}
@@ -8,7 +8,6 @@ META = {"id": "J-3", "slug": "calendar", "title": "重要日程", "owner": "院�
 # 教務處公告資訊列表 https://wwwndmc.ndmutsgh.edu.tw/news/191/100002/951（每學年的新行事曆都在這裡公告）
 # 系上活動月份取自系學會頁圖片 https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6796
 
-SLOT = "〔待提供〕"
 CALENDAR = "https://wwwndmc.ndmutsgh.edu.tw/news/191/100002/951/11594"
 ACADEMIC_NEWS = "https://wwwndmc.ndmutsgh.edu.tw/news/191/100002/951"
 
@@ -22,32 +21,41 @@ def render():
         actions(button("115學年度教育行事曆", CALENDAR), text_link("教務處公告", ACADEMIC_NEWS)),
     ])
 
-    first = facts([
-        ("開學", SLOT),
-        ("選課與加退選", SLOT),
-        ("期中考", SLOT),
-        ("期末考", SLOT),
-        ("實習", SLOT),
-        ("寒假", SLOT),
-    ])
+    def semester(rows, ask):
+        """Rows whose date is still missing hold a todo() request; the final build drops them and,
+        when no date is filled yet, points readers to the school calendar instead of an empty table."""
+        known = [(k, v) for k, v in rows if v]
+        if known:
+            return facts(known)
+        return p("本學期各項日期，請先查看學校的115學年度教育行事曆。") + todo(ask)
 
-    second = facts([
-        ("開學", SLOT),
-        ("選課與加退選", SLOT),
-        ("期中考", SLOT),
-        ("期末考", SLOT),
-        ("實習", SLOT),
-        ("暑假", SLOT),
-    ])
+    first = semester([
+        ("開學", todo("日期")),
+        ("選課與加退選", todo("日期")),
+        ("期中考", todo("日期")),
+        ("期末考", todo("日期")),
+        ("實習", todo("日期（實習負責老師提供，各年級不同請分列）")),
+        ("寒假", todo("日期")),
+    ], "第一學期各項日期（院窗口依教育行事曆填入；實習日期由實習負責老師提供）")
+
+    second = semester([
+        ("開學", todo("日期")),
+        ("選課與加退選", todo("日期")),
+        ("期中考", todo("日期")),
+        ("期末考", todo("日期")),
+        ("實習", todo("日期（實習負責老師提供，各年級不同請分列）")),
+        ("暑假", todo("日期")),
+    ], "第二學期各項日期（院窗口依教育行事曆填入；實習日期由實習負責老師提供）")
 
     events = "".join([
         facts([
-            ("系上迎新", "10月" + draft("（往年月份）") + "　" + SLOT),
-            ("加冠典禮", "3月" + draft("（往年月份）") + "　" + SLOT),
-            ("系大會", "1月、9月" + draft("（往年月份）") + "　" + SLOT),
-            ("小畢典", "6月" + draft("（往年月份）") + "　" + SLOT),
-            ("校慶", "11月" + draft("（往年月份）") + "　" + SLOT),
+            ("系上迎新", "10月" + draft("（往年月份）")),
+            ("加冠典禮", "3月" + draft("（往年月份）")),
+            ("系大會", "1月、9月" + draft("（往年月份）")),
+            ("小畢典", "6月" + draft("（往年月份）")),
+            ("校慶", "11月" + draft("（往年月份）")),
         ]),
+        todo("今年各項活動的實際日期（系學會提供）"),
         actions(text_link("每項活動在做什麼", L("dept:I-2"))),
     ])
 

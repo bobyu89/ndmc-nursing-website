@@ -20,7 +20,7 @@ NDLTD = ("https://ndltd.ncl.edu.tw/cgi-bin/gs32/gsweb.cgi/login?o=dnclcdr&amp;ex
 
 def render():
     school = route_list([
-        ("校務資訊系統", draft("選課、成績與個人學籍資料"), "https://sas.ndmctsgh.edu.tw/IASS/Logout.aspx"),
+        ("校務資訊系統", draft("選課、成績與個人學籍資料"), "https://sas.ndmctsgh.edu.tw/IASS/index.aspx"),
         ("學生學習歷程系統", draft("記錄修課、活動與學習成果"), "https://epo.ndmutsgh.edu.tw/NDMCEP"),
         ("教務處公告資訊", draft("選課、註冊、行事曆等教務公告"), SITE + "/news/191/100002/951"),
         ("教務相關表單", draft("教務處的申請表單下載"), SITE + "/unit/100002/158"),

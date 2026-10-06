@@ -1,7 +1,7 @@
 import html
 
 from components import (page, name_tape, statement, p, h4, text_link, actions, bullets, facts, route_list,
-                        back_to_top, draft, note)
+                        back_to_top, draft, note, todo)
 from links import L
 from tokens import SITE, C, S
 
@@ -106,26 +106,23 @@ def _year_block(entries):
 
 
 def render():
+    # 代表論文收到前只有 todo／note（正式版不輸出），本節連同標題與跳轉連結一起隱藏。
+    representative = "".join([
+        todo("每位指導教師一到三篇代表論文：作者（年份）．題名．期刊，卷(期)，頁碼．DOI，各附一句白話說明這篇回答了什麼問題（教發向各教師收集）"),
+        note("教發請向各指導教師收集代表論文（每人一到三篇，含 DOI 或連結）與一句白話說明，由作者本人確認後刊出。"
+             "未收齊前本節只在草稿顯示，不代替老師挑選；收到後以 facts([(教師姓名, 書目<br>白話說明)]) 列出。"),
+    ])
+
     opening = "".join([
         statement(
             draft("老師們今年發表了什麼，一頁看完。"),
             draft("這裡依年份列出本所老師的期刊論文，每篇都標明出自哪位老師的個人頁。"
                   "想了解某位老師的完整著作，請到學院師資陣容。"),
         ),
-        _jump([("教師代表論文", "#representative"), ("2026 年論文", "#y2026"), ("2025 年論文", "#y2025"),
-               ("研究生成果", "#students"), ("完整著作", "#complete")]),
+        _jump(([("教師代表論文", "#representative")] if representative else [])
+              + [("2026 年論文", "#y2026"), ("2025 年論文", "#y2025"), ("研究生成果", "#students"), ("完整著作", "#complete")]),
         _jump([(name, f"#t2026-{n}") for n, (name, _i, _t) in enumerate(PUB_2026, 1)], lead="2026 年依教師："),
         actions(text_link("師資陣容", L("E-1"))),
-    ])
-
-    representative = "".join([
-        p(draft("每位指導教師挑一到三篇最能代表自己研究方向的論文，附一句白話說明：這篇回答了什麼問題。")),
-        facts([
-            ("〔教師姓名〕", "〔作者（年份）．題名．期刊，卷(期)，頁碼．DOI〕<br>〔一句白話說明〕"),
-            ("〔教師姓名〕", "〔作者（年份）．題名．期刊，卷(期)，頁碼．DOI〕<br>〔一句白話說明〕"),
-        ]),
-        note("教發請向各指導教師收集代表論文（每人一到三篇，含 DOI 或連結）與一句白話說明，由作者本人確認後刊出。"
-             "未收齊前本節只留欄位，不代替老師挑選。"),
     ])
 
     y2026 = "".join([
@@ -146,7 +143,7 @@ def render():
     ])
 
     students = "".join([
-        p(draft("研究生在學位口試前，都要有期刊論文與學術發表。這些成果會整理在這裡。")),
+        p(draft("研究生在學位口試前，都要有期刊論文與學術發表。")),
         p("研究生手冊列出的碩士學位論文口試條件包括：", muted=True),
         bullets([
             "具備一篇以上已發表在ISSN學術期刊之論文（含綜論或個案報告）抽印本或投稿證明。",
@@ -155,16 +152,14 @@ def render():
         route_list([
             ("國防醫學大學博碩士論文查詢系統", draft("查本校歷屆碩士論文（國家圖書館臺灣博碩士論文知識加值系統）"), NDLTD),
         ], unit="inst"),
-        facts([
-            ("〔年份〕", "〔研究生姓名〕、〔指導教師〕｜〔論文或發表題名〕｜〔期刊或研討會名稱〕"),
-        ]),
+        todo("歷年研究生成果：年份、研究生姓名、指導教師、論文或發表題名、期刊或研討會名稱（所辦與指導教師提供）"),
         note("所辦與各指導教師請提供：每年畢業研究生的期刊論文與研討會發表（研究生姓名、指導教師、題名、期刊或會議、年份），"
              "以及是否得獎。研究生姓名須取得本人同意才刊出。"),
     ])
 
     return page(
         opening,
-        _anchor("representative", name_tape("教師代表論文"), representative),
+        _anchor("representative", name_tape("教師代表論文"), representative) if representative else "",
         _anchor("y2026", name_tape("最新研究發表：2026 年"), y2026),
         back_to_top(),
         _anchor("y2025", name_tape("2025 年"), y2025),

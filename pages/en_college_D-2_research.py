@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, h4, text_link, actions, split, illo_slot, photo,
-                        feature_lead, bullets, route_list, draft, note)
+                        feature_lead, bullets, route_list, draft, note, todo)
 from links import L
 from pages._en_college_shared import zh, IMG_TALK
 
@@ -87,10 +87,7 @@ def render():
 
     outcomes = split(
         "".join([
-            p(draft("Selected outcomes from across the College: representative papers, funded projects and patents, "
-                    "each with one plain sentence on the question it answers.")),
-            p("〔Representative paper 1: authors, year, title, journal, DOI〕<br>"
-              "〔Representative paper 2〕<br>〔Representative paper 3〕", muted=True),
+            todo("全院代表成果三項（論文、計畫或專利）：作者、年份、題名、期刊、DOI，各附一句白話說明它回答了什麼問題（教發提供）"),
             actions(text_link("Faculty profiles and publications", L("en:D-1")),
                     text_link("Institute publications", L("en_inst:D-2"))),
         ]),

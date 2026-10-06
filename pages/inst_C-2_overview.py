@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, h4, button, text_link, actions, timeline, feature_list,
-                        bullets, tape_surface, draft, note)
+                        bullets, tape_surface, draft, note, todo)
 from links import L
 from tokens import SITE
 
@@ -22,7 +22,7 @@ def render():
 
     intro = tape_surface(
         p("民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。"),
-        p(draft("【研究所簡介正文】研究所的定位、師資與研究環境、和三軍總醫院的合作，約 200–300 字。")),
+        todo("研究所簡介正文 200–300 字：研究所的定位、師資與研究環境、和三軍總醫院的合作（院窗口提供）"),
     )
 
     research = "".join([
@@ -51,9 +51,9 @@ def render():
     ])
 
     goals = bullets([
-        draft("【目標一】培育具進階護理能力的臨床護理人才。"),
-        draft("【目標二】培育能提出臨床問題、設計並執行研究的護理人員。"),
-        draft("【目標三】培育能投入護理教育與軍陣護理的人才。"),
+        draft("培育具進階護理能力的臨床護理人才。"),
+        draft("培育能提出臨床問題、設計並執行研究的護理人員。"),
+        draft("培育能投入護理教育與軍陣護理的人才。"),
     ])
 
     # 分組原文照錄自《116 學年度博、碩士班招生簡章》（見學院招生專區頁 F 的整理）。

@@ -18,7 +18,7 @@ def render():
         ("國防醫學大學招生專區", draft("給考生與家長：全校各學制招生資訊"), "https://wwwndmc.ndmutsgh.edu.tw/unit/100143/1861"),
         ("國軍人才招募中心", draft("給想了解從軍管道與軍職待遇的考生與家長"), "https://rdrc.mnd.gov.tw/"),
         ("國防醫學大學圖書館", draft("給師生：館藏查詢與電子資源"), "https://wwwndmc.ndmutsgh.edu.tw/unit/100036/43"),
-        ("國防醫學大學 校務資訊整合系統", draft("給在校師生：選課、成績等校務系統"), "https://sas.ndmctsgh.edu.tw/IASS/Logout.aspx"),
+        ("國防醫學大學 校務資訊整合系統", draft("給在校師生：選課、成績等校務系統"), "https://sas.ndmctsgh.edu.tw/IASS/index.aspx"),
         ("三軍總醫院", draft("本院臨床教學與實習的主要醫院"), "https://www.tsgh.ndmctsgh.edu.tw/"),
         ("台灣護理學會", draft("給護理學生與護理人員：專業學會的研討會與繼續教育"), "https://www.twna.org.tw/"),
         ("中華民國護理師護士公會全國聯合會", draft("給護理人員：執業與公會事務"), "http://www.nurse.org.tw/Default.aspx"),

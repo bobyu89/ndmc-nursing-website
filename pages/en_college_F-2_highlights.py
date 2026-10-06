@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, h4, text_link, actions, photo, photo_slot, split, facts, draft,
-                        note)
+                        note, todo)
 from links import L
 from pages._en_college_shared import zh, IMG_NW_VISIT, IMG_UW
 
@@ -8,7 +8,7 @@ META = {"id": "F-2", "slug": "highlights", "title": "Collaboration Highlights", 
 # Two stories are named after unconfirmed carousel titles on the Chinese sites (see pages/G-1_partnerships.py):
 # "西北大學參訪" and "N75學生至美國華盛頓大學交流". Titles are draft; every detail is a slot.
 
-SLOT = "〔to be supplied〕"
+ASK = "（國際事務提供）"
 
 
 def _story(title, pic, rows):
@@ -17,20 +17,21 @@ def _story(title, pic, rows):
         pic,
         "".join([
             h4(title),
-            facts(rows),
+            facts([(k, v) for k, v in rows if v]),  # todo() is empty in the final build, so unfilled rows drop out
         ]),
         cols=(5, 7), align="start",
     )
 
 
-def _rows(partner):
+def _rows(partner, *extra):
     return [
         ("Partner", partner),
-        ("Date", SLOT),
-        ("What happened", SLOT),
-        ("Outputs", SLOT),
-        ("Impact", SLOT),
-        ("Next steps", SLOT),
+        *extra,
+        ("Date", todo("日期" + ASK)),
+        ("What happened", todo("交流內容 2–3 句" + ASK)),
+        ("Outputs", todo("產出，例如講座、共同論文、合作備忘錄" + ASK)),
+        ("Impact", todo("影響" + ASK)),
+        ("Next steps", todo("下一步" + ASK)),
     ]
 
 
@@ -46,12 +47,11 @@ def render():
     stories = "".join([
         _story(draft("Academic visits with Northwest University"),
                photo(IMG_NW_VISIT, "Group photo outdoors during the Northwest University (西北大學) visit", "4/3"),
-               _rows(draft("Northwest University (西北大學)") + " 〔country〕")),
+               _rows(draft("Northwest University (西北大學)"), ("Country", todo("這所西北大學所在的國家與英文正式名稱" + ASK)))),
         _story(draft("Nursing students at the University of Washington"),
                photo(IMG_UW, "Nursing students and faculty at a care facility during the University of Washington exchange",
                      "4/3"),
                _rows(draft("University of Washington, USA"))),
-        _story("〔Story title〕", photo_slot("Collaboration photo (to be supplied)", "4/3"), _rows("〔Partner institution〕")),
     ])
 
     return page(
@@ -63,6 +63,7 @@ def render():
              "產出（例如講座、共同論文、合作備忘錄）、影響與下一步，以及可公開的照片（照片中可辨識的人須取得同意）。"
              "護理研究所輪播另有「四國會議」「Trauma training 戰傷災難護理培訓」，若屬國際合作，請提供說明後新增為個案。"),
         stories,
+        todo("其他合作個案：每則標題、合作單位、日期、內容、產出、影響、下一步與可公開的照片" + ASK),
         name_tape("Related Pages"),
         actions(text_link("International Collaboration", L("en:F")), text_link("Visit and Collaborate", L("en:G"))),
         owner=META["owner"],

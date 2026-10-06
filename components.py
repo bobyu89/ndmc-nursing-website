@@ -158,6 +158,8 @@ def actions(*items):
 
 def illo_slot(label, ratio="4/3", unit="college"):
     """Space reserved for a CocoMaterial illustration recoloured to the palette. Hidden on phones until the art exists."""
+    if not DRAFT_MARKS:
+        return ""
     pale = UNIT[unit]["pale"]
     return (
         f'<div class="d-none d-md-flex" role="img" aria-label="插圖預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
@@ -169,6 +171,8 @@ def illo_slot(label, ratio="4/3", unit="college"):
 
 def photo_slot(label, ratio="4/3", phone=False):
     """Space reserved for a photograph. Hidden on phones (phone=True keeps it, e.g. inside a roster row)."""
+    if not DRAFT_MARKS:
+        return ""
     cls = "d-flex" if phone else "d-none d-md-flex"
     return (
         f'<div class="{cls}" role="img" aria-label="照片預留：{label}" style="aspect-ratio:{ratio};width:100%;display:flex;flex-direction:column;'
@@ -228,6 +232,8 @@ def patch(title, sub=None, href=None, unit="college", shape="shield", illo=None,
     pad_bottom = S[6] if shape == "shield" else S[3]
     pad_x = S[1] if shape == "tab" else ("12px" if SITE_LANG == "en" else S[3])  # Latin unit names need the width
     inner = ""
+    if illo is not None and not illo:
+        illo = None
     if illo:
         hide = ' class="d-none d-md-block"' if _is_slot(illo) else ""
         inner += f'<div{hide} style="margin:0 auto {S[2]};width:78%;">{illo}</div>'
@@ -288,12 +294,13 @@ def ribbon_bar(items):
         sub_html = (f'<span style="display:block;margin-top:2px;padding:0 4px;text-align:center;{TYPE["small"]}font-weight:400;'
                     f'color:{C["ink_soft"]};letter-spacing:0;">{sub[0]}</span>') if sub and sub[0] else ""
         cells.append(
-            f'<a href="{href}" style="flex:1 1 {basis};display:block;text-decoration:none;color:{C["thread"]};margin:0 0 {S[2]} -2px;">'
+            f'<a href="{href}" style="flex:1 1 {basis};display:block;text-decoration:none;color:{C["thread"]};margin:0 0 {S[2]};">'
             f'<span style="display:block;height:40px;background:{stripes};border:2px solid {C["thread"]};"></span>'
-            f'<span style="display:block;margin-top:10px;padding:0 6px;text-align:center;overflow-wrap:anywhere;font-weight:800;font-size:15.5px;letter-spacing:{_tr(".06em")};">{label}</span>{sub_html}</a>'
+            f'<span style="display:block;margin-top:10px;padding:0 6px;text-align:center;overflow-wrap:anywhere;font-weight:800;font-size:15.5px;letter-spacing:{_tr(".06em")};'
+            f'text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px;">{label}&nbsp;{icon("angle-right")}</span>{sub_html}</a>'
         )
     return (
-        f'<div style="display:flex;flex-wrap:wrap;margin:{S[5]} 0 0 2px;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
+        f'<div style="display:flex;flex-wrap:wrap;gap:0 {S[1]};margin:{S[5]} 0 0;padding:{S[3]} 0 {S[1]};border-top:1.5px dashed {C["rule"]};">'
         + "".join(cells) + "</div>"
     )
 
@@ -316,6 +323,9 @@ def split(left, right, cols=(7, 5), reverse=False, align="center"):
     """Two-column row that stacks on phones. reverse puts the right block first on desktop."""
     lo = ' order-md-2' if reverse else ''
     ro = ' order-md-1' if reverse else ''
+    # a column whose only content is hidden on phones is hidden itself, so it leaves no gap
+    lo += " d-none d-md-block" if left.lstrip().startswith('<div class="d-none d-md-block') else ""
+    ro += " d-none d-md-block" if right.lstrip().startswith(('<div class="d-none d-md-block', '<div class="mx-auto d-none d-md-block')) else ""
     return (
         f'<div class="row" style="--bs-gutter-x:{S[4]};row-gap:{S[3]};align-items:{align};margin-bottom:{S[3]};">'
         f'<div class="col-md-{cols[0]}{lo}">{left}</div>'
@@ -330,6 +340,8 @@ def feature_lead(title, text_blocks, illo, unit="college", href=None, link_label
         *text_blocks,
         text_link(link_label or _more(title), href) if href else "",
     ])
+    if not illo:
+        return body
     hide = " d-none d-md-block" if _is_slot(illo) else ""
     return split(body, f'<div class="mx-auto{hide}" style="max-width:300px;">{patch(None, unit=unit, illo=illo, backing=C["tape"])}</div>', cols=(7, 5))
 
@@ -366,7 +378,8 @@ def feature_list(items):
 def unit_pair(units):
     """Peer units as two patches: [(unit, title, sub, href), ...]."""
     cols = "".join(
-        f'<div class="col-6">{patch(t, sub, href, unit=u, shape="shield")}</div>' for u, t, sub, href in units
+        f'<div class="col-12 col-sm-6"><div class="mx-auto" style="max-width:300px;">{patch(t, sub, href, unit=u, shape="shield")}</div></div>'
+        for u, t, sub, href in units
     )
     return f'<div class="row" style="--bs-gutter-x:{S[3]};row-gap:{S[3]};margin-bottom:{S[4]};">{cols}</div>'
 
@@ -398,7 +411,9 @@ def timeline(events):
             f'<span style="flex:none;position:relative;z-index:{i + 1};width:84px;height:84px;border-radius:50%;background:{cloth};'
             f'border:5px solid {C["thread"]};outline:1.5px dashed rgba(51,73,63,.45);outline-offset:-10px;display:flex;'
             f'align-items:center;justify-content:center;color:{C["thread"]};font-weight:900;font-size:17px;letter-spacing:{_tr(".04em")};">{year}</span>'
-            f'<div style="padding-top:{S[3]};"><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
+            f'<div style="padding-top:{S[3]};"><h4 style="margin:0 0 6px;color:{C["thread"]};{TYPE["h3"]}">{title}'
+            + (f'<span style="display:block;{TYPE["small"]}font-weight:700;color:{C["ink_soft"]};">{names[unit]}</span>' if unit != "tape" else "")
+            + '</h4>'
             f'<p style="margin:0;max-width:36em;">{text}</p></div></div>'
         )
     return (legend + f'<div style="position:relative;margin:0 0 {S[4]};">'
@@ -453,7 +468,7 @@ def as_of(text):
 
 def fact_line(text):
     """The answer in one line, before any explanation."""
-    return (f'<p style="margin:0 0 {S[2]};max-width:40em;color:{C["thread"]};font-size:18.5px;line-height:1.6;font-weight:900;">'
+    return (f'<p style="margin:0 0 {S[2]};max-width:40em;color:{C["thread"]};font-size:18.5px;line-height:1.6;font-weight:700;">'
             f'{text}</p>')
 
 
@@ -483,7 +498,7 @@ def faq_set(groups, prefix="q"):
                 f'<p style="margin:{S[2]} 0 0;">{text_link(back_label, f"#{prefix}-list", icon_name="angle-up")}</p></div>')
         index.append(f'<h4 style="margin:{S[3]} 0 0;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
                      f'<ol start="{n - len(items) + 1}" style="margin:0;padding-left:1.4em;max-width:40em;color:{C["thread"]};">{"".join(lis)}</ol>')
-        blocks.append(f'<h4 style="margin:{S[6]} 0 0;color:{C["thread"]};{TYPE["h3"]}">{title}</h4>'
+        blocks.append(name_tape(title, top=S[6]) +
                       f'<div style="border-bottom:1.5px dashed {C["rule"]};">{"".join(rows)}</div>')
     return (f'<div id="{prefix}-list" style="margin:0 0 {S[4]};">{"".join(index)}</div>' + "".join(blocks)
             + f'<div style="margin-bottom:{S[4]};"></div>')
@@ -540,6 +555,15 @@ def org_tree(head, branches, head_unit=None):
         f'<div class="d-md-flex" style="gap:{S[2]};">'
         + "".join(cols) + "</div></div>"
     )
+
+def todo(text):
+    """Something an owner must supply (e.g. the dean's message). Draft builds show a dashed request box;
+    the final build shows nothing, so instructions never read as published copy."""
+    if not DRAFT_MARKS:
+        return ""
+    return (f'<p style="margin:0 0 {S[2]};padding:{S[1]} {S[2]};max-width:40em;{TYPE["small"]}color:{C["ink_soft"]};'
+            f'border:1.5px dashed {C["rule"]};border-radius:3px;">{icon("pencil")}&nbsp;待提供：{text}</p>')
+
 
 def note(text):
     """A plain editorial note for the content owner (e.g. what goes here), shown only while drafts are marked."""

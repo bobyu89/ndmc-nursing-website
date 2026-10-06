@@ -14,7 +14,7 @@ META = {"id": "J-4", "slug": "links", "title": "學生常用連結", "owner": "�
 def render():
     study = route_list([
         ("數位學習平台2.0", draft("上課教材、作業繳交與線上課程（Eclass）"), "https://eclass.ndmutsgh.edu.tw/"),
-        ("校務資訊系統", draft("選課、成績查詢與個人學籍資料"), "https://sas.ndmctsgh.edu.tw/IASS/Logout.aspx"),
+        ("校務資訊系統", draft("選課、成績查詢與個人學籍資料"), "https://sas.ndmctsgh.edu.tw/IASS/index.aspx"),
         ("學生學習歷程系統", draft("記錄修課、實習與活動成果，準備學習歷程"), "https://epo.ndmutsgh.edu.tw/NDMCEP"),
         ("國防醫學院個人信箱入口", draft("學校電子郵件；獎學金等申請資訊常以電子郵件通知"),
          "https://webmail.mail.ndmctsgh.edu.tw/owa/auth/logon.aspx?replaceCurrent=1&amp;url=https%3a%2f%2fwebmail.mail.ndmctsgh.edu.tw%2fowa%2f"),

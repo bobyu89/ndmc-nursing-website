@@ -1,7 +1,6 @@
 from components import (as_of, page, name_tape, statement, p, button, text_link, actions, illo_slot, split,
-                        route_list, facts, back_to_top, draft, note, icon)
+                        route_list, facts, back_to_top, draft, note)
 from links import L
-from tokens import C, S
 
 META = {"id": "F", "slug": "admissions", "title": "招生專區", "owner": "院窗口"}
 
@@ -10,24 +9,12 @@ U_BACH = "https://wwwndmc.ndmutsgh.edu.tw/unit/100143/2009"      # 學校招生�
 U_GRAD = "https://wwwndmc.ndmutsgh.edu.tw/unit/100143/2004"      # 學校招生專區【碩、博班】：研究所簡章與日期
 U_GRAD_APPLY = "https://sas.ndmctsgh.edu.tw/IASS/FrontShowAdmissionList.aspx?D=OAS.API&N=OAS.API"
 U_RDRC = "https://rdrc.mnd.gov.tw/"                               # 國防部人才招募
-U_INST_HISTORY = "https://wwwndmc.ndmutsgh.edu.tw/unit/100181/6527"
 U_CAMP = L("F-2")
 
 
 def _source(text, href, label):
     """Where the plain (verbatim) lines above came from."""
     return p(draft(text) + "　" + text_link(label, href), muted=True)
-
-
-
-def _jump(items, lead=None):
-    """Compact jump index in the style of components.roster_index: [(label, href), ...]."""
-    links = "".join(
-        f'<a href="{href}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};color:{C["thread"]};'
-        f'font-weight:700;text-decoration:underline;text-underline-offset:5px;">{label}</a>'
-        for label, href in items)
-    head = f'<span style="margin-right:{S[2]};color:{C["ink_soft"]};">{lead}</span>' if lead else ""
-    return f'<div style="margin:0 0 {S[2]};max-width:44em;line-height:1.4;">{head}{links}</div>'
 
 
 def _anchor(anchor_id, *blocks):
@@ -38,18 +25,17 @@ def render():
     opening = "".join([
         statement(
             draft("想當護理師，也想穿上軍服？從這裡選你的路。"),
-            draft("護理學院有學士班與碩士班。高中畢業就能報考學士班；已經是護理師、想再深造，就讀碩士班。"
-                  "三種學制、適合誰、去哪裡報名，這一頁都看得到。"),
+            draft("護理學院有學士班、碩士班與博士班。高中畢業就能報考學士班；已經是護理師、想再深造，可以讀碩士班；"
+                  "有護理相關碩士學位、想走研究與教學，可以讀博士班。三種學制適合誰、去哪裡報名，這一頁都看得到。"),
         ),
-        actions(button("看學士班招生簡章", U_BACH)),
-        _jump([("三種學制怎麼選", "#choose"), ("學士班", "#bachelor"), ("碩士班", "#master"), ("博士班", "#doctoral"),
-               ("暑期營隊", "#camp"), ("招生諮詢電話", "#contact")]),
+        actions(button("看學士班招生簡章", U_BACH), button("看碩、博士班招生簡章", U_GRAD, primary=False)),
     ])
 
     # One router for the one decision: which programme fits (the three programmes, plus parents and the camp).
     choose = route_list([
         ("學士班（護理學系）：高中（職）生，想成為軍護",
-         draft("給高中（職）畢業生。四年學護理、也接受軍事訓練，畢業後任官，成為軍中的護理人員。"
+         draft("給高中（職）畢業生。四年學護理、也接受軍事訓練；畢業後軍費生任官，成為軍中的護理人員，"
+               "代訓生由輔導會分發服務。"
                "每年 3 月透過「軍事學校正期班甄選入學」報名。"),
          "#bachelor"),
         ("碩士班（護理研究所）：已是護理師，想專精或當專科護理師",
@@ -70,7 +56,9 @@ def render():
         facts([
             ("招生對象", "一、年齡：社會青年、後備役士官兵及替代役備役人員：17 歲至22 歲。<br>"
                         "二、學歷：公私立高中（職）畢業或同等學力。"),
-            ("身分別", "軍費生、代訓生（輔導會公費生）"),
+            ("身分別", "軍費生、代訓生（輔導會公費生）<br>"
+                      + draft("兩種都是公費生，差別在畢業以後：軍費生畢業任官，服常備軍官現役；"
+                              "代訓生是由國軍退除役官兵輔導委員會（輔導會）提供公費的學生，畢業後由輔導會分發所屬機構服務。")),
             ("入伍訓練", "八週"),
             ("修業年限", "修業 4 年。"),
             ("學位授予", "畢業授予所屬學系學士學位。"),
@@ -84,8 +72,7 @@ def render():
     ])
 
     master = "".join([
-        p("民國68年為因應教育與研究之需求，設立護理研究所，成為國內護理碩士教育之先驅。"),
-        _source("摘自護理研究所〈歷史沿革〉。", U_INST_HISTORY, "護理研究所歷史沿革"),
+        p(draft("碩士班由護理研究所負責，分四個組；已在醫院工作的護理師，可以選公餘進修。")),
         as_of("116 學年度博、碩士班招生簡章"),
         facts([
             ("分組", "成人暨老人護理學組、婦兒護理學組、精神衛生護理學組、專科護理師組"),

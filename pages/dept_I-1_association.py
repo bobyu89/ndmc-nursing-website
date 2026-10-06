@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, text_link, actions, tape_surface, org_tree, feature_list,
-                        roster, bullets, draft, note)
+                        bullets, draft, note, todo)
 from links import L
 
 META = {"id": "I-1", "slug": "association", "title": "系學會", "owner": "院窗口", "site": "dept"}
@@ -50,13 +50,10 @@ def render():
     ])
 
     officers = "".join([
-        roster([
-            ("〔會長姓名〕", "會長", "護理學系〔年級〕", draft("〔一句話：想為同學做的事〕"), None),
-            ("〔副會長姓名〕", "副會長", "護理學系〔年級〕", draft("〔一句話：想為同學做的事〕"), None),
-        ]),
+        todo("本屆會長、副會長的姓名、年級、一句話（想為同學做的事）與照片（院窗口向系學會取得）"),
         note("現行系學會圖片列出會長、副會長各一位（姓名前加屆別代號），圖片更新於 2025-10-28，可能已換屆。"
              "請院窗口向系學會取得本屆會長、副會長的姓名、年級與照片，並確認本人同意公開；"
-             "年級請寫「二年級」這類說法，不要用屆別代號。各組組長若要列出，照同樣格式往下加。"),
+             "年級請寫「二年級」這類說法，不要用屆別代號。收到後以 roster() 列出；各組組長若要列出，照同樣格式往下加。"),
     ])
 
     events = "".join([
@@ -90,8 +87,7 @@ def render():
         chart,
         name_tape("部門介紹"),
         duties,
-        name_tape("本屆幹部"),
-        officers,
+        *([name_tape("本屆幹部"), officers] if officers else []),
         name_tape("系學會協助辦理活動"),
         events,
         owner=META["owner"],

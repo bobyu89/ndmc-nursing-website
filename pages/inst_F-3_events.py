@@ -1,7 +1,7 @@
 from urllib.parse import quote
 
 from components import (page, name_tape, statement, p, h4, text_link, actions, photo, split, timeline,
-                        facts, draft, note)
+                        facts, draft, note, todo)
 from links import L
 from tokens import SITE
 
@@ -55,15 +55,10 @@ def render():
               cols=(6, 6)),
     ])
 
+    # 編輯用的格式說明只在草稿版出現（todo／note 在正式版不輸出），連同標題一起隱藏。
     template = "".join([
-        p(draft("之後每辦完一場活動，就照同樣的格式補一筆，最新的放在最下面。")),
-        facts([
-            ("日期", "〔年/月/日〕"),
-            ("活動名稱", "〔全名〕"),
-            ("類型", "〔演講／研討會／培訓／學術交流〕"),
-            ("講者或與會單位", "〔姓名、職稱、所屬單位〕"),
-            ("紀錄", "〔兩三句：做了什麼、誰參加〕"),
-        ]),
+        todo("其他已辦完的活動，每筆：日期、活動全名、類型（演講／研討會／培訓／學術交流）、講者或與會單位（姓名、職稱、所屬單位）、"
+             "兩三句紀錄；最新的放在最下面（教發提供）"),
         note("教發請提供 2024 年以前的活動紀錄（如有），以及 2025 年下半年至今已辦完的活動。"
              "活動預告放在學術活動公告（消息模組），辦完後再搬到本頁成為紀錄，兩邊不重複。"),
     ])
@@ -72,8 +67,7 @@ def render():
         opening,
         name_tape("活動紀錄"),
         y2025,
-        name_tape("新增紀錄的格式"),
-        template,
+        *([name_tape("新增紀錄的格式"), template] if template else []),
         name_tape("相關頁面"),
         actions(text_link("學術活動公告", L("inst:B-5")), text_link("研究發表", L("inst:F-2")),
                 text_link("學院國際合作", L("G-1"))),

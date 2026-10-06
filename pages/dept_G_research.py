@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, bullets, text_link, actions, split, photo_slot, illo_slot, facts,
-                        feature_list, route_list, draft, note)
+                        feature_list, route_list, draft, note, todo)
 from links import L
 from tokens import SITE
 
@@ -43,14 +43,10 @@ def render():
         note("課委會請確認：上面三門課的年級是從學生手冊與課程地圖圖檔判讀的；若有一句話的課程簡介，請提供替換暫擬文字。"),
     ])
 
+    # 名單收到前，本段只在草稿版出現（todo 與照片位在正式版不輸出），正式版連同標題一起隱藏。
+    listing = todo("護理學系學生通過的大專學生研究計畫名單：年度、計畫名稱、學生（期班）、指導老師（院窗口向研發處或指導老師蒐集）")
     projects = "".join([
-        p(draft("這裡會列出護理學系學生通過的大專學生研究計畫。")),
-        facts([
-            ("年度", draft("待提供")),
-            ("計畫名稱", draft("待提供")),
-            ("學生（期班）", draft("待提供")),
-            ("指導老師", draft("待提供")),
-        ]),
+        listing,
         split(photo_slot("研究成果海報或發表照片", "4/3"), photo_slot("學生在研討會報告", "4/3"), cols=(6, 6), align="start"),
         note("學校與學系網站上找不到護理學系學生的大專生研究計畫名單，所以這裡沒有列任何計畫。"
              "院窗口請向研究發展處或各指導老師蒐集：近幾年通過的計畫年度、計畫名稱、學生姓名與期班、指導老師，"
@@ -79,8 +75,7 @@ def render():
         opening,
         name_tape("課程裡的研究"),
         in_course,
-        name_tape("歷年研究計畫"),
-        projects,
+        *([name_tape("歷年研究計畫"), projects] if listing else []),
         name_tape("怎麼開始"),
         how,
         name_tape("找指導老師"),

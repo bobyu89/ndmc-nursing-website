@@ -370,7 +370,7 @@ Fact tables keep short labels on one line: a label whose visual width is 8 or le
 ### Named Rules
 **The Eight Screens Rule.** A page fits in eight phone screens (390×844), measured by `tools/length_check.py` against the preview. A directory (faculty roster, long FAQ) may run longer, but only if it opens with an index (`roster_index`, the FAQ jump list) and offers `back_to_top()` between its long blocks.
 
-**The Nothing Yet, Nothing Shown Rule.** On phones a placeholder costs a screen and says nothing. Illustration and photo slots hide below md until real material exists; a patch or feature-lead patch whose only content is an unmade illustration hides with it. The one exception is a roster row, whose 3:4 slot keeps the row's shape (`photo_slot(..., phone=True)`).
+**The Nothing Yet, Nothing Shown Rule.** On phones a placeholder costs a screen and says nothing. Illustration and photo slots hide below md until real material exists; a patch or feature-lead patch whose only content is an unmade illustration hides with it. The one exception is a roster row, whose 3:4 slot keeps the row's shape (`photo_slot(..., phone=True)`) in draft builds. In the final build no slot renders at any width, a `split()` column whose only content is phone-hidden hides itself so it leaves no gap, and the home opening's shield is desktop-only so the ribbon rack sits on the first phone screen.
 
 ## Elevation & Depth
 
@@ -403,14 +403,14 @@ Tactile, square-cut, sewn on.
 The section heading. Tape-white cloth, 1px rule border, 2px radius, a dashed inset stitch 5px in, padding 12px 20px 12px 14px. Before the text, 12px apart, sits the selvedge: a 9×30px strip of the site's unit cloth (unless a unit is named) with a 3px thread edge on its left, a cut of cloth rather than an outlined box.
 
 ### Patches
-- **Shield:** unit entrances and the home patch; may carry an illustration slot, a sub-line (14px/600), a patch arrow when linked, a rocker tab, and a backing cloth (`backing=` a colour, normally tape) cut to the shield's own outline. Side padding is 24px on Chinese sites and 12px on English sites.
+- **Shield:** unit entrances and the home patch; may carry an illustration slot, a sub-line (14px/600), a patch arrow when linked, a rocker tab, and a backing cloth (`backing=` a colour, normally tape) cut to the shield's own outline. Side padding is 24px on Chinese sites and 12px on English sites. Peer unit shields (`unit_pair`) sit two across from 576px up and stack centred at max 300px on phones, so unit names never break mid-word.
 - **Rocker tab:** 84% of the shield's width, tape cloth, 5px thread border, dashed inset, overlapping the shield by 10px. It carries the parent institution's name.
 - **Tab:** org-tree nodes, with child lists on tape below.
 - **Mark disc:** 60px round in the item's unit cloth, 4px thread border, tape-coloured dashed inset; carries one character, the first of the title unless a mark is given (English sites pass a mark).
 - **Feature lead:** a 26px titled text block (7 columns) beside one large untitled patch on a tape backing (5 columns, max 300px), linked by a destination-named text link.
 
 ### Ribbon Rack
-The audience router, required on every home page directly after the statement. Each ribbon names who it is for in that site's own audience terms: 我想報考 / 我是家長 / 在校生 / 教職員 / English on the college; 我想報考 / 我是家長 / 在校生 / 校友 on the department; 想讀研究所 / 在職護理師 / 在學研究生 / 合作研究者 on the institute; visiting scholars, partner schools, exchange students, collaborators plus 中文 on the English homes. Ribbons are 40px striped bars with a 2px thread border, butted edge to edge, each labelled 10px beneath (15.5px/800) with a 14px soft-ink sub-line saying what is behind it. Stripe patterns cycle through six, cut only from the site's cloth, its pale, tape and thread. Four ribbons wrap 2+2 on phones; five wrap 3+2.
+The audience router, required on every home page directly after the statement. Each ribbon names who it is for in that site's own audience terms: 我想報考 / 我是家長 / 在校生 / 教職員 / English on the college; 我想報考 / 我是家長 / 在校生 / 校友 on the department; 想讀研究所 / 在職護理師 / 在學研究生 / 合作研究者 on the institute; visiting scholars, partner schools, exchange students, collaborators plus 中文 on the English homes. Ribbons are 40px striped bars with a 2px thread border, set 8px apart so each reads as its own entrance, each labelled 10px beneath (15.5px/800, underlined like a text link with a trailing `fa-angle-right`) with a 14px soft-ink sub-line saying what is behind it. Stripe patterns cycle through six, cut only from the site's cloth, its pale, tape and thread. Four ribbons wrap 2+2 on phones; five wrap 3+2.
 
 ### Stitched Ledgers
 Route lists, feature lists, rosters, FAQs and fact tables are rows separated by dashed stitch lines, never cards. Route rows are at least 56px tall with a trailing chevron.
@@ -419,15 +419,16 @@ Route lists, feature lists, rosters, FAQs and fact tables are rows separated by 
 Rows with a 3:4 portrait or photo slot on the left (4 columns on phones, 2 from md) and name (19px/900), rank｜unit (14px/700 soft ink), fields and a named research-page link on the right. A long roster takes `anchor` and `start` so every row has an id, opens with `roster_index` (names as a wrapping line of 44px-tall underlined thread links), and places `back_to_top()` after each long block.
 
 ### FAQ
-`faq_set` groups questions under headline-size group titles, at most five per group (the build asserts it). It opens with a grouped, numbered jump list (`id="{prefix}-list"`, 44px rows), sets every question fully expanded (no collapse is available), and closes each answer with 回到問題列表 / Back to the questions.
-- **Answer first:** each answer opens with a fact line (the answer in one 18.5px/900 thread line), then the plain explanation in body text, then, if needed, the source quote: the original regulation or brochure wording on tape, 14px soft ink, under a thread source label, always subordinate to the explanation.
-- **Risky answers** (obligations, penalties, repayment) end on a next step (who to call, where to ask), not on the penalty.
+`faq_set` groups questions under name-tape group titles (a level above the 21px questions), at most five per group (the build asserts it). It opens with a grouped, numbered jump list (`id="{prefix}-list"`, 44px rows), sets every question fully expanded (no collapse is available), and closes each answer with 回到問題列表 / Back to the questions.
+- **Answer first:** each answer opens with a fact line (the answer in one 18.5px/700 thread line, with the 有疑問可以問誰 next step directly under it on risky answers), then the plain explanation in body text, then, if needed, the source quote: the original regulation or brochure wording on tape, 14px soft ink, under a thread source label, always subordinate to the explanation.
+- **Risky answers** (obligations, penalties, repayment) end on a next step (who to call, where to ask), not on the penalty. Comparisons (軍費生 / 代訓生) are one `facts()` table, and an answer carries at most one source quote, so the original wording is never the loudest block.
+- **No non-answers:** questions the college cannot yet answer are merged into one honest question that says what is published, what is not yet, and who to ask.
 
 ### As-Of Line
 `as_of(text)` sets a soft-ink body line with `fa-calendar` and a bold 資料日期： / As of: beside any year-specific fact (admission brochures, quotas, fees), naming the edition the fact comes from.
 
 ### Timeline
-Year patches (84px round) on one vertical 3px thread at 40px from the left, oldest first, title and text beside each. Every event names its unit and wears its cloth; unowned events wear tape. A legend line (14px soft ink, 16px round keys) precedes the thread whenever more than one cloth is used. Chinese history pages print 民國 years on the patches, with the AD year in label size beside each title; English pages use AD years.
+Year patches (84px round) on one vertical 3px thread at 40px from the left, oldest first, title and text beside each. Every event names its unit in text under its title and wears its cloth; unowned events wear tape. A legend line (14px soft ink, 16px round keys) precedes the thread whenever more than one cloth is used. Chinese history pages print 民國 years on the patches, with the AD year in label size beside each title; English pages use AD years.
 
 ### Org Tree
 A head tab in the site's cloth, a 3px drop, then one horizontal bar from md up whose side margins are `(100% − (n−1)·16px) / 2n`, so it runs from the first branch's centre to the last's across the gaps. Each branch drops 24px to its tab. On phones the bar and drop hide and one vertical thread runs through the centre of every branch.
@@ -442,7 +443,7 @@ Closes every page: dashed rule border on tape, `fa-calendar-check-o`, "最後更
 - Their `role` and `aria-label` are dropped by the CMS save filter, so the visible caption is the only label.
 
 ### Draft Marks (pre-launch only)
-待確認 chips and 編輯備註 notes mark unconfirmed copy for content owners. `python build.py --final` removes them and stamps the build date into every status stamp; they are never part of the published system.
+待確認 chips (`draft()`) mark real sentences awaiting confirmation; 編輯備註 notes (`note()`) explain; 待提供 boxes (`todo()`) mark material an owner must supply, and render nothing in the final build, so instructions never read as copy (a section holding only todos hides its name tape too). `python build.py --final` also prints PLACEHOLDER-COPY for leftover stand-in wording and must be clean before publishing. `tools/handoff.py` lists every draft, todo and note by owner in `handoff/`. `python build.py --final` removes them and stamps the build date into every status stamp; they are never part of the published system.
 
 ## Do's and Don'ts
 

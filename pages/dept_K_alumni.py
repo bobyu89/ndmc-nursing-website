@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, button, text_link, actions, photo_slot, split, facts,
-                        route_list, bullets, draft, note)
+                        route_list, bullets, draft, note, todo)
 from links import L
 
 META = {"id": "K", "slug": "alumni", "title": "校友專區", "owner": "院窗口", "site": "dept"}
@@ -25,9 +25,7 @@ def render():
     news = "".join([
         split(
             "".join([
-                p(draft("學長姐回校分享、校慶軍醫大會、校友會活動，學長姐的消息會整理在這裡。")),
-                p(draft("〔校友動態標題〕：〔一到兩句說明：誰、做了什麼、何時〕")),
-                p(draft("〔校友動態標題〕：〔一到兩句說明〕")),
+                todo("校友動態 2 到 3 則：每則標題與一到兩句說明（誰、做了什麼、何時），附照片（院窗口整理）"),
             ]),
             photo_slot("校友返校活動照片", "4/3"),
             cols=(7, 5), align="start",
@@ -78,8 +76,7 @@ def render():
 
     return page(
         opening,
-        name_tape("校友動態"),
-        news,
+        *([name_tape("校友動態"), news] if news else []),
         name_tape("校友入口"),
         routes,
         name_tape("回饋學弟妹"),

@@ -1,4 +1,4 @@
-from components import page, name_tape, statement, p, text_link, actions, bullets, facts, draft, note
+from components import page, name_tape, statement, p, text_link, actions, bullets, facts, draft, note, todo
 from links import L
 from pages._en_college_shared import zh, email_link
 
@@ -36,12 +36,7 @@ def render():
 
     review = "".join([
         p(draft("All proposals are reviewed by the College and the University before a visit is confirmed.")),
-        facts([
-            ("Eligibility", "〔Who may apply〕"),
-            ("Length of stay", "〔Minimum and maximum〕"),
-            ("Review", "〔Who reviews and how long it takes〕"),
-            ("Support", "〔Office space, library access, accommodation, if any〕"),
-        ]),
+        todo("訪問學者的申請資格、停留期間（最短與最長）、審查單位與所需時間、可提供的支援（研究空間、圖書館、住宿）（國際事務提供）"),
     ])
 
     inquiry = "".join([

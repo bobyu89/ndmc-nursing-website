@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo,
-                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, facts, draft, note)
+                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, facts, draft, note, todo)
 from links import L
 from tokens import C
 from pages._en_college_shared import mark, email_link, ADDRESS, DEAN_PHOTO
@@ -25,7 +25,7 @@ def render():
             ),
             actions(button("Visit and Collaborate", L("en:G")), text_link("About the College", L("en:B"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
+        '<div class="mx-auto d-none d-md-block" style="width:72%;max-width:320px;">' + patch(
             "College of Nursing", "護理學院", unit="college",
             illo=illo_slot("A nurse in uniform (CocoMaterial, recolored)", "1/1"),
             tab="NDMU", backing=C["tape"]) + "</div>",
@@ -59,7 +59,7 @@ def render():
     dean = split(
         photo(DEAN_PHOTO, "Dean Wen-Chii Tzeng", "3/4"),
         "".join([
-            p(draft("“A two-sentence excerpt from the Dean's message on the College's direction.”")),
+            todo("院長的話英文摘錄兩句，談學院的辦學方向（三長提供，與中文首頁同一段）"),
             p("Wen-Chii Tzeng, Distinguished Professor and Dean", muted=True),
             actions(text_link("Dean's Message", L("en:B-1")), text_link("Overview and History", L("en:B-2"))),
         ]),
@@ -71,7 +71,7 @@ def render():
         [p(draft("Military nursing is what sets the College apart: keeping care safe and effective in field, "
                  "shipboard, aviation and disaster settings. Teaching combines military training with clinical practice."))],
         illo_slot("Field casualty care scene (CocoMaterial, recolored)", "1/1"),
-        href=L("en:D-2"), link_label="Research Highlights",
+        href=L("en_dept:C-2"), link_label="Clinical and Military Nursing Practicum",
     )
     others = feature_list([
         ("Trauma and disaster nursing",

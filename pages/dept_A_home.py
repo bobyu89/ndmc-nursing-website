@@ -16,7 +16,7 @@ def render():
             ),
             actions(button("招生專區", L("dept:D")), text_link("認識本系", L("dept:C"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch(
+        '<div class="mx-auto d-none d-md-block" style="width:72%;max-width:320px;">' + patch(
             "護理學系", "Department of Nursing", unit="dept",
             illo=illo_slot("護生在模擬病房練習照護（CocoMaterial，重新上色）", "1/1"),
             tab="護理學院", backing=C["tape"]) + "</div>",

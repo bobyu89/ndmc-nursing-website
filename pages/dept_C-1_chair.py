@@ -1,4 +1,4 @@
-from components import page, name_tape, statement, p, split, photo, actions, text_link, tape_surface, draft, note
+from components import page, name_tape, statement, p, split, photo, actions, text_link, tape_surface, draft, note, todo
 from links import L
 
 META = {"id": "C-1", "slug": "chair", "title": "系主任的話", "owner": "三長", "site": "dept"}
@@ -29,22 +29,16 @@ def render():
         cols=(4, 8), align="start",
     )
 
-    message = tape_surface(
-        p(draft("【開場】向讀者問候，用一兩句話說出護理學系是什麼樣的地方。")),
-        p(draft("【辦學理念】系主任重視的價值，以及學系如何把臨床照護、軍事訓練與實習放在同一段養成裡。")),
-        p(draft("【學生期許】希望護生在四年裡長成什麼樣的護理人員：對病人、對團隊、對任務。")),
-        p(draft("【給高中生與家長】對正在考慮軍護的高中生與家長說的一段話。")),
-        p(draft("【署名】護理學系主任　林佳慧"), muted=True),
-    )
+    # 全文收到前只有 todo（正式版不輸出），本段連同標題一起隱藏。
+    message = todo("系主任的話全文 400–600 字：開場問候、辦學理念、學生期許、給高中生與家長的話，文末署名（三長提供）")
 
     return page(
         opening,
         name_tape("系主任"),
         portrait,
-        note("請三長提供系主任的話全文 400–600 字，內容包含辦學理念與學生期許；下方五段為結構草稿，收到原文後整段替換。"
+        note("請三長提供系主任的話全文 400–600 字，內容包含辦學理念與學生期許；收到原文後以 tape_surface 分段放入，文末署名「護理學系主任　林佳慧」。"
              "姓名、職稱、學位、專長、電話、信箱與照片取自現行專任教師名冊個人頁（現職欄：國防醫學大學護理學院教授暨護理學系主任）。"),
-        name_tape("系主任的話"),
-        message,
+        *([name_tape("系主任的話"), message] if message else []),
         actions(text_link("學系特色與定位", L("dept:C-2-1")), text_link("教育目標與核心能力", L("dept:C-2-2"))),
         owner=META["owner"],
     )

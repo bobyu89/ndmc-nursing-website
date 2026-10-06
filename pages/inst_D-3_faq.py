@@ -1,6 +1,7 @@
 from urllib.parse import quote
 
-from components import (page, name_tape, statement, p, text_link, actions, faq_set, fact_line, source_quote, draft, note)
+from components import (page, name_tape, statement, p, text_link, actions, faq_set, fact_line, source_quote, draft, note,
+                        todo)
 from links import L
 from tokens import SITE
 
@@ -10,6 +11,7 @@ META = {"id": "D-3", "slug": "faq", "title": "常見問題", "owner": "院窗口
 U_GRAD = SITE + "/unit/100143/2004"     # 學校招生專區【碩、博班】
 U_RULES = SITE + "/unit/100181/6533"    # 研究所「學生專區」：入學資格與修業規定
 U_ETHICS_COURSE = SITE + "/unit/100181/6800"  # 必修-研究倫理教育
+U_SAS = "https://sas.ndmctsgh.edu.tw/IASS/index.aspx"  # 校務資訊整合系統登入頁（學校選單用的 Logout.aspx 會先跳「偵測異常」警示，再轉到這裡）
 U_HANDBOOK = SITE + quote("/files/web/192/file_up/100181/13936/國防醫學大學護理研究所碩士研究生手冊_09182025_公告.pdf")
 
 
@@ -26,18 +28,18 @@ ELIGIBILITY = [
      fact_line(draft("護理學系學士或領有護理師證書，並具護理臨床實務或教學經驗。"))
      + p(draft("專科護理師組另有臨床執業年資規定，請看當年度簡章。"))
      + source_quote("公立或已立案之私立大學或獨立學院之護理學系畢業得有學士學位或領有護理師證書且具護理臨床實務或教學經驗者。", Q_RULES)
-     + _src("原文：研究所學生專區", U_RULES)),
+     + _src("現行網站：研究所學生專區", U_RULES)),
     ("護理系應屆畢業生可以報考嗎？",
      fact_line(draft("可以，在校成績須佔全校前 50%。"))
      + p(draft("錄取後還要具備護理師證書和 1 年以上護理實務，才能修讀畢業所需的進階專科課程與實習。"))
      + source_quote("護理學系應屆畢業生在校成績佔全校前50%者方可報考本所，經錄取後須備護理師證書和1年(含)以上之護理實務，"
                     "方可修讀畢業所需各進階護理專科課程和實習。", Q_RULES)
-     + _src("原文：研究所學生專區", U_RULES)),
+     + _src("現行網站：研究所學生專區", U_RULES)),
     ("入學考哪些科目？",
      fact_line(draft("英文、護理專業問題研討與護理學。"))
      + p(draft("護理學依原文分為成人暨老人護理、婦兒護理學、精神衛生護理或應用生理學。各入學管道的考科與配分，以當年度簡章為準。"))
      + source_quote("包括英文、護理專業問題研討、護理學（分為成人暨老人護理、婦兒護理學、精神衛生護理、或應用生理學）。", Q_RULES)
-     + _src("原文：研究所學生專區", U_RULES)),
+     + _src("現行網站：研究所學生專區", U_RULES)),
 ]
 
 ROUTES = [
@@ -50,7 +52,7 @@ ROUTES = [
     ("招收多少名？",
      fact_line(draft("名額以招生系統設定為準，本頁不列數字。"))
      + source_quote("*最新考試入學報名員額數，請以招生系統設定為主", Q_GRAD)
-     + _src("原文：學校招生專區", U_GRAD)),
+     + _src("現行網站：學校招生專區（碩、博班）", U_GRAD)),
     ("研究所有博士班嗎？",
      fact_line(draft("有：學校招生專區與 116 學年度簡章都列出護理研究所博士班。"))
      + p(draft("研究方向與修業方式整理中，想報考請先來電詢問。"))
@@ -68,18 +70,19 @@ STUDY = [
      + p("有全職工作的研究生，修課學分有上限：")
      + source_quote("具全職工作之研究生，每學期限修12 學分為原則。若學生考量自己工作及修業需求，得提出申請報告，"
                     "並經指導教授及所長核定後，始可不受上述最高修課學分數之限制。", Q_RULES)
-     + _src("原文：研究所學生專區", U_RULES)),
+     + _src("現行網站：研究所學生專區", U_RULES)),
     ("全時進修軍費生有什麼額外要求？",
      fact_line("修業期間要有一年助教經驗（每學年至少 108 小時），並參與學院行政及臨床教學。")
      + source_quote("全職軍費研究生必須於修業期間有一年之助教經驗，每學年至少108小時，並且參與本學院行政及臨床教學，"
                     "以學習行政管理及教學者之角色，同時強化自身之行政及臨床經驗，達到本所培訓進階護理師之目標。", Q_RULES)
-     + _src("原文：研究所學生專區", U_RULES)),
+     + _src("現行網站：研究所學生專區", U_RULES)),
     ("一定要修研究倫理課嗎？",
      fact_line("要：新生第一學年必修「研究倫理教育」（0 學分），未完成者不得參加學位考試。")
      + source_quote("研究所新生第一學年必修「9990160研究倫理教育Research Ethics Education」課程，此課為0學分，"
-                    "需自本校「校務資訊整合系統」(http://sas.ndmctsgh.edu.tw/IASS/logout.aspx)，"
-                    "線上選課系統中完成選課，未完成者不得參加學位考試。", "研究倫理教育課程頁原文")
-     + _src("研究倫理教育修課規定", U_ETHICS_COURSE)),
+                    "需自本校「校務資訊整合系統」……線上選課系統中完成選課，未完成者不得參加學位考試。", "研究倫理教育課程頁原文")
+     + actions(text_link("校務資訊整合系統（線上選課）", U_SAS), text_link("現行網站：研究倫理教育課程頁", U_ETHICS_COURSE))
+     + note("原文在「校務資訊整合系統」後附了登出頁網址（IASS/index.aspx），本頁以「……」省略，"
+            "改連到系統登入頁 IASS/index.aspx（2026-10-06 核對：登入頁標題「國防醫學大學 - 校務資訊整合系統」）。")),
     ("我是專科畢業，以同等學力入學，要補修嗎？",
      fact_line("要，應補修學士班課程。")
      + p(draft("補修與抵免的細節寫在研究生手冊。"))
@@ -106,7 +109,8 @@ LIFE = [
      + p("研究所整理了基金會、學會與學院的獎學金。")
      + _src("獎助學金", L("inst:D-2"))),
     ("研究生平常的生活是什麼樣子？",
-     p(draft("【待研究所補充】上課時段、研究室與討論會、參與學術活動與研討會的機會，約 100–150 字。"))
+     todo("研究生平常的生活：上課時段、研究室與討論會、參與學術活動與研討會的機會，100–150 字（研究所提供）")
+     + p(draft("研究所舉辦過的演講、研討會與學術活動，可以先看活動紀錄。"))
      + _src("學術活動紀錄", L("inst:F-3"))),
 ]
 

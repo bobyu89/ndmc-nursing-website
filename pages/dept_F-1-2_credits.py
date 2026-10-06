@@ -1,4 +1,4 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, facts, tape_surface, draft, note)
+from components import (page, name_tape, statement, p, h4, text_link, actions, facts, tape_surface, draft, note, todo)
 from links import L
 from tokens import C, S, TYPE, SITE
 
@@ -54,6 +54,13 @@ def _source(text, href, label):
     return p(draft(text) + "　" + text_link(label, href), muted=True)
 
 
+def _cohorts():
+    """One row per cohort's education plan; rows still waiting hold a todo() and drop out of the final build."""
+    rows = [(c, todo("本期班教育計畫（逐學期科目與學分，課委會提供）")) for c in ("N76", "N77", "N78", "N79")]
+    known = [(k, v) for k, v in rows if v]
+    return facts(known) if known else ""
+
+
 def render():
     opening = statement(
         draft("要修多少學分，看你是哪一期入學。"),
@@ -101,12 +108,7 @@ def render():
         h4(draft("各期班教育計畫")),
         p(draft("每一期入學的學生，都有一份自己的教育計畫，列出四年每學期要修的科目與學分。"
                 "選課時請以自己期班的教育計畫為準。")),
-        facts([
-            ("N76", draft("教育計畫待上傳")),
-            ("N77", draft("教育計畫待上傳")),
-            ("N78", draft("教育計畫待上傳")),
-            ("N79", draft("教育計畫待上傳")),
-        ]),
+        _cohorts(),
         note("課委會請提供：N76、N77、N78、N79 各期班的教育計畫（逐學期科目與學分表，PDF 或表格皆可）。"
              "內容清單註明「記得分期班呈現」，所以每一期班各放一份；拿到後可改成每列一個連結，或把學分表直接轉成網頁表格。"
              "期班依學生手冊（115年8月）導師名單列出的七十六期至七十九期；新期班入學時請加一列。"

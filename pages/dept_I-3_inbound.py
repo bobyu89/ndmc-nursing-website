@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, h4, text_link, actions, photo_slot, photo, split, facts,
-                        route_list, draft, note)
+                        route_list, draft, note, todo)
 from links import L
 
 META = {"id": "I-3", "slug": "inbound", "title": "境外學生來校交流", "owner": "院窗口", "site": "dept"}
@@ -14,13 +14,15 @@ IMG_NW = ("https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/"
           "LINE_ALBUM_1140203NorthwestUniversity_250204_58.jpg")
 IMG_HACHIOJI = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100010/slider/106%E5%85%AB%E7%8E%8B%E5%AD%902.jpg"
 
-SLOT = "〔待提供〕"
+ASK = "（院窗口向國際事務確認）"
 
 
 def visit(title, text_blocks, media, rows, reverse=False):
-    """media: a photo() already on the site, or a photo_slot() label string still waiting for one."""
+    """media: a photo() already on the site, or a photo_slot() label string still waiting for one.
+    Rows still waiting for facts hold a todo() value, which the final build drops along with the row."""
+    known = [(k, v) for k, v in rows if v]
     return split(
-        "".join([h4(title), *text_blocks, facts(rows)]),
+        "".join([h4(title), *text_blocks, facts(known) if known else ""]),
         media if media.startswith("<") else photo_slot(media, "4/3"),
         cols=(7, 5), reverse=reverse, align="start",
     )
@@ -39,22 +41,25 @@ def render():
         "美國西北大學",
         [p("與美國西北大學學生交流，了解護理在不同國家的展現，也與他們分享我們學校的特色與臺灣的特色文化。")],
         photo(IMG_NW, "西北大學來訪師生與本校師生在校園戶外合影", "4/3", caption="西北大學參訪（護理學院網站輪播照片）"),
-        [("來訪時間", "2月" + draft("（依系學會活動表）")), ("年份", SLOT), ("人數", SLOT), ("交流內容", SLOT)],
+        [("來訪時間", "2月" + draft("（依系學會活動表）")), ("年份", todo("來訪年份" + ASK)),
+         ("人數", todo("來訪人數" + ASK)), ("交流內容", todo("交流內容" + ASK))],
     )
 
     hachioji = visit(
         "日本八王子",
         [p("與日本八王子學校的學生交流，了解護理在不同國家的展現，也與他們分享我們學校的特色與臺灣的特色文化。")],
         photo(IMG_HACHIOJI, "日本八王子來訪人員在模擬病房與本校護生一起操作模型", "4/3", caption="八王子來訪交流（護理學院網站輪播照片）"),
-        [("來訪時間", "11月" + draft("（依系學會活動表）")), ("學校全名", SLOT), ("年份", SLOT), ("人數", SLOT)],
+        [("來訪時間", "11月" + draft("（依系學會活動表）")), ("學校全名", todo("「八王子學校」的正式校名" + ASK)),
+         ("年份", todo("來訪年份" + ASK)), ("人數", todo("來訪人數" + ASK))],
         reverse=True,
     )
 
     thammasat = visit(
         draft("泰國法政大學"),
         [p(draft("泰國法政大學的護理學生曾來校交流。"))],
-        "泰國法政大學學生來訪（待提供）",
-        [("來訪時間", SLOT), ("年份", SLOT), ("人數", SLOT), ("交流內容", SLOT)],
+        "泰國法政大學學生來訪",
+        [("來訪時間", todo("來訪月份" + ASK)), ("年份", todo("來訪年份" + ASK)),
+         ("人數", todo("來訪人數" + ASK)), ("交流內容", todo("交流內容" + ASK))],
     )
 
     visits_note = note("西北大學與八王子的說明取自系學會圖片，月份是系學會活動表上的月份，沒有年份。"

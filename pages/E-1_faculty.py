@@ -1,7 +1,7 @@
-from components import (page, name_tape, statement, p, h4, text_link, actions, roster, roster_index, back_to_top, facts,
+from components import (page, name_tape, statement, p, h4, text_link, actions, roster, back_to_top, facts,
                         draft, note)
 from links import L
-from tokens import C, SITE, TYPE
+from tokens import C, S, SITE, TYPE
 
 META = {"id": "E-1", "slug": "faculty", "title": "師資陣容", "owner": "院窗口"}
 
@@ -223,6 +223,52 @@ ADJUNCT = [
 
 ADJ_RANKS = ["教授", "副教授", "助理教授", "講師"]
 
+# 依專長找老師：分組只依本頁「專長學科」欄的原字詞——專長欄出現任一關鍵詞即列入該組，一位老師可同列多組。
+# 只列教學職（院長至講師）與合聘教師；「助教」分組不列。英文頁 en_college_D-1 用同一套分組。
+SPECIALTY = [
+    ("內外科與成人護理", ["內外科", "成人", "胸腔", "心血管", "心臟血管", "燒傷"]),
+    ("重症、急重症與急診", ["重症", "急診"]),
+    ("婦兒護理", ["產科", "產兒科", "兒科", "早產兒", "孕", "婦女", "兒童"]),
+    ("精神與心理衛生", ["精神", "心理", "憂鬱"]),
+    ("癌症、安寧與臨終照護", ["癌症", "安寧", "臨終"]),
+    ("社區、高齡與健康促進", ["社區", "職業衛生", "健康促進", "健康管理", "老人", "高齡"]),
+    ("護理教育、行政與倫理", ["護理教育", "教學", "行政", "倫理"]),
+    ("軍陣與災難護理", ["軍陣", "災難"]),
+]
+
+
+def specialty_groups(names):
+    """[(組名, [姓名, ...]), ...]：names 為要列的老師（依名冊順序），比對 FULLTIME/JOINT 的專長學科欄。"""
+    spec = {x[1]: x[5] for x in FULLTIME + JOINT}
+    return [(label, [n for n in names if any(k in spec[n] for k in keys)]) for label, keys in SPECIALTY]
+
+
+def name_links(items, anchor="p"):
+    """Same markup as components.roster_index, but each name carries its own row number: [(name, n), ...]."""
+    return "".join(
+        f'<a href="#{anchor}{n}" style="display:inline-block;min-height:44px;padding:10px 0;margin-right:{S[3]};'
+        f'color:{C["thread"]};font-weight:700;text-decoration:underline;text-underline-offset:5px;">{name}</a>'
+        for name, n in items)
+
+
+def index_group(title, items, anchor="p"):
+    """Specialty index group: small heading, then a wrap-line of name links."""
+    return (f'<h4 style="margin:{S[3]} 0 0;color:{C["thread"]};font-size:18px;line-height:1.45;font-weight:800;">{title}</h4>'
+            f'<div style="margin:0 0 {S[1]};max-width:44em;line-height:1.4;">{name_links(items, anchor)}</div>')
+
+
+def rank_heading(title):
+    """Heading of the secondary rank index: same size as a specialty group heading, set off by a dashed rule."""
+    return (f'<h4 style="margin:{S[4]} 0 {S[1]};padding-top:{S[2]};border-top:1.5px dashed {C["rule"]};max-width:44em;'
+            f'color:{C["thread"]};font-size:18px;line-height:1.45;font-weight:800;">{title}</h4>')
+
+
+def rank_line(label, items, anchor="p"):
+    """Secondary (rank) index: the group label sits inline before its names, one compact line per group."""
+    return (f'<div style="margin:0;max-width:44em;line-height:1.4;">'
+            f'<span style="display:inline-block;min-width:5.5em;margin-right:{S[2]};{TYPE["small"]}font-weight:700;'
+            f'color:{C["ink_soft"]};">{label}</span>{name_links(items, anchor)}</div>')
+
 
 def _anchor(id_):
     """Jump target for the in-page index (plain empty div with an id; CMS keeps id)."""
@@ -256,12 +302,12 @@ def render():
              "收齊後替換本頁內容與照片。目前名單、職級、學位與專長逐字取自現行網站。"),
     ])
 
-    # 依職級分組的姓名索引：每組 roster 的列 id 由 p1 起連號（start 偏移），合聘教師接在專任之後。
-    fulltime, index, start = [], [], 1
+    # 名冊列 id 由 p1 起連號（每組 start 偏移），合聘教師接在專任之後；num 記下每位老師的列號供兩種索引共用。
+    fulltime, index, start, num = [], [], 1, {}
     for g in GROUPS + ["合聘教師"]:
         people = _rows(JOINT if g == "合聘教師" else [x for x in FULLTIME if x[0] == g])
-        index.append(h4(g))
-        index.append(roster_index(people, anchor="p", start=start))
+        num.update({row[0]: n for n, row in enumerate(people, start)})
+        index.append(rank_line(g, [(row[0], n) for n, row in enumerate(people, start)]))
         if g != "合聘教師":
             fulltime.append(h4(g))
             fulltime.append(roster(people, anchor="p", start=start))
@@ -269,6 +315,9 @@ def render():
         else:
             joint = roster(people, anchor="p", start=start)
         start += len(people)
+
+    teachers = [x[1] for x in FULLTIME if x[0] != "助教"] + [x[1] for x in JOINT]
+    by_specialty = [index_group(label, [(n, num[n]) for n in names]) for label, names in specialty_groups(teachers)]
 
     adjunct = []
     for r in ADJ_RANKS:
@@ -279,9 +328,12 @@ def render():
 
     return page(
         opening,
-        name_tape("依職級找老師"),
-        p("點姓名直接跳到該位老師；兼任教師名冊依兼聘等級列在頁面後段。", muted=True),
+        name_tape("依專長找老師"),
+        p("依各老師列出的專長分組，一位老師可能出現在幾個組；點姓名直接跳到該位老師。", muted=True),
+        *by_specialty,
+        rank_heading("依職級"),
         *index,
+        p("兼任教師名冊依兼聘等級列在頁面後段。", muted=True),
         _anchor("fulltime"),
         name_tape("專任教師"),
         note("照片取自各教師現行個人頁；楊嘉禎、陳姿吟、陳懿維個人頁沒有照片，請補。"

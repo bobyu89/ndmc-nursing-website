@@ -1,6 +1,6 @@
 from urllib.parse import quote
 
-from components import (page, name_tape, statement, p, h4, text_link, actions, facts, draft, note)
+from components import (page, name_tape, statement, p, h4, text_link, actions, facts, draft, note, todo)
 from links import L
 from tokens import SITE
 
@@ -15,7 +15,7 @@ META = {"id": "G-4", "slug": "calendar", "title": "重要日程", "owner": "院�
 U_CAL_NEWS = SITE + "/news/191/100002/951/11594"
 U_CAL_PDF = SITE + quote("/files/web/192/file_up/100002/15122/115年教育行事曆(奉核定).pdf")
 U_NEWS = SITE + "/news/191/100002/951"
-SLOT = "〔待所辦提供〕"
+ASK = "（所辦每學期提供）"
 
 
 def _row(apply, upload, paper):
@@ -45,17 +45,17 @@ def render():
     ])
 
     semester = "".join([
-        p(draft("以下日期每學期不同，公告後由研究所填入。")),
-        facts([
-            ("選課", SLOT),
-            ("加退選", SLOT),
+        p(draft("以下日期每學期不同，以研究所當學期公告為準。")),
+        facts([(k, v) for k, v in [  # todo() is empty in the final build, so unfilled rows drop out
+            ("選課", todo("本學期選課日期" + ASK)),
+            ("加退選", todo("本學期加退選日期" + ASK)),
             ("註冊（繳費收據、學生證交班代）", "開學後三週內"),
-            ("指導教授申請表繳交", SLOT),
+            ("指導教授申請表繳交", todo("指導教授申請表截止日" + ASK)),
             ("停修申請", "應於當學期結束前二週完成申請手續(參照教育行事曆)"),
             ("研究倫理教育測驗", "須於「1上」完成課程"),
-            ("學位論文定稿與離校", SLOT),
-            ("畢業典禮", SLOT),
-        ]),
+            ("學位論文定稿與離校", todo("論文定稿與離校手續截止日" + ASK)),
+            ("畢業典禮", todo("畢業典禮日期" + ASK)),
+        ] if v]),
         note("所辦請每學期提供：選課與加退選日期、指導教授申請表截止日、論文定稿與離校手續截止日、畢業典禮日期。"
              "「開學後三週內」「學期結束前二週」「1上」為研究生手冊與研究倫理教育頁原文。"),
     ])

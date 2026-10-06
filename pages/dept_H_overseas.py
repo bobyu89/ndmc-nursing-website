@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, text_link, actions, photo, split, facts, route_list,
-                        tape_surface, draft, note)
+                        tape_surface, draft, note, todo)
 from links import L
 
 META = {"id": "H", "slug": "overseas", "title": "海外交流專區", "owner": "院窗口", "site": "dept"}
@@ -13,7 +13,6 @@ META = {"id": "H", "slug": "overseas", "title": "海外交流專區", "owner": "
 # 照片：同一張輪播照片（1565×1046，2026-10-01 核對 200 image/jpeg）。
 IMG_UW = "https://wwwndmc.ndmutsgh.edu.tw/files/web/192/menu/100180/slider/S__39010787.jpg"
 
-SLOT = "〔待提供〕"
 
 
 def render():
@@ -28,12 +27,12 @@ def render():
     record = split(
         "".join([
             p("學系學生曾赴美國華盛頓大學交流。"),
-            facts([
+            facts([(k, v) for k, v in [  # todo() is empty in the final build, so unfilled rows drop out
                 ("交流學校", "美國華盛頓大學"),
-                ("參加學生", SLOT),
-                ("時間與天數", SLOT),
-                ("學了什麼", SLOT),
-            ]),
+                ("參加學生", todo("參加學生人數與入學年（院窗口向國際事務確認）")),
+                ("時間與天數", todo("交流年份與天數（院窗口向國際事務確認）")),
+                ("學了什麼", todo("交流內容（院窗口向國際事務確認）")),
+            ] if v]),
         ]),
         photo(IMG_UW, "學生赴美國華盛頓大學交流期間，在當地一處長照機構（Assisted Living）前合影", "4/3",
               caption="學生赴美國華盛頓大學交流（學系首頁輪播照片）"),

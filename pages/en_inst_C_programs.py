@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, h4, text_link, actions, facts, route_list, split,
-                        illo_slot, draft, note)
+                        illo_slot, draft, note, todo)
 from links import L
 from pages._en_inst_data import U_RULES, zh
 
@@ -23,14 +23,14 @@ def render():
 
     master = split(
         "".join([
-            facts([
+            facts([(k, v) for k, v in [  # todo() is empty in the final build, so unfilled rows drop out
                 ("Tracks", "Adult and Gerontological Nursing; Women's and Children's Nursing; Mental Health Nursing; "
                            "Nurse Practitioner"),
                 ("Length", "Two years, which may be extended by up to two years if needed"),
                 ("Credits", "33 credits for students entering from the 2025–26 academic year"),
                 ("Hospital", "Tri-Service General Hospital"),
-                ("Language", draft("Language of instruction: [to be confirmed]")),
-            ]),
+                ("Language", todo("授課語言（院窗口確認）")),
+            ] if v]),
             p(draft("Translated from the Institute's study regulations.") + "　"
               + text_link("Chinese page: Graduate Student Area", U_RULES), muted=True),
         ]),

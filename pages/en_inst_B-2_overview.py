@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, h4, text_link, actions, timeline, feature_list, bullets,
-                        tape_surface, draft, note)
+                        tape_surface, draft, note, todo)
 from links import L
 from pages._en_inst_data import U_HISTORY, U_RULES, zh
 
@@ -27,8 +27,7 @@ def render():
           "and became a pioneer of master's-level nursing education in Taiwan."),
         p(draft("Our mission is to educate nurses who can care for combat casualties, to provide nursing education and "
                 "clinical services, and to develop military nursing research that meets national and societal needs.")),
-        p(draft("[Overview] 150–250 words on the Institute today: its place in the College of Nursing, faculty, "
-                "research environment and partnership with Tri-Service General Hospital.")),
+        todo("英文研究所簡介 150–250 字：在護理學院中的定位、師資、研究環境、與三軍總醫院的合作（院窗口提供）"),
     )
 
     events = timeline([
@@ -51,9 +50,9 @@ def render():
     ])
 
     goals = bullets([
-        draft("[Goal 1] To educate clinical nurses with advanced practice competence."),
-        draft("[Goal 2] To educate nurses who can identify clinical questions and design and conduct research."),
-        draft("[Goal 3] To prepare nurses for nursing education and military nursing."),
+        draft("To educate clinical nurses with advanced practice competence."),
+        draft("To educate nurses who can identify clinical questions and design and conduct research."),
+        draft("To prepare nurses for nursing education and military nursing."),
     ])
 
     tracks = feature_list([

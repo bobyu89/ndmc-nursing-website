@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, button, text_link, actions, patch, illo_slot, photo,
-                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note)
+                        ribbon_bar, split, unit_pair, feature_lead, feature_list, route_list, draft, note, todo)
 from links import L
 from tokens import C
 
@@ -19,7 +19,7 @@ def render():
             ),
             actions(button("招生專區", L("F")), text_link("認識本院", L("C"))),
         ]),
-        '<div class="mx-auto" style="width:72%;max-width:320px;">' + patch("護理學院", "College of Nursing", unit="college",
+        '<div class="mx-auto d-none d-md-block" style="width:72%;max-width:320px;">' + patch("護理學院", "College of Nursing", unit="college",
               illo=illo_slot("身著制服的護理師（CocoMaterial，重新上色）", "1/1"), tab="國防醫學大學", backing=C["tape"]) + "</div>",
         cols=(7, 5),
     )
@@ -37,7 +37,7 @@ def render():
     dean = split(
         photo(DEAN_PHOTO, "護理學院院長曾雯琦", "3/4"),
         "".join([
-            p(draft("「院長的話摘錄，約兩句，說明學院的辦學方向。」"), muted=False),
+            todo("院長的話摘錄兩句，談學院的辦學方向（三長提供）"),
             p("曾雯琦院長　特聘教授", muted=True),
             actions(text_link("院長的話", L("C-1")), text_link("學院簡介", L("C-2"))),
         ]),

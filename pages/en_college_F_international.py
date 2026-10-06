@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, text_link, actions, photo, split, feature_list, facts,
-                        route_list, draft, note)
+                        route_list, draft, note, todo)
 from links import L
 from pages._en_college_shared import zh, mark, IMG_UW
 
@@ -9,7 +9,6 @@ META = {"id": "F", "slug": "international", "title": "International Collaboratio
 # unconfirmed carousel titles ("西北大學參訪", "N75學生至美國華盛頓大學交流"; see pages/G-1_partnerships.py),
 # so both stay draft. The photo is the published Department carousel photo of the University of Washington exchange. Outcomes only; visits and inquiries live under Visit and Collaborate (G).
 
-SLOT = "〔to be supplied〕"
 
 
 def render():
@@ -36,25 +35,18 @@ def render():
     )
 
     types = feature_list([
-        ("Student exchange", draft("Short-term inbound and outbound exchanges for nursing students.") + f" {SLOT}",
+        ("Student exchange", draft("Short-term inbound and outbound exchanges for nursing students."),
          None, "dept", mark("users")),
-        ("Academic visits", draft("Delegation visits between the College and partner schools.") + f" {SLOT}",
+        ("Academic visits", draft("Delegation visits between the College and partner schools."),
          None, "college", mark("handshake-o")),
-        ("Visiting scholars", draft("Scholars from abroad who lecture, teach or do research with our faculty.") + f" {SLOT}",
+        ("Visiting scholars", draft("Scholars from abroad who lecture, teach or do research with our faculty."),
          None, "inst", mark("user")),
-        ("Joint research", draft("Research projects and publications with partner institutions.") + f" {SLOT}",
+        ("Joint research", draft("Research projects and publications with partner institutions."),
          None, "inst", mark("flask")),
     ])
 
     outcomes = "".join([
-        facts([
-            ("Partner institutions", SLOT),
-            ("Countries and regions", SLOT),
-            ("Agreements (MOUs)", SLOT),
-            ("Students exchanged", SLOT),
-            ("Visiting scholars", SLOT),
-            ("Joint publications", SLOT),
-        ]),
+        todo("合作數字與統計期間：盟校數、國家與地區數、合作備忘錄數、交換學生數、來訪學者數、共同發表數（國際事務提供）"),
         note("請國際事務提供上列各項數字與統計期間（例如近五學年），每項附資料來源；沒有資料的列刪除，不要估計。"),
     ])
 
@@ -64,9 +56,9 @@ def render():
         lead,
         name_tape("Types of Collaboration", unit="inst"),
         types,
+        todo("每種合作類型各一句實例（國際事務提供）"),
         note("四種合作類型為暫擬，請國際事務依實際有的項目增刪，並為每類補一句實例。"),
-        name_tape("Outcomes in Numbers", unit="inst"),
-        outcomes,
+        *([name_tape("Outcomes in Numbers", unit="inst"), outcomes] if outcomes else []),
         name_tape("Explore"),
         route_list([
             ("Global Partnership Map", draft("Partner institutions by country and region"), L("en:F-1")),

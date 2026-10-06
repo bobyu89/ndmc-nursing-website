@@ -1,0 +1,129 @@
+﻿網站,頁面ID,選單名稱,上層ID,現有節點（或需新建）,要貼上的檔案,負責人
+護理學院,A,護理學院,,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/16,dist/A_home.html,院窗口
+護理學院,B,最新消息,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1628,dist/B_news.html,院窗口
+護理學院,C-1,院長的話,C,需新建,dist/C-1_dean.html,三長
+護理學院,C-2,學院簡介,C,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1458,dist/C-2_overview.html,哲君
+護理學院,C-3,歷史沿革與軍護傳承,C,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1460,dist/C-3_history.html,哲君
+護理學院,C-4,組織架構,C,需新建,dist/C-4_organization.html,哲君
+護理學院,C-5,教育理念,C,需新建,dist/C-5_philosophy.html,院窗口
+護理學院,C,認識本院,A,需新建,dist/C_about.html,院窗口
+護理學院,D,學術單位,A,需新建,dist/D_units.html,院窗口
+護理學系,A,護理學系,,https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6510,dist/dept_A_home.html,院窗口
+護理學系,B,學系公告,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1628,dist/dept_B_news.html,院窗口
+護理學系,C-1,系主任的話,C,需新建,dist/dept_C-1_chair.html,三長
+護理學系,C-2-1,學系特色與定位,C-2,需新建,dist/dept_C-2-1_identity.html,院窗口
+護理學系,C-2-2,教育目標與核心能力,C-2,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1471,dist/dept_C-2-2_goals.html,課委會
+護理學系,C-2,學系簡介,C,需新建,dist/dept_C-2_overview.html,院窗口
+護理學系,C,認識本系,A,需新建,dist/dept_C_about.html,院窗口
+護理學系,D-1,招生資訊,D,需新建,dist/dept_D-1_admissions-info.html,學生事務
+護理學系,D-2,職涯發展,D,需新建,dist/dept_D-2_career.html,學生事務
+護理學系,D,招生專區,A,需新建,dist/dept_D_admissions.html,院窗口
+護理學系,E,國防迷彩天使災難救護營,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/4575,dist/dept_E_camp.html,學生事務
+護理學系,F-1-1,課程規劃,F-1,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1492,dist/dept_F-1-1_plan.html,院窗口
+護理學系,F-1-2,學分表,F-1,需新建,dist/dept_F-1-2_credits.html,課委會
+護理學系,F-1-3,課程地圖,F-1,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/3642,dist/dept_F-1-3_map.html,院窗口
+護理學系,F-1,課程資訊,F,需新建,dist/dept_F-1_courses.html,院窗口
+護理學系,F-2-1,醫院實習,F-2,需新建,dist/dept_F-2-1_hospital.html,院窗口
+護理學系,F-2-2,社區實習,F-2,需新建,dist/dept_F-2-2_community.html,院窗口
+護理學系,F-2-3,軍陣實習（含軍訓）,F-2,需新建,dist/dept_F-2-3_military.html,院窗口
+護理學系,F-2-4,實習規定與表單,F-2,需新建,dist/dept_F-2-4_rules.html,院窗口
+護理學系,F-2,實習資訊,F,需新建,dist/dept_F-2_practicum.html,院窗口
+護理學系,F,課程,A,需新建,dist/dept_F_curriculum.html,院窗口
+護理學系,G,大專生研究計畫,A,需新建,dist/dept_G_research.html,院窗口
+護理學系,H,海外交流專區,A,需新建,dist/dept_H_overseas.html,院窗口
+護理學系,I-1,系學會,I,https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6796,dist/dept_I-1_association.html,院窗口
+護理學系,I-2,學生活動,I,需新建,dist/dept_I-2_activities.html,院窗口
+護理學系,I-3,境外學生來校交流,I,需新建,dist/dept_I-3_inbound.html,院窗口
+護理學系,I,校園生活,A,需新建,dist/dept_I_campus-life.html,院窗口
+護理學系,J-1,獎學金,J,https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6798,dist/dept_J-1_scholarships.html,院窗口
+護理學系,J-3,重要日程,J,需新建,dist/dept_J-3_calendar.html,院窗口
+護理學系,J-4,學生常用連結,J,需新建,dist/dept_J-4_links.html,院窗口
+護理學系,J,學生專區,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6681,dist/dept_J_students.html,院窗口
+護理學系,K-1,傑出校友,K,需新建,dist/dept_K-1_distinguished.html,院窗口
+護理學系,K,校友專區,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100180/6799,dist/dept_K_alumni.html,院窗口
+護理學院,E-1,師資陣容,E,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/716,dist/E-1_faculty.html,院窗口
+護理學院,E-2,學術研究,E,需新建,dist/E-2_research.html,教發
+護理學院,E-3,教學設備,E,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1463,dist/E-3_facilities.html,圖儀、哲君
+護理學院,E,學術資源,A,需新建,dist/E_resources.html,院窗口
+英文學院,A,College of Nursing,,需新建,dist/en_college_A_home.html,院窗口
+英文學院,B-1,Dean's Message,B,需新建,dist/en_college_B-1_dean.html,三長
+英文學院,B-2,Overview and History,B,需新建,dist/en_college_B-2_overview.html,哲君
+英文學院,B-3,Organization,B,需新建,dist/en_college_B-3_organization.html,哲君
+英文學院,B,About the College,A,需新建,dist/en_college_B_about.html,院窗口
+英文學院,C,Academic Units,A,需新建,dist/en_college_C_units.html,院窗口
+英文學院,D-1,Faculty Directory,D,需新建,dist/en_college_D-1_faculty.html,院窗口
+英文學院,D-2,Research Highlights,D,需新建,dist/en_college_D-2_research.html,教發
+英文學院,D-3,Facilities,D,需新建,dist/en_college_D-3_facilities.html,圖儀、哲君
+英文學院,D,Faculty and Research,A,需新建,dist/en_college_D_faculty-research.html,院窗口
+英文學院,E-1,Program Overview,E,需新建,dist/en_college_E-1_program-overview.html,院窗口
+英文學院,E,Academic Programs,A,需新建,dist/en_college_E_programs.html,院窗口
+英文學院,F-1,Global Partnership Map,F,需新建,dist/en_college_F-1_partnership-map.html,國際事務
+英文學院,F-2,Collaboration Highlights,F,需新建,dist/en_college_F-2_highlights.html,國際事務
+英文學院,F,International Collaboration,A,需新建,dist/en_college_F_international.html,國際事務
+英文學院,G-1,Academic Visits,G,需新建,dist/en_college_G-1_academic-visits.html,國際事務
+英文學院,G-2,Visiting Scholars,G,需新建,dist/en_college_G-2_visiting-scholars.html,國際事務
+英文學院,G-3,Collaboration Contact,G,需新建,dist/en_college_G-3_contact.html,國際事務
+英文學院,G,Visit and Collaborate,A,需新建,dist/en_college_G_visit.html,國際事務
+英文學院,H,News,A,需新建,dist/en_college_H_news.html,院窗口
+英文學系,A,Department of Nursing,,需新建,dist/en_dept_A_home.html,院窗口
+英文學系,B-1,Chair's Message,B,需新建,dist/en_dept_B-1_chair.html,三長
+英文學系,B-2,Overview and Learning Outcomes,B,需新建,dist/en_dept_B-2_overview.html,課委會
+英文學系,B,About the Department,A,需新建,dist/en_dept_B_about.html,院窗口
+英文學系,C-1,Curriculum,C,需新建,dist/en_dept_C-1_curriculum.html,課委會
+英文學系,C-2,Clinical and Military Nursing Practicum,C,需新建,dist/en_dept_C-2_practicum.html,課委會
+英文學系,C-3,Simulation and Learning Spaces,C,需新建,dist/en_dept_C-3_simulation.html,圖儀、哲君
+英文學系,C-4,Student Learning Outcomes,C,需新建,dist/en_dept_C-4_outcomes.html,學生事務
+英文學系,C,Undergraduate Program,A,需新建,dist/en_dept_C_program.html,課委會
+英文學系,D,Campus Experience,A,需新建,dist/en_dept_D_campus.html,學生事務
+英文學系,E,International Exchange,A,需新建,dist/en_dept_E_exchange.html,國際事務
+英文學系,F,Faculty,A,需新建,dist/en_dept_F_faculty.html,院窗口
+英文學系,G,Visit the Department,A,需新建,dist/en_dept_G_visit.html,院窗口
+英文學系,H,News,A,需新建,dist/en_dept_H_news.html,院窗口
+英文研究所,A,Graduate Institute of Nursing,,需新建,dist/en_inst_A_home.html,院窗口
+英文研究所,B-1,Director's Message,B,需新建,dist/en_inst_B-1_director.html,院窗口
+英文研究所,B-2,Overview and Educational Goals,B,需新建,dist/en_inst_B-2_overview.html,院窗口
+英文研究所,B,About the Institute,A,需新建,dist/en_inst_B_about.html,院窗口
+英文研究所,C-1,Curriculum,C,需新建,dist/en_inst_C-1_curriculum.html,院窗口
+英文研究所,C,Graduate Programs,A,需新建,dist/en_inst_C_programs.html,院窗口
+英文研究所,D-1,Research Areas and Faculty,D,需新建,dist/en_inst_D-1_areas.html,教發
+英文研究所,D-2,Publications and Graduate Research,D,需新建,dist/en_inst_D-2_publications.html,教發
+英文研究所,D-3,Academic Activities,D,需新建,dist/en_inst_D-3_activities.html,教發
+英文研究所,D-4,Research Environment,D,需新建,dist/en_inst_D-4_environment.html,教發、圖儀
+英文研究所,D,Research,A,需新建,dist/en_inst_D_research.html,教發
+英文研究所,E-1,Areas for Collaboration,E,需新建,dist/en_inst_E-1_collaboration-areas.html,國際事務、教發
+英文研究所,E-2,Visiting Researchers,E,需新建,dist/en_inst_E-2_visiting-researchers.html,國際事務
+英文研究所,E-3,Collaboration Contact,E,需新建,dist/en_inst_E-3_contact.html,國際事務、院窗口
+英文研究所,E,Research Collaboration,A,需新建,dist/en_inst_E_collaboration.html,國際事務
+英文研究所,F,News,A,需新建,dist/en_inst_F_news.html,院窗口
+護理學院,F-1,家長資訊,F,需新建,dist/F-1_parents.html,院窗口
+護理學院,F,招生專區,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100143/1861,dist/F_admissions.html,院窗口
+護理學院,G-1,國際合作,G,需新建,dist/G-1_partnerships.html,國際事務
+護理學院,G-2,學生交流,G,需新建,dist/G-2_exchange.html,國際事務、辰禧老師
+護理學院,G,國際交流,A,需新建,dist/G_international.html,院窗口
+護理學院,H-3,院務文件,H,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/729,dist/H-3_documents.html,院窗口
+護理學院,H,院務與規章,A,需新建,dist/H_admin.html,院窗口
+護理學院,I,捐款專區,A,需新建,dist/I_donate.html,院窗口
+護理研究所,A,護理研究所,,https://wwwndmc.ndmutsgh.edu.tw/unit/100181/6511,dist/inst_A_home.html,院窗口
+護理研究所,B,研究所公告,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/1628,dist/inst_B_news.html,院窗口
+護理研究所,C-1,所長的話,C,需新建,dist/inst_C-1_director.html,院窗口
+護理研究所,C-2,研究所簡介,C,需新建,dist/inst_C-2_overview.html,院窗口
+護理研究所,C,認識本所,A,需新建,dist/inst_C_about.html,院窗口
+護理研究所,D-1,招生資訊,D,需新建,dist/inst_D-1_admissions-info.html,院窗口
+護理研究所,D-2,獎助學金,D,https://wwwndmc.ndmutsgh.edu.tw/unit/100181/6802,dist/inst_D-2_funding.html,院窗口
+護理研究所,D-3,常見問題,D,需新建,dist/inst_D-3_faq.html,院窗口
+護理研究所,D,招生專區,A,需新建,dist/inst_D_admissions.html,院窗口
+護理研究所,E-1,課程資訊,E,需新建,dist/inst_E-1_courses.html,院窗口
+護理研究所,E-2,修業規定,E,需新建,dist/inst_E-2_rules.html,院窗口
+護理研究所,E-3,學位審查,E,需新建,dist/inst_E-3_degree.html,院窗口
+護理研究所,E,修業資訊,A,需新建,dist/inst_E_study.html,院窗口
+護理研究所,F-1,研究領域,F,需新建,dist/inst_F-1_areas.html,教發
+護理研究所,F-2,研究發表,F,需新建,dist/inst_F-2_publications.html,教發
+護理研究所,F-3,學術活動,F,需新建,dist/inst_F-3_events.html,教發
+護理研究所,F,研究成果,A,需新建,dist/inst_F_research.html,教發
+護理研究所,G-1,新生資訊,G,https://wwwndmc.ndmutsgh.edu.tw/unit/100181/6533,dist/inst_G-1_newcomers.html,院窗口
+護理研究所,G-2,研究倫理,G,https://wwwndmc.ndmutsgh.edu.tw/unit/100181/6794,dist/inst_G-2_ethics.html,院窗口
+護理研究所,G-4,重要日程,G,需新建,dist/inst_G-4_calendar.html,院窗口
+護理研究所,G-5,研究生常用連結,G,需新建,dist/inst_G-5_links.html,院窗口
+護理研究所,G,研究生專區,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100181/6533,dist/inst_G_graduate.html,院窗口
+護理學院,K,聯絡我們,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/2199,dist/K_contact.html,院窗口
+護理學院,L,常用連結,A,https://wwwndmc.ndmutsgh.edu.tw/unit/100010/934,dist/L_links.html,院窗口

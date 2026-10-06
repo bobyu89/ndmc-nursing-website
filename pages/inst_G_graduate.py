@@ -12,7 +12,7 @@ META = {"id": "G", "slug": "graduate", "title": "研究生專區", "owner": "院
 # 研究生手冊 PDF 與校務資訊系統網址取自該節點。
 
 U_HANDBOOK = SITE + quote("/files/web/192/file_up/100181/13936/國防醫學大學護理研究所碩士研究生手冊_09182025_公告.pdf")
-U_SAS = "https://sas.ndmctsgh.edu.tw/IASS/Logout.aspx"
+U_SAS = "https://sas.ndmctsgh.edu.tw/IASS/index.aspx"
 
 
 def render():

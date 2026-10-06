@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, h4, button, text_link, actions, feature_lead, illo_slot,
-                        bullets, route_list, draft, note)
+                        bullets, route_list, draft, note, todo)
 from links import L
 from pages._en_inst_data import (TRAUMA_PROJECTS, TRAUMA_PROJECT_TRANSLATED, MILITARY_HEALTH_PROJECTS,
                                  project_items, zh)
@@ -64,8 +64,8 @@ def render():
     ], unit="inst")
 
     graduate = "".join([
-        p(draft("Every master's student completes a thesis under faculty supervision. Selected recent theses will "
-                "be listed here.")),
+        p(draft("Every master's student completes a thesis under faculty supervision.")),
+        todo("近年代表性碩士論文 5–10 篇：年份、研究生、指導教授、論文英文題名（教發提供）"),
         note("教發請提供：近年代表性碩士論文 5–10 篇（年份、研究生、指導教授、論文英文題名），以及研究生海報、得獎紀錄"
              "（須附可查證來源）。未提供前本段不列任何論文。"),
     ])

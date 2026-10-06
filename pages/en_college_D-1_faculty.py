@@ -1,6 +1,6 @@
 import importlib
 
-from components import (page, name_tape, statement, p, h4, text_link, actions, photo, photo_slot, roster_index,
+from components import (page, name_tape, statement, p, h4, text_link, actions, photo, photo_slot,
                         back_to_top, draft, note)
 from links import L
 from tokens import C, TYPE, S
@@ -17,7 +17,21 @@ META = {"id": "D-1", "slug": "faculty", "title": "Faculty Directory", "owner": "
 #   Degrees — the same English profiles where given, otherwise translated from pages/E-1_faculty.py.
 # Full-time faculty only (教授 to 講師). Teaching and research assistants (助教 group) are left to the Chinese page.
 # Portraits — the same published photos as the Chinese roster (pages/E-1_faculty.py PHOTO, from each DocDet profile).
-PHOTO = importlib.import_module("pages.E-1_faculty").PHOTO
+_ZH = importlib.import_module("pages.E-1_faculty")
+PHOTO = _ZH.PHOTO
+
+# Find Faculty by Specialty: the same groups as the Chinese page (E-1 SPECIALTY), matched on the Chinese specialty
+# wording there, so membership never rests on a translation. English group names below, in E-1 SPECIALTY order.
+SPECIALTY_EN = {
+    "內外科與成人護理": "Medical-surgical and adult nursing",
+    "重症、急重症與急診": "Critical, acute and emergency care",
+    "婦兒護理": "Maternal and child health nursing",
+    "精神與心理衛生": "Psychiatric and mental health nursing",
+    "癌症、安寧與臨終照護": "Cancer, palliative and end-of-life care",
+    "社區、高齡與健康促進": "Community health, older adults and health promotion",
+    "護理教育、行政與倫理": "Nursing education, administration and ethics",
+    "軍陣與災難護理": "Military and disaster nursing",
+}
 
 NDMC_PHD = "PhD in Nursing, Graduate Institute of Medical Sciences, National Defense Medical Center"
 
@@ -171,16 +185,21 @@ def render():
              "（目前信箱只在個人頁，部分老師個人頁用的是私人信箱）。"),
     ])
 
-    # Name index by rank group; row ids run p1..pN across groups (start offset per group).
-    fulltime, index, start = [], [], 1
+    # Row ids run p1..pN across rank groups (start offset per group); num maps each Chinese name to its row number.
+    fulltime, index, start, num, label = [], [], 1, {}, {}
     for g in GROUPS:
-        people = _rows([x for x in FULLTIME if x[0] == g])
-        index.append(h4(g))
-        index.append(roster_index(people, anchor="p", start=start))
+        group = [x for x in FULLTIME if x[0] == g]
+        people = _rows(group)
+        for n, x in enumerate(group, start):
+            num[x[2]], label[x[2]] = n, _name(x[1], x[2])
+        index.append(_ZH.rank_line(g, [(label[x[2]], num[x[2]]) for x in group]))
         fulltime.append(h4(g))
         fulltime.append(_roster(people, anchor="p", start=start))
         fulltime.append(back_to_top())
         start += len(people)
+
+    by_specialty = [_ZH.index_group(SPECIALTY_EN[zh_label], [(label[n], num[n]) for n in names])
+                    for zh_label, names in _ZH.specialty_groups([x[2] for x in FULLTIME])]
 
     others = "".join([
         p("The College also has one joint-appointment professor and a roster of adjunct faculty who teach courses and "
@@ -191,8 +210,11 @@ def render():
 
     return page(
         opening,
-        name_tape("Find a Faculty Member"),
-        p("Select a name to jump to that faculty member's entry.", muted=True),
+        name_tape("Find Faculty by Specialty"),
+        p("Grouped by the research interests each faculty member lists; some appear in more than one group. "
+          "Select a name to jump to that faculty member's entry.", muted=True),
+        *by_specialty,
+        _ZH.rank_heading("By rank"),
         *index,
         name_tape("Full-time Faculty"),
         note("莊蕙婉老師不在學校英文師資頁上，名單暫列「[English name pending] (莊蕙婉)」（正式版也會顯示），"

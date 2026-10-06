@@ -48,6 +48,30 @@ def cms_normalize(html):
     return re.sub(r' (aria-hidden|aria-label|role)="[^"]*"', "", html)
 
 
+PREFIX = {"": "", "dept": "dept_", "inst": "inst_", "en": "en_college_", "en_dept": "en_dept_", "en_inst": "en_inst_"}
+
+
+def local_links(html):
+    """Preview only: '#待建-…' links (nodes not yet created in the CMS) open the matching local preview page."""
+    files = {p.stem for p in DIST.glob("*.html")}
+
+    def swap(m):
+        key = m.group(1)
+        for site in ("en_dept", "en_inst", "dept", "inst", "en"):
+            if key.startswith(site + "-"):
+                pid, pre = key[len(site) + 1:], PREFIX[site]
+                break
+        else:
+            pid, pre = key, ""
+        hit = sorted(f for f in files if f.startswith(f"{pre}{pid}_") and (pre or not f.split("_")[0] in PREFIX_NAMES))
+        return f'href="{hit[0]}.html"' if hit else m.group(0)
+
+    return re.sub(r'href="#待建-([^"]+)"', swap, html)
+
+
+PREFIX_NAMES = {"dept", "inst", "en"}
+
+
 def load_pages():
     sys.path.insert(0, str(ROOT))
     mods = []
@@ -81,13 +105,17 @@ def main(final=False):
         for bare in re.findall(r'>(前往|了解更多|更多|點此|按此|Learn more|Explore|More|Click here|Research page|個人研究頁)&nbsp;<', html):
             print(f"LINK-LABEL '{bare}' in {site}:{meta['id']}: name the destination")
             problems += 1
+        if final:
+            for ph in re.findall(r"[^<>]{0,12}(?:約兩句|摘錄，約|CocoMaterial|重新上色|請提供|待補|待提供)[^<>]{0,12}", html):
+                print(f"PLACEHOLDER-COPY in {site}:{meta['id']}: {ph.strip()}")
+                problems += 1
         for pat in FORBIDDEN:
             if re.search(pat, html, re.I):
                 print(f"FORBIDDEN {pat} in {meta['id']}")
                 problems += 1
         name = f"{meta['id']}_{meta['slug']}" if site == "college" else f"{site}_{meta['id']}_{meta['slug']}"
         (DIST / f"{name}.html").write_text(html, encoding="utf-8")
-        (PREVIEW / f"{name}.html").write_text(CHROME.format(title=meta["title"], body=html, lang="en" if site.startswith("en_") else "zh-Hant"), encoding="utf-8")
+        (PREVIEW / f"{name}.html").write_text(CHROME.format(title=meta["title"], body=local_links(html), lang="en" if site.startswith("en_") else "zh-Hant"), encoding="utf-8")
         if not final:
             drafts = html.count("待確認")
         groups[site].append(f'<li><a href="{name}.html">{meta["id"]}　{meta["title"]}</a>　<small>{len(html)//1024} KB · {"尚待確認" if final else "待確認"} {drafts} · 負責：{meta.get("owner", "院窗口")}</small></li>')

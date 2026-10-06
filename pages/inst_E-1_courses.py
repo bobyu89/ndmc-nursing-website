@@ -1,6 +1,6 @@
 from urllib.parse import quote
 
-from components import (page, name_tape, statement, p, h4, text_link, actions, facts, illo_slot, draft, note)
+from components import (page, name_tape, statement, p, h4, text_link, actions, facts, illo_slot, bullets, draft, note, todo)
 from links import L
 from tokens import SITE
 
@@ -9,11 +9,24 @@ META = {"id": "E-1", "slug": "courses", "title": "課程資訊", "owner": "院�
 # 現行研究所網站沒有課程清單頁；以下課程相關規定原文照錄自研究所「學生專區」：
 U_RULES = SITE + "/unit/100181/6533"
 U_HANDBOOK = SITE + quote("/files/web/192/file_up/100181/13936/國防醫學大學護理研究所碩士研究生手冊_09182025_公告.pdf")
-U_SAS = "https://sas.ndmctsgh.edu.tw/IASS/Logout.aspx"  # 校務資訊系統（研究所網站頁尾「線上系統」）
+U_SAS = "https://sas.ndmctsgh.edu.tw/IASS/index.aspx"  # 校務資訊系統（研究所網站頁尾「線上系統」）
 
 
 def _source(text, href, label):
     return p(draft(text) + "　" + text_link(label, href), muted=True)
+
+
+GROUPS = ["成人暨老人護理學組", "婦兒護理學組", "精神衛生護理組", "專科護理師組"]
+
+
+def groups_block():
+    """Each group's course list is still missing: the draft shows a request per group; the final build
+    lists the group names and points to the handbook instead of an empty table."""
+    rows = [(g, todo("必修與選修課程清單（院窗口提供）")) for g in GROUPS]
+    known = [(k, v) for k, v in rows if v]
+    if known:
+        return facts(known)
+    return bullets(GROUPS) + p(draft("各學組的課程規劃，目前請先參考研究生手冊。"))
 
 
 def render():
@@ -37,12 +50,7 @@ def render():
         h4("課程地圖"),
         illo_slot("碩士班課程地圖（研究生手冊 圖2-1-2，沿用原圖）", "4/3", unit="inst"),
         h4("各學組課程"),
-        facts([
-            ("成人暨老人護理學組", draft("必修與選修課程清單待補")),
-            ("婦兒護理學組", draft("必修與選修課程清單待補")),
-            ("精神衛生護理組", draft("必修與選修課程清單待補")),
-            ("專科護理師組", draft("必修與選修課程清單待補")),
-        ]),
+        groups_block(),
         note("現行研究所網站沒有課程清單，課程地圖只在研究生手冊（圖2-1-2）。請院窗口提供各學組的"
              "課程名稱、學分、必選修與開課學期，並分「113學年前入學」與「114學年後入學」兩版；"
              "課程地圖請提供原圖檔。收到前請勿依印象補課名。"),

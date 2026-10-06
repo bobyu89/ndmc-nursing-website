@@ -1,11 +1,14 @@
 from tokens import C
 from components import (page, name_tape, statement, p, split, photo, text_link, actions, timeline, tape_surface,
-                        draft, note)
+                        draft, note, todo)
 from links import L
 
 META = {"id": "C-3", "slug": "history", "title": "歷史沿革與軍護傳承", "owner": "哲君"}
 
 # 周將軍遷厝暨追思典禮紀念影片，連結取自現行「周將軍遷厝暨追思典禮」頁（unit/100010/1519）。
+# 七十週年紀念專刊電子書：網址尚未取得。填入後本段才會在正式版出現。
+BOOK_URL = None
+
 MEMORIAL_VIDEO = "https://www.youtube.com/watch?v=X6k9rzHZADc"
 
 # 照片：周將軍肖像取自「周將軍紀念影片」頁（unit/100010/1474）；典禮照片取自「周將軍遷厝暨追思典禮」頁（unit/100010/1519）。
@@ -74,10 +77,13 @@ def render():
          "民國114年9月16日舉行護理學院揭牌典禮。", "college"),
     ])
 
-    book = tape_surface(
-        p(draft("七十週年紀念專刊的電子版，可以在線上翻閱。")),
-        actions(text_link("閱讀七十週年紀念專刊（電子書）", "#待補-七十週年紀念專刊")),
-    )
+    if BOOK_URL:
+        book = tape_surface(
+            p(draft("七十週年紀念專刊的電子版，可以在線上翻閱。")),
+            actions(text_link("閱讀七十週年紀念專刊（電子書）", BOOK_URL)),
+        )
+    else:
+        book = todo("七十週年紀念專刊電子書的網址與出版年份（哲君提供）")
 
     return page(
         opening,
@@ -93,8 +99,8 @@ def render():
         events,
         note("請哲君補齊：① 雲端「流年史＆大事記」資料中的其他年份事件；② 歷次評鑑的年份、評鑑單位與結果，"
              "依年份插入上方時間軸。現行網站找不到評鑑資料，請勿以推估的年份填入。"),
-        name_tape("七十週年紀念專刊"),
-        book,
-        note("請哲君提供：七十週年紀念專刊電子書的網址，以及專刊的出版年份。"),
+        *([name_tape("七十週年紀念專刊"), book] if book else []),
+        note("請哲君提供：七十週年紀念專刊電子書的網址，以及專刊的出版年份。收到後填入檔案上方的 BOOK_URL，"
+             "本段才會在正式版出現（目前正式版不顯示，以免出現打不開的連結）。"),
         owner=META["owner"],
     )

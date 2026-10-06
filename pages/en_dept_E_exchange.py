@@ -1,5 +1,5 @@
 from components import (page, name_tape, statement, p, text_link, actions, split, photo, feature_list,
-                        tape_surface, draft, note)
+                        tape_surface, draft, note, todo)
 from links import L
 
 META = {"id": "E", "slug": "exchange", "title": "International Exchange", "owner": "國際事務", "site": "en_dept"}
@@ -45,11 +45,8 @@ def render():
          None, "dept", "T"),
     ])
 
-    reflection = tape_surface(
-        p(draft("“A reflection of three or four sentences from a participant: where they went, what they saw, "
-                "what they brought back to their practice.”")),
-        p("[Participant name]　[Year of entry]　[Host institution]", muted=True),
-    )
+    # 心得收到前只有 todo（正式版不輸出），本段連同標題一起隱藏。
+    reflection = todo("參與者心得 1〜2 篇（英文 80 字內：去了哪裡、看到什麼、帶回什麼），附姓名、入學年、交流學校（國際事務提供）")
 
     return page(
         opening,
@@ -63,8 +60,7 @@ def render():
         note("三筆皆未確認：① 西北大學——英文孤兒頁輪播有「西北大學參訪」「西北大學來訪」，請確認是美國 Northwestern University "
              "還是其他「西北大學」，以及是參訪還是來訪、年份；② 八王子——輪播只有「八王子3」，請提供學校全名與交流內容；"
              "③ 泰國法政大學（Thammasat）——僅見於內容清單「境外學生來校交流」備註。未確認者請整列刪除。"),
-        name_tape("Participant Reflections"),
-        reflection,
+        *([name_tape("Participant Reflections"), reflection] if reflection else []),
         note("請國際事務收集 1〜2 篇參與者心得（英文 80 字內），取得本人同意公開姓名與照片。"),
         name_tape("Gallery"),
         split(photo(IMG_NW, "Visiting faculty and students with our students and faculty, outdoors on campus", "4/3",
