@@ -81,4 +81,8 @@ python -m http.server 8801
 | `content/notion/` | 從 Notion 內容清單匯出的原始規劃 |
 | `.impeccable/critique/` | 兩輪設計評審報告 |
 
-需要的環境：Python 3.12（只用標準函式庫）、Chrome（截圖用）。若由 Claude Code 接手，把 `~/.claude/skills/ndmc-nursing-cms/` 整個資料夾一起交給對方，裡面是後台操作方法與注意事項。
+需要的環境：Python 3.12（只用標準函式庫）、Chrome（截圖用）。
+
+程式碼放在私人 GitHub repo：<https://github.com/bobyu89/ndmc-nursing-website>。接手的人要先由擁有者在 GitHub 的 Settings → Collaborators 加入，才能取得。
+
+後台操作 skill 的副本在 `skills/ndmc-nursing-cms/`。若由 Claude Code 接手，把這個資料夾複製到 `~/.claude/skills/`，Claude 就會照裡面的方法與注意事項操作後台。
