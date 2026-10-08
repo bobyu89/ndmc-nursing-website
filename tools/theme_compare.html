@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>護理學院封面主題比較</title>
+<style>
+/* Neutral review shell: it must not favour any of the four themes it frames. */
+:root {
+  --bg: #F3F3F1; --panel: #FFFFFF; --ink: #1D1D1B; --soft: #5C5C57; --line: #DCDBD6; --hover: #EAEAE6;
+  --font: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Heiti TC", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.7; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 16px; }
+@media (min-width: 760px) { .wrap { padding-inline: 32px; } }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+
+.top { padding-block: 40px 28px; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .16em; color: var(--soft); }
+.top h1 { margin-top: 8px; font-size: clamp(28px, 5vw, 38px); font-weight: 900; letter-spacing: .04em; }
+.lede { margin-top: 12px; max-width: 40em; font-size: 17px; }
+.meta { margin-top: 8px; font-size: 14px; color: var(--soft); max-width: 48em; }
+
+.cards { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1180px) { .cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 18px 18px 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.card[data-on] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.card h2 { font-size: 20px; font-weight: 900; display: flex; align-items: center; gap: 10px; }
+.tag { display: inline-grid; place-items: center; min-width: 30px; height: 26px; padding: 0 7px; border-radius: 4px; background: var(--ink); color: var(--panel); font-size: 13px; font-weight: 800; letter-spacing: .04em; }
+.concept { font-size: 15px; }
+.sw { display: flex; gap: 4px; }
+.sw i { width: 26px; height: 26px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.card dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: 14px; }
+.card dt { color: var(--soft); font-weight: 700; white-space: nowrap; }
+.card dd { margin: 0; }
+.see { justify-self: start; margin-top: 4px; background: none; border: 1px solid var(--ink); border-radius: 4px; padding: 7px 14px; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; }
+.see:hover { background: var(--hover); }
+
+.viewer { margin-top: 32px; display: grid; gap: 14px; scroll-margin-top: 12px; }
+.toolbar { position: sticky; top: 0; z-index: 2; background: var(--bg); padding-block: 10px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.seg { display: inline-flex; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px; gap: 2px; }
+.seg button { background: none; border: 0; border-radius: 4px; padding: 7px 12px; font: inherit; font-size: 14px; font-weight: 700; color: var(--soft); cursor: pointer; white-space: nowrap; }
+.seg button:hover { color: var(--ink); background: var(--hover); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.seg[data-dim] { opacity: .45; pointer-events: none; }
+button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.stage-label { font-size: 14px; color: var(--soft); }
+.fbox { position: relative; width: 100%; overflow: hidden; background: #f0f0f0; border: 1px solid var(--line); border-radius: 6px; }
+.fbox iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; background: #f0f0f0; }
+.phone { max-width: 392px; margin-inline: auto; border-radius: 22px; border: 6px solid #2A2A28; }
+.grid { display: grid; gap: 16px; }
+.grid.phones { grid-template-columns: repeat(4, minmax(240px, 1fr)); overflow-x: auto; padding-bottom: 8px; }
+.grid.desks { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .grid.desks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.col { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.col h3 { font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
+.col .phone { border-width: 4px; border-radius: 16px; }
+
+.notes { margin-block: 40px 64px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; }
+.notes h2 { font-size: 18px; font-weight: 900; }
+.notes ul { margin: 10px 0 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 48em; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">國防醫學大學護理學院・網站改版</p>
+    <h1>封面主題比較</h1>
+    <p class="lede">同一份首頁內容，套用四種主題。文字、連結和照片都一樣，只有視覺不同，請先比較整體感覺。</p>
+    <p class="meta">產出日期 __DATE__。三個新主題都只用學校後台允許的寫法，選定後可以套用到全部 128 頁。</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="cards" id="cards" aria-label="四種主題摘要"></section>
+
+  <section class="viewer" id="viewer" aria-label="主題預覽">
+    <div class="toolbar">
+      <div class="seg" id="tabs" aria-label="選擇主題"></div>
+      <div class="seg" id="modes" aria-label="檢視方式">
+        <button type="button" data-mode="desk">電腦版</button>
+        <button type="button" data-mode="phone">手機版</button>
+        <button type="button" data-mode="phones">四種並排・手機</button>
+        <button type="button" data-mode="desks">四種並排・電腦</button>
+      </div>
+    </div>
+    <p class="stage-label" id="stage-label"></p>
+    <div id="stage"></div>
+  </section>
+
+  <section class="notes" aria-label="看的時候請注意">
+    <h2>看的時候請注意</h2>
+    <ul>
+      <li>四種主題的文字、連結和照片完全相同。照片連到學校現行網站，要連上網路才看得到。</li>
+      <li>藍色外框和左側選單是模擬學校網站的固定外框，不屬於主題。</li>
+      <li>學校後台不能用網頁字型，實際字體依每台電腦而定：Mac 是蘋方，Windows 是微軟正黑體；A 主題的明體標題在沒有思源宋體的電腦上會顯示成新細明體。</li>
+      <li>可以混搭，例如 B 的版面配 C 的配色。主題設定集中在 tokens.py 和 components.py，選定後 128 頁會一起換。</li>
+      <li>不管選哪一個，文字對比都維持在 4.5:1 以上，符合政府網站無障礙規範。</li>
+    </ul>
+  </section>
+</main>
+
+<script>
+const THEMES = __THEMES__;
+const DOCS = __DOCS__;
+const W = { desk: 1280, phone: 390 };
+let theme = "current", mode = "desk";
+const frames = [];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const label = t => `<span class="tag">${esc(t.tag)}</span>${esc(t.name)}`;
+
+$("cards").innerHTML = THEMES.map(t => `
+  <article class="card" data-key="${t.key}">
+    <h2>${label(t)}</h2>
+    <p class="concept">${esc(t.concept)}</p>
+    <div class="sw" aria-hidden="true">${t.swatches.map(c => `<i style="background:${c}"></i>`).join("")}</div>
+    <dl><dt>感覺</dt><dd>${esc(t.feel)}</dd><dt>適合</dt><dd>${esc(t.fit)}</dd><dt>要注意</dt><dd>${esc(t.risk)}</dd></dl>
+    <button class="see" type="button" data-key="${t.key}">看${esc(t.name)}</button>
+  </article>`).join("");
+$("tabs").innerHTML = THEMES.map(t => `<button type="button" data-key="${t.key}">${esc(t.tag)}・${esc(t.name)}</button>`).join("");
+
+function frame(container, key, w, phone) {
+  const box = document.createElement("div");
+  box.className = "fbox" + (phone ? " phone" : "");
+  const f = document.createElement("iframe");
+  const t = THEMES.find(x => x.key === key);
+  f.title = `${t.name}主題的首頁預覽（${phone ? "手機" : "電腦"}寬度）`;
+  f.style.width = w + "px";
+  f.srcdoc = DOCS[key];
+  box.appendChild(f);
+  container.appendChild(box);
+  const rec = { f, box, w, h: phone ? 1600 : 900 };
+  frames.push(rec);
+  fit(rec);
+}
+function fit(r) {
+  const s = Math.min(1, r.box.clientWidth / r.w);
+  r.f.style.height = r.h + "px";
+  r.f.style.transform = `scale(${s})`;
+  r.box.style.height = Math.ceil(r.h * s) + "px";
+}
+window.addEventListener("message", e => {
+  const d = e.data;
+  if (!d || !d.themeFrame) return;
+  const r = frames.find(x => x.f.contentWindow === e.source);
+  if (r && Math.abs(r.h - d.h) > 2) { r.h = d.h; fit(r); }
+});
+window.addEventListener("resize", () => frames.forEach(fit));
+
+function render() {
+  frames.length = 0;
+  const stage = $("stage");
+  stage.innerHTML = "";
+  const grid = mode === "phones" || mode === "desks";
+  document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-pressed", String(!grid && b.dataset.key === theme)));
+  document.querySelectorAll("#modes button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
+  document.querySelectorAll(".card").forEach(c => c.toggleAttribute("data-on", !grid && c.dataset.key === theme));
+  $("tabs").toggleAttribute("data-dim", grid);
+  const t = THEMES.find(x => x.key === theme);
+  if (!grid) {
+    $("stage-label").textContent = mode === "desk"
+      ? `${t.tag}・${t.name}：電腦版（1280 像素寬，縮小顯示）`
+      : `${t.tag}・${t.name}：手機版（390 像素寬，約 iPhone 大小）`;
+    frame(stage, theme, W[mode], mode === "phone");
+    return;
+  }
+  const phone = mode === "phones";
+  $("stage-label").textContent = phone ? "四種主題的手機版並排；畫面窄時可左右捲動。" : "四種主題的電腦版並排（縮小顯示）。";
+  const g = document.createElement("div");
+  g.className = "grid " + (phone ? "phones" : "desks");
+  stage.appendChild(g);
+  THEMES.forEach(x => {
+    const col = document.createElement("div");
+    col.className = "col";
+    col.innerHTML = `<h3>${label(x)}</h3>`;
+    g.appendChild(col);
+    frame(col, x.key, phone ? W.phone : W.desk, phone);
+  });
+}
+
+$("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button[data-key]");
+  if (!b) return;
+  theme = b.dataset.key;
+  render();
+});
+$("modes").addEventListener("click", e => {
+  const b = e.target.closest("button[data-mode]");
+  if (!b) return;
+  mode = b.dataset.mode;
+  render();
+});
+$("cards").addEventListener("click", e => {
+  const b = e.target.closest(".see");
+  if (!b) return;
+  theme = b.dataset.key;
+  if (mode === "phones" || mode === "desks") mode = "desk";
+  render();
+  $("viewer").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+render();
+</script>
+</body>
+</html>
