@@ -1,6 +1,7 @@
 """Render the home page (A) in the current theme and three alternative themes for side-by-side review.
 
-Usage: python tools/theme_compare.py   ->   docs/themes/封面主題比較.html
+Usage: python tools/theme_compare.py   ->   docs/themes/封面主題比較.html (browser)
+                                          docs/themes/封面主題比較_Notion版.html (Notion HTML embed: no JavaScript, no external files)
 
 Every theme shows the same copy, links and photos as pages/A_home.py; only the visual system changes.
 The alternatives obey the same CMS rules as the real build: inline style, Bootstrap 5.0.2 classes,
@@ -22,6 +23,7 @@ from links import L  # noqa: E402
 from tokens import contrast, FONT  # noqa: E402
 
 OUT = ROOT / "docs" / "themes" / "封面主題比較.html"
+OUT_NOTION = ROOT / "docs" / "themes" / "封面主題比較_Notion版.html"
 TODAY = datetime.date.today().isoformat()
 
 components.DRAFT_MARKS = False
@@ -393,6 +395,90 @@ if(window.ResizeObserver){new ResizeObserver(send).observe(document.body);}send(
 </script></body></html>"""
 
 
+# ---------------------------------------------------------------- Notion edition
+# Notion renders an uploaded HTML file in a sandbox that runs no scripts and may block outside files,
+# so this edition inlines everything: a scoped Bootstrap 5.0.2 subset, FontAwesome glyphs as SVG symbols,
+# and radio buttons for the tabs. The md/lg rules apply only in the two desktop views (1280px frames).
+BS_BASE = [
+    (".container-lg", "width:100%;padding-right:.75rem;padding-left:.75rem;margin-right:auto;margin-left:auto"),
+    (".row", "--bs-gutter-x:1.5rem;--bs-gutter-y:0;display:flex;flex-wrap:wrap;margin-top:calc(var(--bs-gutter-y) * -1);"
+             "margin-right:calc(var(--bs-gutter-x) * -.5);margin-left:calc(var(--bs-gutter-x) * -.5)"),
+    (".row>*", "flex-shrink:0;width:100%;max-width:100%;padding-right:calc(var(--bs-gutter-x) * .5);"
+               "padding-left:calc(var(--bs-gutter-x) * .5);margin-top:var(--bs-gutter-y)"),
+    (".col-4", "flex:0 0 auto;width:33.33333333%"), (".col-5", "flex:0 0 auto;width:41.66666667%"),
+    (".col-8", "flex:0 0 auto;width:66.66666667%"), (".col-12", "flex:0 0 auto;width:100%"),
+    (".g-0", "--bs-gutter-x:0;--bs-gutter-y:0"), (".g-3", "--bs-gutter-x:1rem;--bs-gutter-y:1rem"),
+    (".g-4", "--bs-gutter-x:1.5rem;--bs-gutter-y:1.5rem"),
+    (".d-flex", "display:flex!important"), (".d-none", "display:none!important"), (".flex-wrap", "flex-wrap:wrap!important"),
+    (".align-items-center", "align-items:center!important"), (".align-items-start", "align-items:flex-start!important"),
+    (".mx-auto", "margin-right:auto!important;margin-left:auto!important"), (".p-3", "padding:1rem!important"),
+    (".px-2", "padding-right:.5rem!important;padding-left:.5rem!important"), (".text-center", "text-align:center!important"),
+]
+BS_WIDE = [(".container-lg", "max-width:1140px"), (".col-sm-6", "flex:0 0 auto;width:50%")] + [
+    (f".col-md-{n}", f"flex:0 0 auto;width:{n / 12 * 100:.8f}%") for n in (3, 4, 5, 6, 7, 8, 9, 12)] + [
+    (".col-lg-3", "flex:0 0 auto;width:25%"), (".col-lg-9", "flex:0 0 auto;width:75%"),
+    (".d-md-block", "display:block!important"), (".d-lg-block", "display:block!important"),
+    (".p-md-4", "padding:1.5rem!important"), (".px-md-4", "padding-right:1.5rem!important;padding-left:1.5rem!important"),
+]
+MODES = ["desk", "phone", "gp", "gd"]
+CHROME = ('<div class="site"><div style="background:#0256a6;color:#fff;padding:14px 20px;font-size:14px;">國防醫學大學（校方外框模擬）</div>'
+          '<div class="container-lg" style="padding:24px 12px;"><div class="row">'
+          '<div class="col-lg-3 d-none d-lg-block"><div style="background:#fff;border-top:40px solid #0256a6;padding:12px;font-size:14px;'
+          'color:#333;height:100%;min-height:300px;">左側樹狀選單（校方）</div></div>'
+          '<div class="col-lg-9 col-12"><div style="background:#fff;"><div style="background:#0256a6;color:#fff;padding:8px 14px;">&gt; 護理學院</div>'
+          '<div style="padding:30px 30px 0;" class="px-2 px-md-4"><div class="editor">\n__BODY__\n</div></div></div></div></div></div></div>')
+
+
+def notion_page(bodies):
+    fa_data = json.loads((ROOT / "tools" / "fa_icons.json").read_text(encoding="utf-8"))
+    upm, asc = fa_data["unitsPerEm"], fa_data["ascent"]
+    used = sorted({n for b in bodies.values() for n in re.findall(r'<em class="fa fa-([a-z0-9-]+)"></em>', b)})
+    missing = [n for n in used if n not in fa_data["icons"]]
+    if missing:
+        raise SystemExit(f"tools/fa_icons.json lacks: {missing}")
+    symbols = ('<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>' + "".join(
+        f'<symbol id="fa-{n}" viewBox="0 -{asc} {fa_data["icons"][n]["adv"]} {upm}">'
+        f'<path transform="scale(1,-1)" d="{fa_data["icons"][n]["d"]}"/></symbol>' for n in used) + '</defs></svg>')
+
+    def adapt(key, body):
+        body = re.sub(r'<em class="fa fa-([a-z0-9-]+)"></em>',
+                      lambda m: f'<svg class="fai" style="width:{fa_data["icons"][m.group(1)]["adv"] / upm:.3f}em" aria-hidden="true">'
+                                f'<use href="#fa-{m.group(1)}"></use></svg>', body)
+        body = re.sub(r'(\d)vw\b', r'\1cqw', body)  # size type to the preview frame, not to Notion's window
+        return body.replace('id="page-top"', f'id="page-top-{key}"')
+
+    wide = "#md-desk:checked~.stage .site {0}, #md-gd:checked~.stage .site {0}"
+    bs = "\n".join([f".site {sel} {{ {rule} }}" for sel, rule in BS_BASE] + [f"{wide.format(sel)} {{ {rule} }}" for sel, rule in BS_WIDE])
+    on = "background:var(--ink);color:#fff;"
+    active = "\n".join(
+        [f'#th-{t["key"]}:checked ~ .toolbar label[for="th-{t["key"]}"] {{ {on} }}\n'
+         f'#th-{t["key"]}:focus-visible ~ .toolbar label[for="th-{t["key"]}"] {{ outline: 2px solid var(--ink); outline-offset: 2px; }}\n'
+         f'#th-{t["key"]}:checked ~ .stage .k-{t["key"]} {{ display: block; }}\n'
+         f'#th-{t["key"]}:checked ~ .cards .k-{t["key"]} {{ border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }}' for t in THEMES]
+        + [f'#md-{m}:checked ~ .toolbar label[for="md-{m}"] {{ {on} }}\n'
+           f'#md-{m}:focus-visible ~ .toolbar label[for="md-{m}"] {{ outline: 2px solid var(--ink); outline-offset: 2px; }}\n'
+           f'#md-{m}:checked ~ .labs .lab-{m} {{ display: block; }}' for m in MODES])
+    radios = "\n".join([f'<input class="sr" type="radio" name="md" id="md-{m}"{" checked" if m == "desk" else ""}>' for m in MODES]
+                       + [f'<input class="sr" type="radio" name="th" id="th-{t["key"]}"{" checked" if t["key"] == "current" else ""}>' for t in THEMES])
+    esc = lambda x: x.replace("&", "&amp;").replace("<", "&lt;")
+    cards = "\n".join(
+        f'<article class="card k-{t["key"]}"><h2><span class="tag">{t["tag"]}</span>{t["name"]}</h2>'
+        f'<p class="concept">{esc(t["concept"])}</p><div class="sw" aria-hidden="true">{"".join(f"<i style=background:{c}></i>" for c in t["swatches"])}</div>'
+        f'<dl><dt>感覺</dt><dd>{esc(t["feel"])}</dd><dt>適合</dt><dd>{esc(t["fit"])}</dd><dt>要注意</dt><dd>{esc(t["risk"])}</dd></dl>'
+        f'<label class="pick" for="th-{t["key"]}">預覽{t["name"]}</label></article>' for t in THEMES)
+    labels = "".join(f'<label for="th-{t["key"]}">{t["tag"]}・{t["name"]}</label>' for t in THEMES)
+    cells = "\n".join(
+        f'<div class="cell k-{t["key"]}"><h3 class="cell-h"><span class="tag">{t["tag"]}</span>{t["name"]}</h3>'
+        f'<div class="frame">{CHROME.replace("__BODY__", adapt(t["key"], bodies[t["key"]]))}</div></div>' for t in THEMES)
+    page = (ROOT / "tools" / "theme_compare_notion.html").read_text(encoding="utf-8")
+    for k, v in {"__BS__": bs, "__ACTIVE__": active, "__SYMBOLS__": symbols, "__RADIOS__": radios, "__CARDS__": cards,
+                 "__THEME_LABELS__": labels, "__CELLS__": cells, "__DATE__": TODAY}.items():
+        page = page.replace(k, v)
+    if re.search(r"<script", page, re.I):
+        raise SystemExit("Notion edition must not contain <script>")
+    return page
+
+
 def main():
     current = build.cms_normalize(build.theme_bare_links(A_home.render()))
     bodies = {"current": current}
@@ -415,7 +501,10 @@ def main():
     page = page.replace("__THEMES__", json.dumps(THEMES, ensure_ascii=False)).replace("__DOCS__", json.dumps(docs, ensure_ascii=False).replace("</", "<\\/")).replace("__DATE__", TODAY)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(page, encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)} ({len(page) // 1024} KB); problems: {problems}")
+    notion = notion_page(bodies)
+    OUT_NOTION.write_text(notion, encoding="utf-8")
+    print(f"wrote {OUT.relative_to(ROOT)} ({len(page) // 1024} KB), {OUT_NOTION.relative_to(ROOT)} ({len(notion.encode()) // 1024} KB); "
+          f"problems: {problems}")
     return problems
 
 

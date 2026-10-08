@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<base target="_blank">
+<title>護理學院封面主題比較（Notion 版）</title>
+<style>
+/* Notion edition: no JavaScript, no external files. Radio buttons drive the tabs; a scoped
+   Bootstrap 5.0.2 subset lays out each preview, and its md/lg rules switch on only in the desktop views. */
+:root { --bg: #F3F3F1; --panel: #FFFFFF; --ink: #1D1D1B; --soft: #5C5C57; --line: #DCDBD6; --hover: #EAEAE6;
+  --font: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Heiti TC", sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.7; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 18px; }
+.top h1, .top p, .cards h2, .cards p, .labs p, .notes h2, .cell-h { margin: 0; }
+.eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; color: var(--soft); }
+.top h1 { margin: 4px 0 0; font-size: 28px; font-weight: 900; letter-spacing: .04em; }
+.top .lede { margin-top: 8px; max-width: 44em; }
+.top .meta { margin-top: 6px; font-size: 13px; color: var(--soft); max-width: 54em; }
+
+.cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
+.card h2 { font-size: 18px; font-weight: 900; display: flex; gap: 8px; align-items: center; }
+.tag { display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding: 0 6px; border-radius: 4px; background: var(--ink); color: #fff; font-size: 12.5px; font-weight: 800; }
+.concept { font-size: 14px; }
+.sw { display: flex; gap: 4px; }
+.sw i { width: 22px; height: 22px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.card dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 10px; font-size: 13.5px; }
+.card dt { color: var(--soft); font-weight: 700; white-space: nowrap; }
+.card dd { margin: 0; }
+.pick { justify-self: start; border: 1px solid var(--ink); border-radius: 4px; padding: 5px 12px; font-size: 13.5px; font-weight: 700; cursor: pointer; }
+.pick:hover { background: var(--hover); }
+
+.sr { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; padding-block: 10px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 2px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px; }
+.seg label { padding: 6px 11px; border-radius: 4px; font-size: 13.5px; font-weight: 700; color: var(--soft); cursor: pointer; white-space: nowrap; }
+.seg label:hover { background: var(--hover); color: var(--ink); }
+.lab { display: none; font-size: 13.5px; color: var(--soft); }
+
+.stage { display: grid; gap: 16px; overflow-x: auto; padding-bottom: 6px; }
+.cell { display: none; min-width: 0; }
+.cell-h { display: none; font-size: 15px; font-weight: 900; align-items: center; gap: 8px; margin-bottom: 6px; }
+.frame { background: #f0f0f0; border: 1px solid var(--line); overflow: hidden; container-type: inline-size; margin-inline: auto; }
+.frame a { pointer-events: none; cursor: default; }
+
+/* view modes */
+#md-desk:checked ~ .stage .frame { width: 1280px; zoom: .5; }
+#md-phone:checked ~ .stage .frame { width: 390px; border: 6px solid #2A2A28; border-radius: 22px; }
+#md-gp:checked ~ .stage, #md-gd:checked ~ .stage { grid-template-columns: repeat(2, max-content); justify-content: center; }
+#md-gp:checked ~ .stage .frame { width: 390px; zoom: .8; max-height: 1900px; border: 5px solid #2A2A28; border-radius: 18px; }
+#md-gd:checked ~ .stage .frame { width: 1280px; zoom: .25; max-height: 1500px; }
+#md-gp:checked ~ .stage .cell, #md-gd:checked ~ .stage .cell { display: block; }
+#md-gp:checked ~ .stage .cell-h, #md-gd:checked ~ .stage .cell-h { display: flex; }
+#md-gp:checked ~ .toolbar .seg-th, #md-gd:checked ~ .toolbar .seg-th { opacity: .45; }
+__ACTIVE__
+
+.notes { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; }
+.notes h2 { font-size: 16px; font-weight: 900; }
+.notes ul { margin: 8px 0 0; padding-left: 1.2em; display: grid; gap: 4px; max-width: 54em; }
+
+/* the previewed site: university chrome + Bootstrap reboot subset */
+.site { background: #f0f0f0; color: #212529; font-family: "Microsoft JhengHei", sans-serif; font-size: 16px; line-height: 1.5; text-align: left; }
+.site *, .site *::before, .site *::after { box-sizing: border-box; }
+.site h2, .site h3, .site h4 { margin-top: 0; margin-bottom: .5rem; font-weight: 500; line-height: 1.2; }
+.site p { margin-top: 0; margin-bottom: 1rem; }
+.site a { color: #0d6efd; text-decoration: underline; }
+.site img { vertical-align: middle; background: #E6E2DA; color: #5C5C57; font-size: 12px; }
+.site .fai { display: inline-block; height: 1em; vertical-align: -.143em; fill: currentColor; overflow: visible; }
+__BS__
+</style>
+</head>
+<body>
+__SYMBOLS__
+<main class="wrap">
+__RADIOS__
+  <header class="top">
+    <p class="eyebrow">國防醫學大學護理學院・網站改版</p>
+    <h1>封面主題比較</h1>
+    <p class="lede">同一份首頁內容，套用四種主題。文字、連結和照片都一樣，只有視覺不同，請先比較整體感覺。</p>
+    <p class="meta">Notion 版（__DATE__）：不用 JavaScript，點下方按鈕切換主題和檢視方式。三個新主題都只用學校後台允許的寫法，選定後可以套用到全部 128 頁。</p>
+  </header>
+
+  <section class="cards" aria-label="四種主題摘要">
+__CARDS__
+  </section>
+
+  <nav class="toolbar" aria-label="切換">
+    <div class="seg seg-th">__THEME_LABELS__</div>
+    <div class="seg">
+      <label for="md-desk">電腦版</label><label for="md-phone">手機版</label><label for="md-gp">四種並排・手機</label><label for="md-gd">四種並排・電腦</label>
+    </div>
+  </nav>
+
+  <div class="labs">
+    <p class="lab lab-desk">電腦版：1280 像素寬，縮小一半顯示。</p>
+    <p class="lab lab-phone">手機版：390 像素寬，約 iPhone 大小。</p>
+    <p class="lab lab-gp">四種主題的手機版並排，只顯示前段（封面部分）。</p>
+    <p class="lab lab-gd">四種主題的電腦版並排，只顯示前段（封面部分），縮成四分之一。</p>
+  </div>
+
+  <div class="stage">
+__CELLS__
+  </div>
+
+  <section class="notes" aria-label="看的時候請注意">
+    <h2>看的時候請注意</h2>
+    <ul>
+      <li>藍色外框和左側選單是模擬學校網站的固定外框，不屬於主題。預覽裡的連結不會跳轉。</li>
+      <li>照片連到學校現行網站。如果 Notion 擋住外部圖片，照片位置會顯示成文字說明；用瀏覽器開另一個版本（封面主題比較.html）就看得到。</li>
+      <li>學校後台不能用網頁字型，實際字體依每台電腦而定：Mac 是蘋方，Windows 是微軟正黑體；A 主題的明體標題在沒有思源宋體的電腦上會顯示成新細明體。</li>
+      <li>可以混搭，例如 B 的版面配 C 的配色。主題設定集中在 tokens.py 和 components.py，選定後 128 頁會一起換。</li>
+      <li>不管選哪一個，文字對比都維持在 4.5:1 以上，符合政府網站無障礙規範。</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
