@@ -78,6 +78,7 @@ python -m http.server 8801
 | `tools/handoff.py` | 重新產生 `handoff/` 的兩份清單（內容改過後再跑一次） |
 | `tools/length_check.py` | 檢查手機版長度，超過 8 個畫面的頁面需要索引 |
 | `tools/capture.py` | 截取電腦版與手機版截圖 |
+| `tools/theme_compare.py` | 產生 `docs/themes/封面主題比較.html`（瀏覽器版）與 `封面主題比較_Notion版.html`（不用 JavaScript、不連外部檔案，可上傳到 Notion）：首頁套用現行與 A、B、C 三種主題的對照 |
 | `content/notion/` | 從 Notion 內容清單匯出的原始規劃 |
 | `.impeccable/critique/` | 兩輪設計評審報告 |
 
